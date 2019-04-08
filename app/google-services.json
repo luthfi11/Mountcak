@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "482465706010",
+    "firebase_url": "https://mountcak-16aa7.firebaseio.com",
+    "project_id": "mountcak-16aa7",
+    "storage_bucket": "mountcak-16aa7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482465706010:android:a601d0fccbf761b8",
+        "android_client_info": {
+          "package_name": "com.wysiwyg.mountcak"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY2dZOC9wJy1zlHIFn02GhBUbuNAVP8ug"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "482465706010-hvrnts4k0l7purbsv44p1s0n855i73m0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
