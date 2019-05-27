@@ -1,2 +1,71 @@
 package com.wysiwyg.mountcak.ui.signup
 
+import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import com.wysiwyg.mountcak.R
+import com.wysiwyg.mountcak.ui.main.MainActivity
+import com.wysiwyg.mountcak.util.CityUtil
+import com.wysiwyg.mountcak.util.LoadingDialog
+import com.wysiwyg.mountcak.util.ValidateUtil.emailValidate
+import com.wysiwyg.mountcak.util.ValidateUtil.etToString
+import com.wysiwyg.mountcak.util.ValidateUtil.etValidate
+import com.wysiwyg.mountcak.util.ValidateUtil.passwordValidate
+import kotlinx.android.synthetic.main.fragment_signup.*
+import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.toast
+
+class SignUpFragment : Fragment(), SignUpView {
+
+    private lateinit var presenter: SignUpPresenter
+
+    override fun showCity() {
+        val adapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_dropdown_item, CityUtil.city)
+        etCity.setAdapter(adapter)
+    }
+
+    override fun showLoading() {
+        LoadingDialog.showLoading(activity!!, R.string.signup)
+    }
+
+    override fun hideLoading() {
+        LoadingDialog.hideLoading()
+    }
+
+    override fun signUpSuccess() {
+        activity?.finish()
+        startActivity<MainActivity>()
+    }
+
+    override fun signUpFail() {
+        toast(R.string.signup_failed)
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_signup, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        presenter = SignUpPresenter(this)
+        presenter.getCity()
+
+        btnSignUp.setOnClickListener { signUp() }
+    }
+
+    private fun signUp() {
+        etValidate(etName, getString(R.string.name_validate)) {
+            etValidate(etCity, getString(R.string.city_validate)) {
+                emailValidate(etEmail, getString(R.string.email_validate)) {
+                    passwordValidate(etPassword, getString(R.string.password_validate)) {
+                        presenter.signUp(etToString(etEmail), etToString(etPassword), etToString(etName), etToString(etCity))
+                    }
+                }
+            }
+        }
+    }
+}

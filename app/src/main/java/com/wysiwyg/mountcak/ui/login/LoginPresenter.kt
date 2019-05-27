@@ -1,20 +1,21 @@
 package com.wysiwyg.mountcak.ui.login
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 
-class LoginViewModel : ViewModel() {
+class LoginPresenter(private val view: LoginView) {
+
     private val auth = FirebaseAuth.getInstance()
-    val ifSuccess by lazy { MutableLiveData<Boolean>() }
 
     fun login(email: String, password: String) {
+        view.showLoading()
         auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-                ifSuccess.postValue(true)
+                view.hideLoading()
+                view.loginSuccess()
             }
             .addOnFailureListener {
-                ifSuccess.postValue(false)
+                view.hideLoading()
+                view.loginFail()
             }
     }
 }

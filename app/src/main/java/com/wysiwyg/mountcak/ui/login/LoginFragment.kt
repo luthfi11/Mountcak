@@ -1,34 +1,60 @@
 package com.wysiwyg.mountcak.ui.login
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.wysiwyg.mountcak.R
-import com.wysiwyg.mountcak.ui.MainActivity
+import com.wysiwyg.mountcak.ui.main.MainActivity
+import com.wysiwyg.mountcak.ui.resetpassword.ResetPasswordActivity
+import com.wysiwyg.mountcak.util.LoadingDialog
+import com.wysiwyg.mountcak.util.ValidateUtil.emailValidate
+import com.wysiwyg.mountcak.util.ValidateUtil.etToString
+import com.wysiwyg.mountcak.util.ValidateUtil.passwordValidate
+import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.fragment_login.*
-import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.support.v4.startActivity
 
-class LoginActivity : AppCompatActivity() {
+class LoginFragment : Fragment(), LoginView {
 
-    private lateinit var viewModel: LoginViewModel
+    private lateinit var presenter: LoginPresenter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_login)
+    override fun showLoading() {
+        LoadingDialog.showLoading(activity!!, R.string.login)
+    }
 
-        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+    override fun hideLoading() {
+        LoadingDialog.hideLoading()
+    }
 
-        login()
+    override fun loginSuccess() {
+        startActivity<MainActivity>()
+        activity?.finish()
+    }
+
+    override fun loginFail() {
+        tvWrong.visible()
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_login, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        presenter = LoginPresenter(this)
+
+        btnLogin.setOnClickListener { login() }
+        btnForgot.setOnClickListener { startActivity<ResetPasswordActivity>() }
     }
 
     private fun login() {
-        btnLogin.setOnClickListener { viewModel.login(etEmail.toString(), etPassword.toString()) }
-
-        viewModel.ifSuccess.observe(this, Observer {
-            if (it!!) startActivity<MainActivity>()
-            else tvWrong.visibility = View.VISIBLE
-        })
+        emailValidate(etEmail, getString(R.string.email_validate)) {
+            passwordValidate(etPassword, getString(R.string.password_validate)) {
+                presenter.login(etToString(etEmail), etToString(etPassword))
+            }
+        }
     }
 }

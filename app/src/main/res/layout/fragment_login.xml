@@ -1,5 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center"
+    android:padding="30dp"
+    android:orientation="vertical"
+    android:layout_marginTop="8dp"
+    android:focusableInTouchMode="true">
 
-</android.support.constraint.ConstraintLayout>
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:inputType="textEmailAddress"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:layout_marginBottom="14dp"
+        android:hint="@string/email"
+        android:textSize="14sp"
+        android:textColor="@android:color/white"
+        android:drawableStart="@drawable/ic_email"
+        android:drawablePadding="12dp"
+        android:backgroundTint="@color/colorPrimary"/>
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="14sp"
+        android:textColor="@android:color/white"
+        android:drawableStart="@drawable/ic_password"
+        android:drawablePadding="12dp"
+        android:backgroundTint="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/tvWrong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login_validate"
+        android:textSize="12sp"
+        android:visibility="gone"
+        android:textColor="@android:color/holo_red_light"
+        android:gravity="center" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_shape"
+        android:text="@string/login"
+        android:textColor="@android:color/white"/>
+
+    <Button
+        android:id="@+id/btnForgot"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:background="@android:color/transparent"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/forgot_password"
+        android:textAllCaps="false"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+
+</LinearLayout>

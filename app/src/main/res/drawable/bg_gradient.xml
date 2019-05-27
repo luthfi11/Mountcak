@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <padding android:left="2dp"
-        android:top="2dp"
-        android:right="2dp"
-        android:bottom="2dp"/>
-
-    <corners android:bottomRightRadius="8dp"
-        android:bottomLeftRadius="8dp"
-        android:topLeftRadius="8dp"
-        android:topRightRadius="8dp"/>
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="225"
+                android:startColor="@color/blueGray2"
+                android:centerColor="@color/blueGray1"
+                android:endColor="@color/blueGray1"
+                android:type="linear" />
+        </shape>
+    </item>
+</selector>

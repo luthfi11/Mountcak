@@ -13,7 +13,20 @@
           "package_name": "com.wysiwyg.mountcak"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "482465706010-q2bdqoja2dd8io02q4ngkslmb59d5cg7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wysiwyg.mountcak",
+            "certificate_hash": "bd31a503d60180bb918b91de4344429e03a6f43a"
+          }
+        },
+        {
+          "client_id": "482465706010-hvrnts4k0l7purbsv44p1s0n855i73m0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCY2dZOC9wJy1zlHIFn02GhBUbuNAVP8ug"

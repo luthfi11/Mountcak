@@ -1,6 +1,43 @@
 <resources>
     <string name="app_name">Mountcak</string>
+    <string name="version">Version 1.0</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_explore">Explore</string>
+    <string name="title_rental">Rental</string>
+    <string name="title_activity">Activity</string>
+    <string name="title_profile">Profile</string>
+
+    <string name="login">Login</string>
+    <string name="name">Your Name</string>
+    <string name="city">City</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
+    <string name="signup_msg">Don\'t Have an Account ?</string>
+    <string name="signup">Sign Up</string>
+
+    <string name="forgot_password">Forgot Your Password ?</string>
+
+    <string name="login_validate">Email or password is wrong, please try again.</string>
+    <string name="name_validate">Please fill your full name</string>
+    <string name="city_validate">Please fill your current city</string>
+    <string name="email_validate">Please fill your email correctly</string>
+    <string name="password_validate">Password length minimal 8 character</string>
+
+    <string name="signup_failed">Sign up failed, Email has been used !</string>
+
+    <string name="done">Done</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="about">About</string>
+    <string name="report">Report</string>
+    <string name="logout">Logout</string>
+
+    <string name="reset_password">Reset Password</string>
+    <string name="send_email">Enter your email to reset your account password.</string>
+    <string name="reset">Reset</string>
+    <string name="email_sent">Email for reset password sent. Please check your inbox.</string>
+    <string name="email_not_found">Account with that email not found. Please try again with different email.</string>
+
+    <string name="see_more">See More </string>
+
 </resources>
