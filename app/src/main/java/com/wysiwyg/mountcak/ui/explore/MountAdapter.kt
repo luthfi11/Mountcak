@@ -1,4 +1,4 @@
-package com.wysiwyg.mountcak.ui.home
+package com.wysiwyg.mountcak.ui.explore
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Mount
 import com.wysiwyg.mountcak.ui.mountdetail.MountDetailActivity
 import kotlinx.android.synthetic.main.item_mount.view.*
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
 
 class MountAdapter(private val mounts: MutableList<Mount?>) : RecyclerView.Adapter<MountAdapter.ViewHolder>() {
@@ -40,7 +41,7 @@ class MountAdapter(private val mounts: MutableList<Mount?>) : RecyclerView.Adapt
             itemView.tvCity.text = mount?.city+", "
             itemView.tvRegion.text = mount?.region
 
-            itemView.btnDetail.setOnClickListener {itemView.context.startActivity<MountDetailActivity>("mount" to mount) }
+            itemView.btnDetail.onClick {itemView.context.startActivity<MountDetailActivity>("mount" to mount) }
         }
     }
 }

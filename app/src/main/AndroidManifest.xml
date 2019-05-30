@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".Application"
@@ -14,8 +15,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.resetpassword.ResetPasswordActivity"/>
-        <activity android:name=".ui.mountdetail.MountDetailActivity" />
+        <activity android:name=".ui.activities.ActivitiesFragmentManager"></activity>
+        <activity
+            android:name=".ui.viewphoto.ViewPhotoActivity"
+            android:label="" />
+        <activity android:name=".ui.resetpassword.ResetPasswordActivity" />
+        <activity
+            android:name=".ui.mountdetail.MountDetailActivity"
+            android:label="" />
         <activity android:name=".ui.eventdetail.EventDetailActivity" />
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>

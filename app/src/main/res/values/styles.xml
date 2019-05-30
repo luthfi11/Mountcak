@@ -1,8 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -10,8 +8,9 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/white</item>
-        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
-        <item name="buttonStyle">@style/RobotoButtonStyle</item>
+        <item name="android:textViewStyle">@style/MyTextView</item>
+        <item name="buttonStyle">@style/MyButton</item>
+        <item name="editTextStyle">@style/MyEditText</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
@@ -19,13 +18,16 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
-    <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="MyTextView" parent="android:Widget.TextView">
+        <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
-    <style name="RobotoButtonStyle" parent="android:Widget.Button">
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textAppearanceButton">@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle</item>
+    <style name="MyButton" parent="android:Widget.Button">
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+
+    <style name="MyEditText" parent="android:Widget.EditText">
+        <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
 </resources>

@@ -15,6 +15,7 @@ import com.wysiwyg.mountcak.util.ValidateUtil.etToString
 import com.wysiwyg.mountcak.util.ValidateUtil.etValidate
 import com.wysiwyg.mountcak.util.ValidateUtil.passwordValidate
 import kotlinx.android.synthetic.main.fragment_signup.*
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 
@@ -54,7 +55,7 @@ class SignUpFragment : Fragment(), SignUpView {
         presenter = SignUpPresenter(this)
         presenter.getCity()
 
-        btnSignUp.setOnClickListener { signUp() }
+        btnSignUp.onClick { signUp() }
     }
 
     private fun signUp() {

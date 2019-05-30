@@ -14,6 +14,7 @@ import com.wysiwyg.mountcak.util.ValidateUtil.etToString
 import com.wysiwyg.mountcak.util.ValidateUtil.passwordValidate
 import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.fragment_login.*
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.startActivity
 
 class LoginFragment : Fragment(), LoginView {
@@ -46,8 +47,8 @@ class LoginFragment : Fragment(), LoginView {
 
         presenter = LoginPresenter(this)
 
-        btnLogin.setOnClickListener { login() }
-        btnForgot.setOnClickListener { startActivity<ResetPasswordActivity>() }
+        btnLogin.onClick { login() }
+        btnForgot.onClick { startActivity<ResetPasswordActivity>() }
     }
 
     private fun login() {
