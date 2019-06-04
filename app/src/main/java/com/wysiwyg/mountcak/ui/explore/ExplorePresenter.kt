@@ -10,20 +10,21 @@ class ExplorePresenter(private val view: ExploreView) {
 
     private val db = FirebaseDatabase.getInstance().reference
 
-    fun getData(mount: MutableList<Mount?>) {
+    fun getData() {
         view.showLoading()
         db.child("mount").addValueEventListener(object : ValueEventListener{
-            override fun onCancelled(p0: DatabaseError) {
-
-            }
-
             override fun onDataChange(p0: DataSnapshot) {
-                view.hideLoading()
+                val mount: MutableList<Mount?> = mutableListOf()
                 for (data: DataSnapshot in p0.children) {
                     val m = data.getValue(Mount::class.java)
                     mount.add(m)
                 }
+                view.hideLoading()
                 view.showMountList(mount)
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+
             }
         })
     }

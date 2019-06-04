@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_shape"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    android:layout_marginBottom="2dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgUserMsg"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/message"
+        android:layout_margin="10dp"
+        app:civ_border_width="1dp"
+        app:civ_border_color="@color/colorMuted"
+        app:civ_fill_color="@color/colorPrimary"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvUserMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/imgUserMsg"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="10dp"
+        tools:text="USERNAME" />
+
+    <TextView
+        android:id="@+id/tvContentMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/imgUserMsg"
+        android:layout_below="@id/tvUserMsg"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textSize="12sp"
+        tools:text="MESSAGE" />
+
+    <TextView
+        android:id="@+id/tvTimeMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:textAlignment="textEnd"
+        android:layout_margin="10dp"
+        android:textSize="12sp"
+        android:layout_toEndOf="@id/tvUserMsg"
+        tools:text="10m" />
+
+</RelativeLayout>

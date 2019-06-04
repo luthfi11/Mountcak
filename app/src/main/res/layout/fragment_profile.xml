@@ -1,66 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
-    <RelativeLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="200dp"
+        android:background="@drawable/bg_morning"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:fitsSystemWindows="true">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbarProfile"
+        <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_alignParentTop="true"
-            android:background="@color/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:popupTheme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:background="@color/colorTransparent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:layout_scrollInterpolator="@android:anim/decelerate_interpolator"
+            app:titleEnabled="false">
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/title_profile"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/toolbarText" />
+                android:layout_height="wrap_content">
 
-        </android.support.v7.widget.Toolbar>
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbarProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/appBar"
+                    android:layout_alignParentTop="true"
+                    app:layout_scrollFlags="scroll|enterAlways|snap" >
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgAva"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_below="@id/toolbarProfile"
-            android:layout_margin="20dp"
-            tools:src="@tools:sample/avatars"
-            app:civ_border_color="@color/colorPrimary"
-            app:civ_border_width="3dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_profile"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/toolbarText" />
 
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/toolbarProfile"
-            android:layout_marginTop="30dp"
-            android:layout_toEndOf="@id/imgAva"
-            tools:text="Luthfi Alfarisi"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
+                </android.support.v7.widget.Toolbar>
 
-        <TextView
-            android:id="@+id/tvCity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvName"
-            android:layout_toEndOf="@id/imgAva"
-            tools:text="Bandung" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgAva"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_below="@id/toolbarProfile"
+                    android:layout_margin="12dp"
+                    tools:src="@tools:sample/avatars"
+                    app:civ_border_color="@color/colorPrimaryDark"
+                    app:civ_border_width="2dp"
+                    app:civ_fill_color="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/toolbarProfile"
+                    android:layout_marginTop="17dp"
+                    android:layout_toEndOf="@id/imgAva"
+                    tools:text="Luthfi Alfarisi"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvName"
+                    android:layout_toEndOf="@id/imgAva"
+                    android:textColor="@color/colorSemiWhite"
+                    tools:text="luthfialfarisi@gmail.com" />
+
+                <TextView
+                    android:id="@+id/tvCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvEmail"
+                    android:layout_toEndOf="@id/imgAva"
+                    android:textColor="@color/colorSemiWhite"
+                    tools:text="Bandung" />
+
+                <TextView
+                    android:id="@+id/tvPost"
+                    android:layout_below="@id/tvCity"
+                    android:layout_toEndOf="@id/imgAva"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="-12dp"
+                    android:gravity="center"
+                    android:textColor="@color/colorSemiWhite"
+                    android:text="@string/post"/>
+
+                <TextView
+                    android:id="@+id/tvPostCount"
+                    android:layout_below="@id/tvPost"
+                    android:layout_toEndOf="@id/imgAva"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:layout_marginStart="-12dp"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:text="12"/>
+
+                <TextView
+                    android:id="@+id/tvTrip"
+                    android:layout_below="@id/tvCity"
+                    android:layout_toEndOf="@id/tvPost"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:textColor="@color/colorSemiWhite"
+                    android:text="@string/trip"/>
+
+                <TextView
+                    android:id="@+id/tvTripCount"
+                    android:layout_below="@id/tvPost"
+                    android:layout_toEndOf="@id/tvPost"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:text="7"/>
+
+                <TextView
+                    android:id="@+id/tvLike"
+                    android:layout_below="@id/tvCity"
+                    android:layout_toEndOf="@id/tvTrip"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:textColor="@color/colorSemiWhite"
+                    android:text="@string/like"/>
+
+                <TextView
+                    android:id="@+id/tvLikeCount"
+                    android:layout_below="@id/tvPost"
+                    android:layout_toEndOf="@id/tvTrip"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:text="102"/>
+
+            </RelativeLayout>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvUserEvent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imgAva"/>
-    </RelativeLayout>
+            android:clipToPadding="false"
+            android:paddingTop="8dp"
+            android:paddingBottom="12dp"
+            tools:listitem="@layout/item_event" />
 
-</ScrollView>
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

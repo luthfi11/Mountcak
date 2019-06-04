@@ -1,50 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbarExplore"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_alignParentTop="true"
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/appBar"
         android:background="@color/colorPrimary"
-        app:layout_scrollFlags="scroll|enterAlways|snap"
-        app:popupTheme="@style/AppTheme.AppBarOverlay"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" >
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
 
-        <TextView
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbarExplore"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/title_explore"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/toolbarText" />
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
 
-    </android.support.v7.widget.Toolbar>
+            <TextView
+                android:id="@+id/tvExplore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_explore"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/toolbarText" />
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
 
     <ProgressBar
-        android:id="@+id/progressHome"
+        android:id="@+id/progressExplore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminateTint="@color/colorPrimary"
+        android:layout_gravity="center"
         android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/toolbarExplore"
-        app:layout_constraintStart_toStartOf="@+id/toolbarExplore"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarExplore" />
+        android:indeterminateTint="@color/colorPrimary"  />
 
-    <android.support.v7.widget.RecyclerView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rvHome"
-        android:paddingTop="6dp"
-        android:paddingBottom="60dp"
-        android:clipToPadding="false"
-        tools:listitem="@layout/item_mount"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarExplore" />
+        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
-</android.support.constraint.ConstraintLayout>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rvHome"
+            android:paddingBottom="60dp"
+            android:clipToPadding="false"
+            tools:listitem="@layout/item_mount" />
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

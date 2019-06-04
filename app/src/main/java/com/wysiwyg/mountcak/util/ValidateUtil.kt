@@ -10,6 +10,10 @@ object ValidateUtil {
         return editText.text.toString()
     }
 
+    fun etToInt(editText: EditText): Int {
+        return editText.text.toString().toInt()
+    }
+
     fun setError(editText: EditText, msg: String) {
         editText.requestFocus()
         editText.error = msg
@@ -28,6 +32,14 @@ object ValidateUtil {
     fun etValidate(editText: EditText, msg: String, listener: () -> Unit) {
         if (etToString(editText).isNotEmpty()) listener()
         else setError(editText, msg)
+    }
+
+    fun validate(editText: EditText, msg: String) : Boolean {
+        return if (etToString(editText).isNotEmpty()) true
+        else {
+            setError(editText, msg)
+            false
+        }
     }
 
     fun spnPosition(spinner: Spinner): String {

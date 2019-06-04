@@ -5,29 +5,56 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.wysiwyg.mountcak.data.model.Event
+import com.wysiwyg.mountcak.data.model.User
+import java.util.Collections.reverse
 
 class ProfilePresenter(private val view: ProfileView) {
 
     private val auth = FirebaseAuth.getInstance()
+    private val uid = auth.currentUser?.uid!!
     private val db = FirebaseDatabase.getInstance().reference
 
     fun getUserData() {
         view.showLoading()
-        db.child("user").child(auth.currentUser?.uid!!).addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-
-            }
-
+        db.child("user").child(uid).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 try {
-                    val name = p0.child("name").getValue(String::class.java)
-                    val city = p0.child("city").getValue(String::class.java)
+                    val user = p0.getValue(User::class.java)
                     view.hideLoading()
-                    view.showData(name, city)
+                    view.showData(user)
                 } catch (ex: Exception) {
                     ex.printStackTrace()
                 }
             }
+
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
         })
+    }
+
+    fun getUserPost() {
+        db.child("event").orderByChild("userId").equalTo(uid).addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(p0: DataSnapshot) {
+                val event: MutableList<Event?> = mutableListOf()
+                for (data: DataSnapshot in p0.children) {
+                    val e = data.getValue(Event::class.java)
+                    event.add(e)
+                }
+                reverse(event)
+                view.showEvent(event)
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+        })
+    }
+
+    fun logout() {
+        auth.signOut().also {
+            view.doLogout()
+        }
     }
 }
