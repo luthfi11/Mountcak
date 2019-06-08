@@ -58,18 +58,7 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
     }
 
     override fun showPhoto(url: String, title: String) {
-        /*
-        val view = layoutInflater.inflate(R.layout.layout_photo, null)
-        BottomSheetDialog(this).let {
-            it.setContentView(view)
-            it.tvTitle.text = title
-            it.webPhoto.webViewClient = MyBrowserUtil
-            it.webPhoto.settings.javaScriptEnabled = true
-            it.webPhoto.settings.setGeolocationEnabled(true)
-            it.webPhoto.loadUrl(url)
-            it.show()
-        }
-        */
+
     }
 
     override fun showInstagram(ig: String) {

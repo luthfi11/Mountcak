@@ -27,26 +27,20 @@
                 android:layout_height="wrap_content">
 
                 <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbarProfile"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/appBar"
+                    android:id="@+id/toolbarUser"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="6dp"
                     android:layout_alignParentTop="true"
-                    app:layout_scrollFlags="scroll|enterAlways|snap" >
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/title_profile"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/toolbarText" />
-
-                </android.support.v7.widget.Toolbar>
+                    android:background="@drawable/shape_back"
+                    android:theme="@style/AppTheme.AppBarOverlay"
+                    app:layout_scrollFlags="scroll|enterAlways|snap" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imgAva"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_below="@id/toolbarProfile"
+                    android:layout_below="@id/toolbarUser"
                     android:layout_margin="12dp"
                     tools:src="@tools:sample/avatars"
                     app:civ_border_color="@color/colorPrimaryDark"
@@ -57,27 +51,18 @@
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/toolbarProfile"
-                    android:layout_marginTop="17dp"
+                    android:layout_below="@id/toolbarUser"
+                    android:layout_marginTop="30dp"
                     android:layout_toEndOf="@id/imgAva"
                     tools:text="Luthfi Alfarisi"
                     android:textColor="@android:color/white"
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/tvEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tvName"
-                    android:layout_toEndOf="@id/imgAva"
-                    android:textColor="@color/colorSemiWhite"
-                    tools:text="luthfialfarisi@gmail.com" />
-
-                <TextView
                     android:id="@+id/tvCity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tvEmail"
+                    android:layout_below="@id/tvName"
                     android:layout_toEndOf="@id/imgAva"
                     android:textColor="@color/colorSemiWhite"
                     tools:text="Bandung" />
@@ -191,7 +176,7 @@
         </android.support.design.widget.TabLayout>
 
         <ProgressBar
-            android:id="@+id/progressProfile"
+            android:id="@+id/progressUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"

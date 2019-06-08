@@ -14,7 +14,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/card_shape" >
+        android:background="@drawable/shape_card" >
 
         <ImageView
             android:id="@+id/imgMount"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/imgMount"
             android:layout_toEndOf="@id/imgUser"
-            android:background="@drawable/user_shape"
+            android:background="@drawable/shape_user"
             android:layout_marginStart="-20dp"
             android:maxLines="1"
             android:ellipsize="end"
@@ -114,7 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/imgMount"
             android:layout_alignEnd="@id/imgMount"
-            android:background="@drawable/cost_shape"
+            android:background="@drawable/shape_cost"
             android:padding="8dp"
             android:textSize="12sp"
             android:textColor="@color/colorPrimaryDark"

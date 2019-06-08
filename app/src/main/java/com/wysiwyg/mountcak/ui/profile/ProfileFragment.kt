@@ -13,6 +13,8 @@ import com.wysiwyg.mountcak.data.model.User
 import com.wysiwyg.mountcak.ui.home.EventAdapter
 import com.wysiwyg.mountcak.ui.login.LoginFragmentManager
 import com.wysiwyg.mountcak.ui.viewphoto.ViewPhotoActivity
+import com.wysiwyg.temanolga.utilities.gone
+import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.startActivity
@@ -24,11 +26,13 @@ class ProfileFragment : Fragment(), ProfileView {
     private val event: MutableList<Event?> = mutableListOf()
 
     override fun showLoading() {
-
+        progressProfile.visible()
+        rvUserEvent.gone()
     }
 
     override fun hideLoading() {
-
+        progressProfile.gone()
+        rvUserEvent.visible()
     }
 
     override fun showData(user: User?) {

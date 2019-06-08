@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import com.bumptech.glide.Glide
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Mount
@@ -11,6 +12,7 @@ import com.wysiwyg.mountcak.ui.mountdetail.MountDetailActivity
 import kotlinx.android.synthetic.main.item_mount.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
+import android.view.animation.Animation
 
 class MountAdapter(private val mounts: MutableList<Mount?>) : RecyclerView.Adapter<MountAdapter.ViewHolder>() {
 
@@ -30,6 +32,16 @@ class MountAdapter(private val mounts: MutableList<Mount?>) : RecyclerView.Adapt
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
         p0.bindItem(mounts[p1])
+        setAnimation(p0.itemView, p1)
+    }
+
+    private var lastPosition = -1
+    private fun setAnimation(viewToAnimate: View, position: Int) {
+        if (position > lastPosition) {
+            val animation = AnimationUtils.loadAnimation(viewToAnimate.context, android.R.anim.slide_in_left)
+            viewToAnimate.startAnimation(animation)
+            lastPosition = position
+        }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -41,7 +53,9 @@ class MountAdapter(private val mounts: MutableList<Mount?>) : RecyclerView.Adapt
             itemView.tvCity.text = mount?.city+", "
             itemView.tvRegion.text = mount?.region
 
-            itemView.btnDetail.onClick {itemView.context.startActivity<MountDetailActivity>("mount" to mount) }
+            itemView.btnDetail.onClick {
+                itemView.context.startActivity<MountDetailActivity>("mount" to mount)
+            }
         }
     }
 }

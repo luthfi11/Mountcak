@@ -7,9 +7,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Mount
+import com.wysiwyg.mountcak.ui.search.SearchActivity
 import com.wysiwyg.temanolga.utilities.gone
 import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.fragment_explore.*
+import org.jetbrains.anko.support.v4.startActivity
 
 class ExploreFragment : Fragment(), ExploreView {
 
@@ -49,5 +51,20 @@ class ExploreFragment : Fragment(), ExploreView {
 
         presenter = ExplorePresenter(this)
         presenter.getData()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.menu_search, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.nav_search -> {
+                startActivity<SearchActivity>()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

@@ -17,10 +17,11 @@ import org.jetbrains.anko.textColorResource
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import android.view.animation.AnimationUtils
+import com.wysiwyg.mountcak.util.DateUtil.dateFormat
+import org.jetbrains.anko.textResource
 
-class EventAdapter(
-    private val events: MutableList<Event?>
-) : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
+class EventAdapter(private val events: MutableList<Event?>) : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         return ViewHolder(
@@ -38,6 +39,16 @@ class EventAdapter(
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
         p0.bindItem(events[p1])
+        setAnimation(p0.itemView, p1)
+    }
+
+    private var lastPosition = -1
+    private fun setAnimation(viewToAnimate: View, position: Int) {
+        if (position > lastPosition) {
+            val animation = AnimationUtils.loadAnimation(viewToAnimate.context, android.R.anim.slide_in_left)
+            viewToAnimate.startAnimation(animation)
+            lastPosition = position
+        }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -76,7 +87,7 @@ class EventAdapter(
 
         private fun checkCost(cost: Int?) {
             return if (cost == 0) {
-                itemView.tvCost.text = "FREE"
+                itemView.tvCost.textResource = R.string.free
                 itemView.tvCost.textColorResource = R.color.colorPrimary
             }
             else {
@@ -93,14 +104,6 @@ class EventAdapter(
                 itemView.tvMontStart.gone()
                 itemView.tvDiv.gone()
             }
-        }
-
-        private fun dateFormat(date: String?, pattern: String): String {
-            val locale = Locale("in", "ID")
-            val format = SimpleDateFormat("dd/MM/yy", locale)
-            val sdf = SimpleDateFormat(pattern, Locale.getDefault())
-
-            return sdf.format(format.parse(date))
         }
     }
 }

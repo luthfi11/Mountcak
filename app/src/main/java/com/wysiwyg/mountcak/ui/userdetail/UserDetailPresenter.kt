@@ -1,44 +1,45 @@
-package com.wysiwyg.mountcak.ui.eventdetail
+package com.wysiwyg.mountcak.ui.userdetail
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.wysiwyg.mountcak.data.model.Event
-import com.wysiwyg.mountcak.data.model.Mount
 import com.wysiwyg.mountcak.data.model.User
+import java.lang.Exception
 
-class EventDetailPresenter(private val view: EventDetailView) {
+class UserDetailPresenter(private val view: UserDetailView) {
 
     private val db = FirebaseDatabase.getInstance().reference
 
-    fun getDetail(event: Event?) {
-        view.showEventDetail(event)
-    }
-
-    fun mountData(id: String) {
-        db.child("mount").child(id).addValueEventListener(object : ValueEventListener {
+    fun getUserData(uid: String) {
+        view.showLoading()
+        db.child("user").child(uid).addValueEventListener(object : ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
                 try {
-                    val mount = p0.getValue(Mount::class.java)
-                    view.showMountData(mount)
+                    val user = p0.getValue(User::class.java)
+                    view.showUserData(user)
                 } catch (ex: Exception) {
                     ex.printStackTrace()
                 }
+                view.hideLoading()
             }
 
             override fun onCancelled(p0: DatabaseError) {
 
             }
         })
-    }
 
-    fun userData(id: String) {
-        db.child("user").child(id).addValueEventListener(object : ValueEventListener {
+        db.child("event").orderByChild("userId").equalTo(uid).addValueEventListener(object : ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
                 try {
-                    val user = p0.getValue(User::class.java)
-                    view.showUserData(user)
+                    val event: MutableList<Event?> = mutableListOf()
+                    for (data: DataSnapshot in p0.children) {
+                        val e = data.getValue(Event::class.java)
+                        event.add(e)
+                    }
+                    event.reverse()
+                    view.showUserPost(event)
                 } catch (ex: Exception) {
                     ex.printStackTrace()
                 }

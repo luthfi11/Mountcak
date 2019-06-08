@@ -9,7 +9,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Event
-import com.wysiwyg.mountcak.util.DatePicker
+import com.wysiwyg.mountcak.util.DateUtil
 import com.wysiwyg.mountcak.util.LoadingDialog
 import com.wysiwyg.mountcak.util.ValidateUtil.etToInt
 import com.wysiwyg.mountcak.util.ValidateUtil.etToString
@@ -91,8 +91,8 @@ class AddEventActivity : AppCompatActivity(), AddEventView, View.OnClickListener
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.btnDateStart -> DatePicker.datePicker(etDateStart, this)
-            R.id.btnDateEnd -> DatePicker.datePicker(etDateEnd, this)
+            R.id.btnDateStart -> DateUtil.datePicker(etDateStart, this)
+            R.id.btnDateEnd -> DateUtil.datePicker(etDateEnd, this)
         }
     }
 

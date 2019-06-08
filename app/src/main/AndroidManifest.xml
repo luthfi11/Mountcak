@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".ui.userdetail.UserDetailActivity" android:label=""/>
+        <activity android:name=".ui.search.SearchActivity" />
         <activity
             android:name=".ui.viewphoto.ViewPhotoActivity"
             android:label="" />
@@ -23,7 +24,9 @@
         <activity
             android:name=".ui.mountdetail.MountDetailActivity"
             android:label="" />
-        <activity android:name=".ui.eventdetail.EventDetailActivity" />
+        <activity
+            android:name=".ui.eventdetail.EventDetailActivity"
+            android:label="" />
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,9 +42,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.MainActivity"
-            android:label=""
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait" />
+            android:configChanges="orientation|screenSize"
+            android:label="" />
     </application>
 
 </manifest>

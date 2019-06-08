@@ -7,7 +7,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.wysiwyg.mountcak.data.model.Event
 import com.wysiwyg.mountcak.data.model.User
-import java.util.Collections.reverse
 
 class ProfilePresenter(private val view: ProfileView) {
 
@@ -21,11 +20,11 @@ class ProfilePresenter(private val view: ProfileView) {
             override fun onDataChange(p0: DataSnapshot) {
                 try {
                     val user = p0.getValue(User::class.java)
-                    view.hideLoading()
                     view.showData(user)
                 } catch (ex: Exception) {
                     ex.printStackTrace()
                 }
+                view.hideLoading()
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -37,13 +36,17 @@ class ProfilePresenter(private val view: ProfileView) {
     fun getUserPost() {
         db.child("event").orderByChild("userId").equalTo(uid).addValueEventListener(object : ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
-                val event: MutableList<Event?> = mutableListOf()
-                for (data: DataSnapshot in p0.children) {
-                    val e = data.getValue(Event::class.java)
-                    event.add(e)
+                try {
+                    val event: MutableList<Event?> = mutableListOf()
+                    for (data: DataSnapshot in p0.children) {
+                        val e = data.getValue(Event::class.java)
+                        event.add(e)
+                    }
+                    event.reverse()
+                    view.showEvent(event)
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
                 }
-                reverse(event)
-                view.showEvent(event)
             }
 
             override fun onCancelled(p0: DatabaseError) {

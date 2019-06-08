@@ -10,7 +10,7 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-object DatePicker {
+object DateUtil {
 
     fun datePicker(editText: EditText, context: Context){
         val c = Calendar.getInstance()
@@ -33,5 +33,13 @@ object DatePicker {
 
         dpd.datePicker.minDate = System.currentTimeMillis() - 1000
         dpd.show()
+    }
+
+    fun dateFormat(date: String?, pattern: String): String {
+        val locale = Locale("in", "ID")
+        val format = SimpleDateFormat("dd/MM/yy", locale)
+        val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+
+        return sdf.format(format.parse(date))
     }
 }

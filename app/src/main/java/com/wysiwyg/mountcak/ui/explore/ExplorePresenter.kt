@@ -5,6 +5,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.wysiwyg.mountcak.data.model.Mount
+import java.lang.Exception
 
 class ExplorePresenter(private val view: ExploreView) {
 
@@ -14,13 +15,17 @@ class ExplorePresenter(private val view: ExploreView) {
         view.showLoading()
         db.child("mount").addValueEventListener(object : ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
-                val mount: MutableList<Mount?> = mutableListOf()
-                for (data: DataSnapshot in p0.children) {
-                    val m = data.getValue(Mount::class.java)
-                    mount.add(m)
+                try {
+                    val mount: MutableList<Mount?> = mutableListOf()
+                    for (data: DataSnapshot in p0.children) {
+                        val m = data.getValue(Mount::class.java)
+                        mount.add(m)
+                    }
+                    view.showMountList(mount)
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
                 }
                 view.hideLoading()
-                view.showMountList(mount)
             }
 
             override fun onCancelled(p0: DatabaseError) {
