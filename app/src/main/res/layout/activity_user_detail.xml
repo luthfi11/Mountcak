@@ -9,7 +9,7 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@drawable/bg_morning"
+        android:background="@drawable/bg_bromo"
         android:theme="@style/AppTheme.AppBarOverlay"
         android:fitsSystemWindows="true">
 
@@ -77,7 +77,7 @@
                     android:layout_marginStart="-12dp"
                     android:gravity="center"
                     android:textColor="@color/colorSemiWhite"
-                    android:text="@string/post"/>
+                    android:text="@string/post" />
 
                 <TextView
                     android:id="@+id/tvPostCount"
@@ -89,7 +89,7 @@
                     android:layout_marginStart="-12dp"
                     android:gravity="center"
                     android:textColor="@android:color/white"
-                    android:text="12"/>
+                    android:text="12" />
 
                 <TextView
                     android:id="@+id/tvTrip"
@@ -100,7 +100,7 @@
                     android:layout_marginTop="12dp"
                     android:gravity="center"
                     android:textColor="@color/colorSemiWhite"
-                    android:text="@string/trip"/>
+                    android:text="@string/trip" />
 
                 <TextView
                     android:id="@+id/tvTripCount"
@@ -111,7 +111,7 @@
                     android:textSize="18sp"
                     android:gravity="center"
                     android:textColor="@android:color/white"
-                    android:text="7"/>
+                    android:text="7" />
 
                 <TextView
                     android:id="@+id/tvLike"
@@ -122,7 +122,7 @@
                     android:layout_marginTop="12dp"
                     android:gravity="center"
                     android:textColor="@color/colorSemiWhite"
-                    android:text="@string/like"/>
+                    android:text="@string/like" />
 
                 <TextView
                     android:id="@+id/tvLikeCount"
@@ -133,7 +133,7 @@
                     android:textSize="18sp"
                     android:gravity="center"
                     android:textColor="@android:color/white"
-                    android:text="102"/>
+                    android:text="102" />
 
             </RelativeLayout>
 

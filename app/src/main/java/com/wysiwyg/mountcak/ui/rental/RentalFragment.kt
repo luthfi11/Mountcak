@@ -21,8 +21,9 @@ class RentalFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        super.onCreateOptionsMenu(menu, inflater)
+        menu?.clear()
         inflater?.inflate(R.menu.menu_search, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
 }

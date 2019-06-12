@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mountcak</string>
+    <string name="appname">Mountcak</string>
     <string name="version">Version 1.0</string>
     <string name="title_home">Home</string>
     <string name="title_explore">Explore</string>
@@ -78,6 +78,18 @@
     <string name="trip">Trip</string>
     <string name="like">Like</string>
     <string name="free">FREE</string>
+    <string name="privacy">Privacy Policy</string>
+    <string name="change_photo">Change Photo</string>
+    <string name="cancel">Cancel</string>
+    <string name="new_password">New Password</string>
+    <string name="retype">Retype New Password</string>
+    <string name="change_password">Change Password</string>
+    <string name="change_password_hint">Leave blank if you won\'t change your password</string>
+    <string name="edit_post">Edit Post</string>
+
+    <string name="event_date">%1s - %2s</string>
+    <string name="participant_count">%d Participant</string>
+    <string name="mount_location">%1s, %2s</string>
 
     <array name="example">
         <item>Example</item>

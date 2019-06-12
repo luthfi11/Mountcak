@@ -40,6 +40,7 @@ class HomeFragment : Fragment(), HomeView {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        setHasOptionsMenu(false)
 
         adapter = EventAdapter(event)
 

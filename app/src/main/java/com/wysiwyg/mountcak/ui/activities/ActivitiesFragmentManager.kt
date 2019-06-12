@@ -13,4 +13,8 @@ class ActivitiesFragmentManager : Fragment() {
         return inflater.inflate(R.layout.fragment_manager_activities, container, false)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        setHasOptionsMenu(false)
+    }
 }

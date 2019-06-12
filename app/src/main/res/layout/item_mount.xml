@@ -48,15 +48,7 @@
             android:layout_below="@+id/tvHeight"
             android:layout_marginStart="22dp"
             android:paddingBottom="8dp"
-            tools:text="City, " />
-
-        <TextView
-            android:id="@+id/tvRegion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/tvCity"
-            android:layout_below="@+id/tvHeight"
-            tools:text="Region" />
+            tools:text="City, Region" />
 
         <Button
             android:id="@+id/btnDetail"

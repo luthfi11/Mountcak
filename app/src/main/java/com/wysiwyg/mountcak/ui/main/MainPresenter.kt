@@ -31,25 +31,18 @@ class MainPresenter(private val view: MainView) {
     fun changeView(fm: FragmentManager, fragment: Fragment) {
         val transaction = fm.beginTransaction()
 
-        if (!fragment.isAdded) transaction.add(R.id.content, fragment, fragment::class.java.simpleName)
-        else transaction.show(fragment)
-
         val current = fm.primaryNavigationFragment
         if (current != null) transaction.hide(current)
+
+        if (!fragment.isAdded) transaction.add(R.id.content, fragment, fragment::class.java.simpleName)
+        else {
+            transaction.show(fragment)
+        }
 
         transaction.apply {
             setPrimaryNavigationFragment(fragment)
             setReorderingAllowed(true)
         }.commitNowAllowingStateLoss()
-    }
-
-    private fun removeView(fm: FragmentManager, fragment: Fragment) {
-        val transaction = fm.beginTransaction()
-        val tag = fm.findFragmentByTag(fragment::class.java.simpleName)
-        if (tag != null) {
-            transaction.remove(fragment)
-            transaction.commitNowAllowingStateLoss()
-        }
     }
 
     fun selectedView(fm: FragmentManager) = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -61,30 +54,5 @@ class MainPresenter(private val view: MainView) {
             R.id.navigation_profile -> changeView(fm, profile)
         }
         true
-    }
-
-    fun reselectedView(fm: FragmentManager) = BottomNavigationView.OnNavigationItemReselectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_home -> {
-                removeView(fm, home)
-                changeView(fm, home)
-            }
-            R.id.navigation_explore -> {
-                removeView(fm, explore)
-                changeView(fm, explore)
-            }
-            R.id.navigation_rental -> {
-                removeView(fm, rental)
-                changeView(fm, rental)
-            }
-            R.id.navigation_activity -> {
-                removeView(fm, activities)
-                changeView(fm, activities)
-            }
-            R.id.navigation_profile -> {
-                removeView(fm, profile)
-                changeView(fm, profile)
-            }
-        }
     }
 }

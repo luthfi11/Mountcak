@@ -11,12 +11,17 @@
         android:name=".Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="@string/appname"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.userdetail.UserDetailActivity" android:label=""/>
-        <activity android:name=".ui.search.SearchActivity" />
+        <activity android:name=".ui.chatroom.ChatRoomActivity"></activity>
+        <activity
+            android:name=".ui.userdetail.UserDetailActivity"
+            android:label="" />
+        <activity
+            android:name=".ui.search.SearchActivity"
+            android:label="" />
         <activity
             android:name=".ui.viewphoto.ViewPhotoActivity"
             android:label="" />
@@ -43,6 +48,9 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:configChanges="orientation|screenSize"
+            android:label="" />
+        <activity
+            android:name=".ui.editevent.EditEventActivity"
             android:label="" />
     </application>
 

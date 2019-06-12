@@ -90,15 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvMountName"
             android:layout_marginStart="16dp"
-            tools:text="City, " />
-
-        <TextView
-            android:id="@+id/tvRegion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/tvCity"
-            android:layout_below="@+id/tvMountName"
-            tools:text="Region" />
+            tools:text="City, Region" />
 
         <TextView
             android:id="@+id/tvParticipant"

@@ -23,6 +23,18 @@ object LoadingDialog {
         dialog.show()
     }
 
+    fun showLoading(context: Context, title: String) {
+        dialog = Dialog(context).apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            setContentView(R.layout.loading_dialog)
+            setCancelable(false)
+        }
+
+        dialog.textView.text = title
+        Glide.with(context).asGif().load(R.drawable.load).into(dialog.progressBar)
+        dialog.show()
+    }
+
     fun hideLoading() {
         dialog.dismiss()
     }

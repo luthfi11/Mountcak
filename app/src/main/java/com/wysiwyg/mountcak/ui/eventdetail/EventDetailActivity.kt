@@ -8,8 +8,11 @@ import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Event
 import com.wysiwyg.mountcak.data.model.Mount
 import com.wysiwyg.mountcak.data.model.User
+import com.wysiwyg.mountcak.ui.editevent.EditEventActivity
 import com.wysiwyg.mountcak.ui.userdetail.UserDetailActivity
 import com.wysiwyg.mountcak.util.DateUtil
+import com.wysiwyg.temanolga.utilities.gone
+import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.activity_event_detail.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
@@ -17,20 +20,28 @@ import org.jetbrains.anko.startActivity
 class EventDetailActivity : AppCompatActivity(), EventDetailView {
 
     private lateinit var presenter: EventDetailPresenter
-    private lateinit var event: Event
+    private lateinit var eid: String
+
+    override fun showLoading() {
+        progressEvent.visible()
+        eventContent.gone()
+    }
+
+    override fun hideLoading() {
+        progressEvent.gone()
+        eventContent.visible()
+    }
 
     override fun showEventDetail(event: Event?) {
         tvEventTitle.text = event?.title
         tvEventNote.text = event?.eventNote
         tvMeetLoc.text = event?.meetLocation
-        tvDate.text = DateUtil.dateFormat(event?.dateStart, "EEEE, dd MMMM") + " - " + DateUtil.dateFormat(event?.dateEnd, "EEEE, dd MMMM yyyy")
-        tvMaxPar.text = "${event?.maxParticipant} Participants"
-        tvCost.text = "IDR ${event?.cost}"
+        tvDate.text = String.format(getString(R.string.event_date),DateUtil.dateFormat(event?.dateStart, "EEEE, dd MMMM"), DateUtil.dateFormat(event?.dateEnd, "EEEE, dd MMMM yyyy"))
+        tvMaxPar.text = String.format(getString(R.string.participant_count), event?.maxParticipant)
 
-        presenter.mountData(event?.mountId!!)
-        presenter.userData(event.userId!!)
+        presenter.checkCost(event?.cost, tvCost)
 
-        imgUser.onClick { startActivity<UserDetailActivity>("userId" to event.userId) }
+        imgUser.onClick { startActivity<UserDetailActivity>("userId" to event?.userId) }
     }
 
     override fun showMountData(mount: Mount?) {
@@ -44,25 +55,30 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
         tvUsername.text = user?.name
     }
 
+    override fun showEditButton(event: Event) {
+        btnEdit.visible()
+        btnEdit.onClick { startActivity<EditEventActivity>("event" to event) }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_detail)
         setSupportActionBar(toolbarEventDetail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        event = intent.getParcelableExtra("event")
+        eid = intent.getStringExtra("eid")
 
         presenter = EventDetailPresenter(this)
-        presenter.getDetail(event)
+        presenter.getEventDetail(eid)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
-            android.R.id.home -> {
-                finish()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+        if (item?.itemId == android.R.id.home) finish()
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onClose(eid)
     }
 }

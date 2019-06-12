@@ -11,7 +11,8 @@ object ValidateUtil {
     }
 
     fun etToInt(editText: EditText): Int {
-        return editText.text.toString().toInt()
+        return if (editText.text.isEmpty()) 0
+        else editText.text.toString().toInt()
     }
 
     fun setError(editText: EditText, msg: String) {

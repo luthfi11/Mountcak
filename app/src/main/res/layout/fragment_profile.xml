@@ -156,58 +156,58 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/appBar"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            app:tabIndicatorColor="@color/colorPrimary"
-            app:tabSelectedTextColor="@android:color/black"
-            app:tabMode="scrollable"
-            app:tabTextAppearance="@style/Base.TextAppearance.AppCompat.Small">
+                android:id="@+id/tabs"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/appBar"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabSelectedTextColor="@android:color/black"
+                app:tabMode="scrollable"
+                app:tabTextAppearance="@style/Base.TextAppearance.AppCompat.Small">
 
-            <android.support.design.widget.TabItem
+                <android.support.design.widget.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/post" />
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trip" />
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Favorite" />
+
+            </android.support.design.widget.TabLayout>
+
+            <ProgressBar
+                android:id="@+id/progressProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/post" />
+                android:layout_margin="16dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:indeterminateTint="@color/colorPrimary" />
 
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvUserEvent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/trip" />
+                android:clipToPadding="false"
+                android:paddingTop="8dp"
+                android:paddingBottom="12dp"
+                tools:listitem="@layout/item_event" />
 
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Favorite" />
-
-        </android.support.design.widget.TabLayout>
-
-        <ProgressBar
-            android:id="@+id/progressProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            android:indeterminateTint="@color/colorPrimary" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvUserEvent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingTop="8dp"
-            android:paddingBottom="12dp"
-            tools:listitem="@layout/item_event" />
-
-    </LinearLayout>
+        </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

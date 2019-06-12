@@ -12,7 +12,7 @@ import java.util.*
 
 object DateUtil {
 
-    fun datePicker(editText: EditText, context: Context){
+    fun datePicker(editText: EditText, context: Context, minDate: Long){
         val c = Calendar.getInstance()
         val day = c.get(Calendar.DAY_OF_MONTH)
         val month = c.get(Calendar.MONTH)
@@ -31,7 +31,7 @@ object DateUtil {
 
         }, year, month, day)
 
-        dpd.datePicker.minDate = System.currentTimeMillis() - 1000
+        dpd.datePicker.minDate = minDate
         dpd.show()
     }
 
@@ -41,5 +41,12 @@ object DateUtil {
         val sdf = SimpleDateFormat(pattern, Locale.getDefault())
 
         return sdf.format(format.parse(date))
+    }
+
+    fun dateToLong(date: String): Long {
+        val locale = Locale("in", "ID")
+        val format = SimpleDateFormat("dd/MM/yy", locale)
+        val mDate = format.parse(date)
+        return mDate.time
     }
 }

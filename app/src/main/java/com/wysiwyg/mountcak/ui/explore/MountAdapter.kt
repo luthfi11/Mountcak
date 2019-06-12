@@ -12,7 +12,6 @@ import com.wysiwyg.mountcak.ui.mountdetail.MountDetailActivity
 import kotlinx.android.synthetic.main.item_mount.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
-import android.view.animation.Animation
 
 class MountAdapter(private val mounts: MutableList<Mount?>) : RecyclerView.Adapter<MountAdapter.ViewHolder>() {
 
@@ -50,11 +49,10 @@ class MountAdapter(private val mounts: MutableList<Mount?>) : RecyclerView.Adapt
             Glide.with(itemView.context).load(mount?.cover).placeholder(R.color.colorMuted).into(itemView.imgMount)
             itemView.tvMountName.text = mount?.mountName
             itemView.tvHeight.text = mount?.height
-            itemView.tvCity.text = mount?.city+", "
-            itemView.tvRegion.text = mount?.region
+            itemView.tvCity.text = String.format(itemView.context.getString(R.string.mount_location), mount?.city, mount?.region)
 
             itemView.btnDetail.onClick {
-                itemView.context.startActivity<MountDetailActivity>("mount" to mount)
+                itemView.context.startActivity<MountDetailActivity>("mountId" to mount?.id)
             }
         }
     }

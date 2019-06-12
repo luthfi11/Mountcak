@@ -4,9 +4,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Event
 import com.wysiwyg.mountcak.ui.eventdetail.EventDetailActivity
+import com.wysiwyg.mountcak.util.DateUtil.dateFormat
 import com.wysiwyg.mountcak.util.FirebaseUtil.getMountData
 import com.wysiwyg.mountcak.util.FirebaseUtil.getUserData
 import com.wysiwyg.temanolga.utilities.gone
@@ -14,12 +16,9 @@ import kotlinx.android.synthetic.main.item_event.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.textColorResource
-import java.text.NumberFormat
-import java.text.SimpleDateFormat
-import java.util.*
-import android.view.animation.AnimationUtils
-import com.wysiwyg.mountcak.util.DateUtil.dateFormat
 import org.jetbrains.anko.textResource
+import java.text.NumberFormat
+import java.util.*
 
 class EventAdapter(private val events: MutableList<Event?>) : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
@@ -60,8 +59,7 @@ class EventAdapter(private val events: MutableList<Event?>) : RecyclerView.Adapt
                     event?.mountId,
                     itemView.imgMount,
                     itemView.tvMountName,
-                    itemView.tvCity,
-                    itemView.tvRegion
+                    itemView.tvCity
                 )
 
                 itemView.tvEventTitle.text = event?.title
@@ -70,14 +68,14 @@ class EventAdapter(private val events: MutableList<Event?>) : RecyclerView.Adapt
                 itemView.tvMontStart.text = dateFormat(event?.dateStart, "MMM")
                 itemView.tvMonthEnd.text = dateFormat(event?.dateEnd, "MMM")
 
-                itemView.tvParticipant.text = "${event?.maxParticipant} Participant"
+                itemView.tvParticipant.text = String.format(itemView.context.getString(R.string.participant_count), event?.maxParticipant)
 
                 checkCost(event?.cost)
                 checkDate(event?.dateStart, event?.dateEnd)
 
                 itemView.btnDetail.onClick {
                     itemView.context.startActivity<EventDetailActivity>(
-                        "event" to event
+                        "eid" to event?.id
                     )
                 }
             } catch (ex: Exception) {

@@ -8,6 +8,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Mount
 
 object FirebaseUtil {
@@ -34,7 +35,7 @@ object FirebaseUtil {
         })
     }
 
-    fun getMountData(ctx: Context, id: String?, img: ImageView, tvName: TextView, tvCity: TextView, tvReg: TextView) {
+    fun getMountData(ctx: Context, id: String?, img: ImageView, tvName: TextView, tvCity: TextView) {
         db.child("mount").child(id!!).addValueEventListener(object : ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
                 try {
@@ -42,8 +43,7 @@ object FirebaseUtil {
 
                     Glide.with(ctx).load(mount?.cover).into(img)
                     tvName.text = mount?.mountName
-                    tvCity.text = "${mount?.city}, "
-                    tvReg.text = mount?.region
+                    tvCity.text = String.format(ctx.getString(R.string.mount_location), mount?.city, mount?.region)
                 } catch (ex: Exception) {
                     ex.printStackTrace()
                 }

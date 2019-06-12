@@ -10,7 +10,6 @@ import com.wysiwyg.mountcak.ui.explore.MountAdapter
 import com.wysiwyg.temanolga.utilities.gone
 import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.activity_search.*
-import org.jetbrains.anko.toast
 
 class SearchActivity : AppCompatActivity(), SearchView, android.support.v7.widget.SearchView.OnQueryTextListener {
 
@@ -61,12 +60,12 @@ class SearchActivity : AppCompatActivity(), SearchView, android.support.v7.widge
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
-            android.R.id.home -> {
-                finish()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+        if (item?.itemId == android.R.id.home) finish()
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onClose()
     }
 }

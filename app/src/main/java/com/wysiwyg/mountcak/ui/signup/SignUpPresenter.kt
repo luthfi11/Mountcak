@@ -18,6 +18,7 @@ class SignUpPresenter(private val view: SignUpView) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
                 view.hideLoading()
+                auth.currentUser?.sendEmailVerification()
                 db.child("user")
                     .child(auth.currentUser!!.uid)
                     .setValue(

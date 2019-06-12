@@ -8,192 +8,229 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="20dp">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imgMount"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:contentDescription="@string/event_desc"
-            android:scaleType="centerCrop"
-            tools:src="@tools:sample/backgrounds/scenic" />
-
-        <TextView
-            android:id="@+id/tvUsername"
+        <ProgressBar
+            android:id="@+id/progressEvent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/imgMount"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
-            android:textSize="16sp"
-            android:textColor="@android:color/white"
-            tools:text="User Name" />
+            android:indeterminateTint="@color/colorPrimary"
+            android:visibility="gone"
+            android:layout_centerInParent="true"/>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgUser"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_above="@id/tvUsername"
-            android:layout_centerHorizontal="true"
-            app:civ_border_color="@color/colorPrimary"
-            app:civ_border_width="2dp"
-            app:civ_fill_color="@android:color/white"
-            android:layout_marginBottom="4dp"
-            tools:src="@tools:sample/avatars" />
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbarEventDetail"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="6dp"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/shape_back"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            app:layout_scrollFlags="scroll|enterAlways|snap" />
-
-        <TextView
-            android:id="@+id/tvEventTitle"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/eventContent"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/imgMount"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:textColor="@android:color/black"
-            tools:text="Event Title" />
+            android:paddingBottom="20dp">
 
-        <TextView
-            android:id="@+id/tvEventNote"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvEventTitle"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            tools:text="@tools:sample/lorem" />
+            <ImageView
+                android:id="@+id/imgMount"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:contentDescription="@string/event_desc"
+                android:scaleType="centerCrop"
+                tools:src="@tools:sample/backgrounds/scenic" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.2dp"
-            android:layout_below="@id/tvEventNote"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorMuted" />
+            <TextView
+                android:id="@+id/tvUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/imgMount"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="16dp"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                tools:text="User Name" />
 
-        <TextView
-            android:id="@+id/tv1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_below="@id/tvEventNote"
-            android:text="@string/location" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgUser"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_above="@id/tvUsername"
+                android:layout_marginStart="16dp"
+                app:civ_border_color="@color/colorPrimary"
+                app:civ_border_width="2dp"
+                app:civ_fill_color="@android:color/white"
+                android:layout_marginBottom="4dp"
+                tools:src="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/tvMountName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv1"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColor="@android:color/black"
-            tools:text="Mount Name" />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbarEventDetail"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="6dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/shape_back"
+                android:theme="@style/AppTheme.AppBarOverlay"
+                app:layout_scrollFlags="scroll|enterAlways|snap" />
 
-        <TextView
-            android:id="@+id/tvLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvMountName"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColor="@android:color/black"
-            tools:text="Mount Location" />
+            <Button
+                android:id="@+id/btnEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@id/imgMount"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:visibility="gone"
+                android:textColor="@android:color/white"
+                android:drawableStart="@drawable/ic_edit"
+                android:drawablePadding="10dp"
+                android:text="@string/edit_post"
+                android:background="@color/colorTransparent"/>
 
-        <TextView
-            android:id="@+id/tv2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/tvLocation"
-            android:text="@string/date" />
+            <TextView
+                android:id="@+id/tvEventTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@id/imgMount"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                tools:text="Event Title" />
 
-        <TextView
-            android:id="@+id/tvDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv2"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColor="@android:color/black"
-            tools:text="11 May - 13 May 2019" />
+            <TextView
+                android:id="@+id/tvEventNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvEventTitle"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                tools:text="@tools:sample/lorem" />
 
-        <TextView
-            android:id="@+id/tv3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/tvDate"
-            android:text="@string/max_participants" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:layout_below="@id/tvEventNote"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorMuted" />
 
-        <TextView
-            android:id="@+id/tvMaxPar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv3"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColor="@android:color/black"
-            tools:text="50 Participants" />
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_below="@id/tvEventNote"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/location" />
 
-        <TextView
-            android:id="@+id/tv4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/tvMaxPar"
-            android:text="@string/trip_cost" />
+            <TextView
+                android:id="@+id/tvMountName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv1"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@android:color/black"
+                tools:text="Mount Name" />
 
-        <TextView
-            android:id="@+id/tvCost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv4"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColor="@android:color/black"
-            tools:text="IDR 50.000" />
+            <TextView
+                android:id="@+id/tvLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvMountName"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@android:color/black"
+                tools:text="Mount Location" />
 
-        <TextView
-            android:id="@+id/tv5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/tvCost"
-            android:text="@string/meeting_location" />
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/tvLocation"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/date" />
 
-        <TextView
-            android:id="@+id/tvMeetLoc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv5"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColor="@android:color/black"
-            tools:text="Meet Location" />
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv2"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@android:color/black"
+                tools:text="11 May - 13 May 2019" />
+
+            <TextView
+                android:id="@+id/tv3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/tvDate"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/max_participants" />
+
+            <TextView
+                android:id="@+id/tvMaxPar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv3"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@android:color/black"
+                tools:text="50 Participants" />
+
+            <TextView
+                android:id="@+id/tv4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/tvMaxPar"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/trip_cost" />
+
+            <TextView
+                android:id="@+id/tvCost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv4"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@android:color/black"
+                tools:text="IDR 50.000" />
+
+            <TextView
+                android:id="@+id/tv5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/tvCost"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/meeting_location" />
+
+            <TextView
+                android:id="@+id/tvMeetLoc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv5"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@android:color/black"
+                tools:text="Meet Location" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

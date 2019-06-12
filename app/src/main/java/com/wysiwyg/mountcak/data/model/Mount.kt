@@ -5,6 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Mount (
+    val id: Int? = null,
     val mountName: String? = null,
     val location: String? = null,
     val city: String? = null,

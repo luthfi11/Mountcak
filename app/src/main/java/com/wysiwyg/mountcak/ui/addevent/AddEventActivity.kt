@@ -1,21 +1,23 @@
 package com.wysiwyg.mountcak.ui.addevent
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Event
 import com.wysiwyg.mountcak.util.DateUtil
+import com.wysiwyg.mountcak.util.DateUtil.dateToLong
 import com.wysiwyg.mountcak.util.LoadingDialog
 import com.wysiwyg.mountcak.util.ValidateUtil.etToInt
 import com.wysiwyg.mountcak.util.ValidateUtil.etToString
 import com.wysiwyg.mountcak.util.ValidateUtil.spnPosition
 import com.wysiwyg.mountcak.util.ValidateUtil.validate
 import kotlinx.android.synthetic.main.activity_add_event.*
+import org.jetbrains.anko.textColorResource
 import org.jetbrains.anko.toast
 
 class AddEventActivity : AppCompatActivity(), AddEventView, View.OnClickListener {
@@ -23,19 +25,6 @@ class AddEventActivity : AppCompatActivity(), AddEventView, View.OnClickListener
     private lateinit var presenter: AddEventPresenter
     private var eid: String? = null
     private var uid: String? = null
-
-    override fun showMountList(name: List<String?>, location: List<String?>) {
-        spnMount.adapter = ArrayAdapter(this, R.layout.spinner_item, name)
-        spnMount.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                tvMountLocation.text = location[position]
-            }
-        }
-    }
 
     override fun setID(eid: String?, uid: String?) {
         this.eid = eid
@@ -64,10 +53,13 @@ class AddEventActivity : AppCompatActivity(), AddEventView, View.OnClickListener
         setContentView(R.layout.activity_add_event)
         setSupportActionBar(toolbarAddEvent)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
 
         presenter = AddEventPresenter(this)
-        presenter.getMountList()
+        presenter.getMountList(this, spnMount, tvMountLocation)
         presenter.setID()
+
+        valDate()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -76,23 +68,15 @@ class AddEventActivity : AppCompatActivity(), AddEventView, View.OnClickListener
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
-            android.R.id.home -> {
-                finish()
-                true
-            }
-            R.id.nav_done -> {
-                post()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+        if (item?.itemId == android.R.id.home) finish()
+        else if (item?.itemId == R.id.nav_done) post()
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.btnDateStart -> DateUtil.datePicker(etDateStart, this)
-            R.id.btnDateEnd -> DateUtil.datePicker(etDateEnd, this)
+            R.id.btnDateStart -> DateUtil.datePicker(etDateStart, this, (System.currentTimeMillis() - 1000))
+            R.id.btnDateEnd -> DateUtil.datePicker(etDateEnd, this, dateToLong(etToString(etDateStart)))
         }
     }
 
@@ -118,5 +102,26 @@ class AddEventActivity : AppCompatActivity(), AddEventView, View.OnClickListener
                 )
             )
         }
+    }
+
+    private fun valDate() {
+        if (etDateStart.text.isEmpty()) {
+            btnDateEnd.isEnabled = false
+            btnDateEnd.textColorResource = R.color.colorMuted
+        }
+        etDateStart.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                btnDateEnd.isEnabled = true
+                btnDateEnd.textColorResource = R.color.colorPrimary
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+        })
     }
 }

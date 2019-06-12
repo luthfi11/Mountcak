@@ -1,7 +1,6 @@
 package com.wysiwyg.mountcak.ui.main
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.ui.home.HomeFragment
@@ -13,7 +12,6 @@ class MainActivity : AppCompatActivity(), MainView {
 
     private lateinit var presenter: MainPresenter
     private val fm = supportFragmentManager
-    private var active: Fragment = HomeFragment()
 
     override fun toLogin() {
         finish()
@@ -28,8 +26,7 @@ class MainActivity : AppCompatActivity(), MainView {
         presenter.checkLogin()
 
         navigation.setOnNavigationItemSelectedListener(presenter.selectedView(fm))
-        navigation.setOnNavigationItemReselectedListener(presenter.reselectedView(fm))
 
-        if (savedInstanceState == null) presenter.changeView(fm, active)
+        if (savedInstanceState == null) presenter.changeView(fm, HomeFragment())
     }
 }

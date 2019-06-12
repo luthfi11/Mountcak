@@ -34,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/description"
+            android:textColor="@color/colorPrimary"
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
@@ -50,9 +51,9 @@
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_title"
             android:drawablePadding="10dp"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             android:padding="20dp"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:background="@android:color/white"
             android:hint="@string/event_title"
             tools:ignore="Autofill" />
@@ -65,14 +66,14 @@
         <EditText
             android:id="@+id/etEventDesc"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:drawableStart="@drawable/ic_event_note"
             android:drawablePadding="10dp"
             android:maxLines="10"
             android:padding="20dp"
+            android:textSize="15sp"
             android:background="@android:color/white"
-            android:textSize="14sp"
             android:hint="@string/event_desc"
             tools:ignore="Autofill" />
 
@@ -85,6 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/location"
+            android:textColor="@color/colorPrimary"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="10dp"
             android:layout_marginStart="20dp"
@@ -109,9 +111,8 @@
             android:id="@+id/tvMountLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" -"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="12dp"
+            tools:text=" -"
+            android:layout_marginBottom="18dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp" />
 
@@ -124,6 +125,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/date"
+            android:textColor="@color/colorPrimary"
             android:layout_marginTop="30dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
@@ -149,7 +151,7 @@
                 android:background="@android:color/white"
                 android:editable="false"
                 android:padding="20dp"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:hint="@string/start_from"
                 tools:ignore="Autofill" />
 
@@ -186,7 +188,7 @@
                 android:background="@android:color/white"
                 android:editable="false"
                 android:padding="20dp"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:hint="@string/until"
                 tools:ignore="Autofill" />
 
@@ -212,6 +214,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/participant"
+            android:textColor="@color/colorPrimary"
             android:layout_marginTop="30dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
@@ -230,8 +233,8 @@
             android:drawablePadding="10dp"
             android:inputType="number"
             android:padding="20dp"
+            android:textSize="15sp"
             android:background="@android:color/white"
-            android:textSize="14sp"
             android:hint="@string/max_participants"
             tools:ignore="Autofill" />
 
@@ -248,7 +251,7 @@
             android:drawablePadding="10dp"
             android:inputType="number"
             android:padding="20dp"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:background="@android:color/white"
             android:hint="@string/trip_cost"
             tools:ignore="Autofill" />
@@ -266,7 +269,7 @@
             android:drawablePadding="10dp"
             android:inputType="textPostalAddress"
             android:padding="20dp"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:background="@android:color/white"
             android:hint="@string/meeting_location"
             tools:ignore="Autofill" />

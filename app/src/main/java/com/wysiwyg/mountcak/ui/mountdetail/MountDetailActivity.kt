@@ -15,6 +15,7 @@ import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Mount
 import com.wysiwyg.mountcak.ui.viewphoto.ViewPhotoActivity
 import com.wysiwyg.temanolga.utilities.gone
+import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.activity_mount_detail.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.sdk27.coroutines.onClick
@@ -24,7 +25,16 @@ import org.jetbrains.anko.startActivity
 class MountDetailActivity : AppCompatActivity(), MountDetailView {
 
     private lateinit var presenter: MountDetailPresenter
-    private lateinit var mount: Mount
+
+    override fun showLoading() {
+        progressMount.visible()
+        mountContent.gone()
+    }
+
+    override fun hideLoading() {
+        progressMount.gone()
+        mountContent.visible()
+    }
 
     override fun showDetail(mount: Mount?) {
         Glide.with(this).load(mount?.cover).placeholder(R.color.colorMuted).into(imgMountDetail)
@@ -78,8 +88,6 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
                     .title(title)
             )
         }
-
-        presenter.onMapTouch()
     }
 
     override fun onMapTouch() {
@@ -100,20 +108,15 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
         super.onCreate(savedInstanceState)
         Mapbox.getInstance(this, getString(R.string.access_token))
         setContentView(R.layout.activity_mount_detail)
-
         setSupportActionBar(toolbarMountDetail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        mount = intent.getParcelableExtra("mount")
+        val mountId = intent.getIntExtra("mountId", 99)
 
         placeMap.onCreate(savedInstanceState)
 
         presenter = MountDetailPresenter(this)
-        presenter.getMountDetail(mount)
-        presenter.callNumber(mount.contact)
-        presenter.sendMessage(mount.contact)
-        presenter.getMap(mount.longLat, mount.mountName)
-        presenter.viewInstagram(mount.instagram!!)
+        presenter.getMountDetail(mountId)
 
         //btnPhoto.onClick { presenter.viewPhoto(mount.linkPhotoGM!!, mount.mountName!!) }
     }
@@ -121,15 +124,13 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
     override fun onDestroy() {
         super.onDestroy()
         placeMap.onDestroy()
+
+        val mountId = intent.getIntExtra("mountId", 99)
+        presenter.onClose(mountId)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
-            android.R.id.home -> {
-                finish()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+        if (item?.itemId == android.R.id.home) finish()
+        return super.onOptionsItemSelected(item)
     }
 }

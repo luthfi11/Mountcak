@@ -12,19 +12,26 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="0dp">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbarSearch"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|enterAlways|snap">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbarSearch"
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|enterAlways|snap"/>
 
             <android.support.v7.widget.SearchView
                 android:id="@+id/search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="-40dp"
+                app:searchIcon="@color/colorPrimary"
                 app:iconifiedByDefault="false" />
 
-        </android.support.v7.widget.Toolbar>
+        </LinearLayout>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -45,7 +52,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/rvSearch"
-            android:paddingTop="12dp"
             android:paddingBottom="60dp"
             android:clipToPadding="false"
             tools:listitem="@layout/item_mount" />
