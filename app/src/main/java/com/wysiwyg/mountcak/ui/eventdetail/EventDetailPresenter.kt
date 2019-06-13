@@ -10,6 +10,7 @@ import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Event
 import com.wysiwyg.mountcak.data.model.Mount
 import com.wysiwyg.mountcak.data.model.User
+import com.wysiwyg.mountcak.util.DateUtil
 import org.jetbrains.anko.textResource
 import java.text.NumberFormat
 import java.util.*
@@ -20,7 +21,8 @@ class EventDetailPresenter(private val view: EventDetailView) {
     private val user = FirebaseAuth.getInstance().currentUser!!.uid
 
     private fun checkPoster(event: Event) {
-        if (event.userId == user) view.showEditButton(event)
+        if (event.userId == user) view.showOwnPost(event)
+        else view.canViewProfile(event?.userId)
     }
 
     private val eventListener = object : ValueEventListener {
@@ -29,9 +31,9 @@ class EventDetailPresenter(private val view: EventDetailView) {
         }
 
         override fun onDataChange(p0: DataSnapshot) {
-            view.hideLoading()
             try {
                 val event = p0.getValue(Event::class.java)
+                view.hideLoading()
                 view.showEventDetail(event)
 
                 mountData(event?.mountId!!)
@@ -81,6 +83,13 @@ class EventDetailPresenter(private val view: EventDetailView) {
     fun getEventDetail(eid: String) {
         view.showLoading()
         db.child("event").child(eid).addValueEventListener(eventListener)
+    }
+
+    fun checkDate(dateStart: String?, dateEnd: String?): String {
+        return if (dateStart.equals(dateEnd))
+            DateUtil.dateFormat(dateEnd, "EEEE, dd MMMM yyyy")
+        else
+            DateUtil.dateFormat(dateStart, "EEEE, dd MMMM") + " - " + DateUtil.dateFormat(dateEnd, "EEEE, dd MMMM yyyy")
     }
 
     fun checkCost(cost: Int?, tv: TextView) {

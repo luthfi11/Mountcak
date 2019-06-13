@@ -7,6 +7,6 @@ interface ProfileView {
     fun showLoading()
     fun hideLoading()
     fun showData(user: User?)
-    fun showEvent(event: MutableList<Event?>)
+    fun showEvent(event: List<Event?>)
     fun doLogout()
 }

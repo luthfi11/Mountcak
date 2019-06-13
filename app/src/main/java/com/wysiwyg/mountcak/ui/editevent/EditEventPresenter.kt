@@ -2,6 +2,7 @@ package com.wysiwyg.mountcak.ui.editevent
 
 import com.google.firebase.database.FirebaseDatabase
 import com.wysiwyg.mountcak.data.model.Event
+import java.lang.Exception
 
 class EditEventPresenter(private val view: EditEventView) {
 
@@ -12,15 +13,19 @@ class EditEventPresenter(private val view: EditEventView) {
     }
 
     fun updateData(eid: String, event: Event) {
-        view.showLoading()
-        db.child("event").child(eid).setValue(event)
-            .addOnSuccessListener {
-                view.hideLoading()
-                view.updateSuccess()
-            }
-            .addOnFailureListener {
-                view.hideLoading()
-                view.updateFailed()
-            }
+        try {
+            view.showLoading()
+            db.child("event").child(eid).setValue(event)
+                .addOnSuccessListener {
+                    view.hideLoading()
+                    view.updateSuccess()
+                }
+                .addOnFailureListener {
+                    view.hideLoading()
+                    view.updateFailed()
+                }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
     }
 }

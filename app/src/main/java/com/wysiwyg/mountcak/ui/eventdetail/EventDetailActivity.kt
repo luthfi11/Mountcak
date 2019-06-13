@@ -1,7 +1,7 @@
 package com.wysiwyg.mountcak.ui.eventdetail
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.bumptech.glide.Glide
 import com.wysiwyg.mountcak.R
@@ -10,7 +10,6 @@ import com.wysiwyg.mountcak.data.model.Mount
 import com.wysiwyg.mountcak.data.model.User
 import com.wysiwyg.mountcak.ui.editevent.EditEventActivity
 import com.wysiwyg.mountcak.ui.userdetail.UserDetailActivity
-import com.wysiwyg.mountcak.util.DateUtil
 import com.wysiwyg.temanolga.utilities.gone
 import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.activity_event_detail.*
@@ -36,12 +35,10 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
         tvEventTitle.text = event?.title
         tvEventNote.text = event?.eventNote
         tvMeetLoc.text = event?.meetLocation
-        tvDate.text = String.format(getString(R.string.event_date),DateUtil.dateFormat(event?.dateStart, "EEEE, dd MMMM"), DateUtil.dateFormat(event?.dateEnd, "EEEE, dd MMMM yyyy"))
+        tvDate.text = presenter.checkDate(event?.dateStart, event?.dateEnd)
         tvMaxPar.text = String.format(getString(R.string.participant_count), event?.maxParticipant)
 
         presenter.checkCost(event?.cost, tvCost)
-
-        imgUser.onClick { startActivity<UserDetailActivity>("userId" to event?.userId) }
     }
 
     override fun showMountData(mount: Mount?) {
@@ -55,9 +52,14 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
         tvUsername.text = user?.name
     }
 
-    override fun showEditButton(event: Event) {
+    override fun showOwnPost(event: Event) {
         btnEdit.visible()
         btnEdit.onClick { startActivity<EditEventActivity>("event" to event) }
+    }
+
+    override fun canViewProfile(uid: String?) {
+        btnEdit.gone()
+        imgUser.onClick { startActivity<UserDetailActivity>("userId" to uid) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

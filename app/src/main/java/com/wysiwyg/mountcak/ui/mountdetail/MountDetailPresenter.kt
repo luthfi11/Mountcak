@@ -16,9 +16,9 @@ class MountDetailPresenter(private val view: MountDetailView) {
         }
 
         override fun onDataChange(p0: DataSnapshot) {
-            view.hideLoading()
             try {
                 val mount: Mount? = p0.getValue(Mount::class.java)
+                view.hideLoading()
                 view.showDetail(mount)
 
                 if (mount?.instagram == null) {

@@ -54,7 +54,7 @@ class ProfileFragment : Fragment(), ProfileView {
         imgAva.onClick { startActivity<ViewPhotoActivity>("photo" to user?.photo) }
     }
 
-    override fun showEvent(event: MutableList<Event?>) {
+    override fun showEvent(event: List<Event?>) {
         this.event.clear()
         this.event.addAll(event)
         adapter.notifyDataSetChanged()

@@ -7,5 +7,5 @@ interface UserDetailView {
     fun showLoading()
     fun hideLoading()
     fun showUserData(user: User?)
-    fun showUserPost(event: MutableList<Event?>)
+    fun showUserPost(event: List<Event?>)
 }

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/colorSemiWhite"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:textAlignment="center"
+        tools:text="Today" />
+
+    <RelativeLayout
+        android:id="@+id/viewJoin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgSenderJoin"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:civ_border_color="@color/colorMuted"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="6dp"
+            app:civ_border_width="1dp"
+            app:civ_fill_color="@android:color/white"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tvJoinTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/rlJoin"
+            android:textSize="12sp"
+            android:layout_alignBottom="@id/rlJoin"
+            android:layout_marginBottom="2dp"
+            tools:text="10:43" />
+
+        <RelativeLayout
+            android:id="@+id/rlJoin"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/imgSenderJoin"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="2dp"
+            android:paddingBottom="6dp"
+            android:background="@drawable/shape_card">
+
+            <TextView
+                android:id="@+id/tvJoinMsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                tools:text="Hey, Iam Jajang. I want to join your trip event to Gunung Bromo"/>
+
+            <View
+                android:id="@+id/v"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_below="@id/tvJoinMsg"
+                android:layout_marginBottom="3dp"
+                android:background="@color/colorMuted"/>
+
+            <Button
+                android:id="@+id/btnDecline"
+                android:layout_width="98dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/v"
+                android:layout_marginStart="2dp"
+                android:background="@drawable/shape_white"
+                android:textColor="@color/colorAccent"
+                android:text="@string/decline"/>
+
+            <Button
+                android:id="@+id/btnAccept"
+                android:layout_width="98dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/v"
+                android:layout_toEndOf="@id/btnDecline"
+                android:background="@drawable/shape_white"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/accept"/>
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/v"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:visibility="gone"
+                android:background="@drawable/shape_white"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="@string/cancel"/>
+
+            <TextView
+                android:id="@+id/tvConfirmed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/v"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:visibility="gone"
+                tools:text="Accepted"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/viewIncoming"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="2dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgSender"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:civ_border_color="@color/colorMuted"
+            app:civ_border_width="1dp"
+            app:civ_fill_color="@color/colorPrimary"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tvReceiveTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/tvMessageIn"
+            android:textSize="12sp"
+            android:layout_alignBottom="@id/tvMessageIn"
+            android:layout_marginBottom="2dp"
+            tools:text="10:43" />
+
+        <TextView
+            android:id="@+id/tvMessageIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/imgSender"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:maxWidth="240dp"
+            android:textColor="@android:color/black"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:background="@drawable/shape_chat_incoming"
+            tools:text="@tools:sample/lorem/random" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/viewOutgoing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp">
+
+        <TextView
+            android:id="@+id/tvRead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/tvSentTime"
+            android:layout_toStartOf="@id/tvMessageOut"
+            android:layout_marginBottom="-2dp"
+            android:textSize="12sp"
+            android:text="@string/read" />
+
+        <TextView
+            android:id="@+id/tvSentTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/tvMessageOut"
+            android:layout_alignBottom="@id/tvMessageOut"
+            android:layout_marginBottom="2dp"
+            android:textSize="12sp"
+            tools:text="10:43" />
+
+        <TextView
+            android:id="@+id/tvMessageOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="6dp"
+            android:maxWidth="240dp"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:background="@drawable/shape_chat_outgoing"
+            android:textColor="@android:color/white"
+            tools:text="Hehe iya wkwk" />
+
+    </RelativeLayout>
+
+</LinearLayout>

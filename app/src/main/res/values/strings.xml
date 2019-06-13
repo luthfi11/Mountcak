@@ -80,7 +80,6 @@
     <string name="free">FREE</string>
     <string name="privacy">Privacy Policy</string>
     <string name="change_photo">Change Photo</string>
-    <string name="cancel">Cancel</string>
     <string name="new_password">New Password</string>
     <string name="retype">Retype New Password</string>
     <string name="change_password">Change Password</string>
@@ -90,6 +89,12 @@
     <string name="event_date">%1s - %2s</string>
     <string name="participant_count">%d Participant</string>
     <string name="mount_location">%1s, %2s</string>
+    <string name="type_a_message">Type a message</string>
+    <string name="decline">Decline</string>
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_chat">Delete this chat ?</string>
+    <string name="read">Read</string>
 
     <array name="example">
         <item>Example</item>

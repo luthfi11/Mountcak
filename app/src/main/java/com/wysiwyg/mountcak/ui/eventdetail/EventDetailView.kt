@@ -10,5 +10,6 @@ interface EventDetailView {
     fun showEventDetail(event: Event?)
     fun showMountData(mount: Mount?)
     fun showUserData(user: User?)
-    fun showEditButton(event: Event)
+    fun showOwnPost(event: Event)
+    fun canViewProfile(uid: String?)
 }

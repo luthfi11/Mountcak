@@ -5,5 +5,5 @@ import com.wysiwyg.mountcak.data.model.Mount
 interface SearchView {
     fun showLoading()
     fun hideLoading()
-    fun showData(data: MutableList<Mount?>)
+    fun showData(data: List<Mount?>)
 }

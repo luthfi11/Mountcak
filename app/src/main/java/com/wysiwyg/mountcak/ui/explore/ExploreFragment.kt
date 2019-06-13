@@ -29,7 +29,7 @@ class ExploreFragment : Fragment(), ExploreView {
         rvHome.visible()
     }
 
-    override fun showMountList(mount: MutableList<Mount?>) {
+    override fun showMountList(mount: List<Mount?>) {
         this.mount.clear()
         this.mount.addAll(mount)
         adapter.notifyDataSetChanged()

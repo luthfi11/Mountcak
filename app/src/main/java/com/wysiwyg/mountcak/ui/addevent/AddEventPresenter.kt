@@ -4,10 +4,7 @@ import android.content.Context
 import android.widget.Spinner
 import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.wysiwyg.mountcak.data.model.Event
 import com.wysiwyg.mountcak.util.showMountList
 
@@ -27,15 +24,19 @@ class AddEventPresenter(private val view: AddEventView) {
     }
 
     fun postEvent(event: Event) {
-        view.showLoading()
-        db.child("event").child(eid!!).setValue(event)
-            .addOnSuccessListener {
-                view.hideLoading()
-                view.successPost()
-            }
-            .addOnFailureListener {
-                view.hideLoading()
-                view.postingFail()
-            }
+        try {
+            view.showLoading()
+            db.child("event").child(eid!!).setValue(event)
+                .addOnSuccessListener {
+                    view.hideLoading()
+                    view.successPost()
+                }
+                .addOnFailureListener {
+                    view.hideLoading()
+                    view.postingFail()
+                }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
     }
 }

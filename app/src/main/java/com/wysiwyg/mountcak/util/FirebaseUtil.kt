@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -14,8 +15,13 @@ import com.wysiwyg.mountcak.data.model.Mount
 object FirebaseUtil {
 
     private val db = FirebaseDatabase.getInstance().reference
+    private val auth = FirebaseAuth.getInstance()
 
-    fun getUserData(context: Context, uid: String?, tvName: TextView?, imgAva: ImageView) {
+    fun currentUser(): String {
+        return auth.currentUser?.uid!!
+    }
+
+    fun getUserData(context: Context, uid: String?, tvName: TextView?, imgAva: ImageView?) {
         db.child("user").child(uid!!).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 try {
@@ -23,7 +29,9 @@ object FirebaseUtil {
                     val photo = p0.child("photo").getValue(String::class.java)
 
                     tvName?.text = name
-                    Glide.with(context).load(photo).into(imgAva)
+
+                    if (imgAva != null) Glide.with(context).load(photo).into(imgAva)
+
                 } catch (ex: Exception) {
                     ex.printStackTrace()
                 }

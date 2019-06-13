@@ -5,5 +5,5 @@ import com.wysiwyg.mountcak.data.model.Mount
 interface ExploreView {
     fun showLoading()
     fun hideLoading()
-    fun showMountList(mount: MutableList<Mount?>)
+    fun showMountList(mount: List<Mount?>)
 }

@@ -14,26 +14,30 @@ class SignUpPresenter(private val view: SignUpView) {
     }
 
     fun signUp(email: String, password: String, name: String, city: String) {
-        view.showLoading()
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnSuccessListener {
-                view.hideLoading()
-                auth.currentUser?.sendEmailVerification()
-                db.child("user")
-                    .child(auth.currentUser!!.uid)
-                    .setValue(
-                        User(
-                            auth.currentUser!!.uid,
-                            name,
-                            city,
-                            email
+        try {
+            view.showLoading()
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnSuccessListener {
+                    view.hideLoading()
+                    auth.currentUser?.sendEmailVerification()
+                    db.child("user")
+                        .child(auth.currentUser!!.uid)
+                        .setValue(
+                            User(
+                                auth.currentUser!!.uid,
+                                name,
+                                city,
+                                email
+                            )
                         )
-                    )
-                view.signUpSuccess()
-            }
-            .addOnFailureListener {
-                view.hideLoading()
-                view.signUpFail()
-            }
+                    view.signUpSuccess()
+                }
+                .addOnFailureListener {
+                    view.hideLoading()
+                    view.signUpFail()
+                }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
     }
 }

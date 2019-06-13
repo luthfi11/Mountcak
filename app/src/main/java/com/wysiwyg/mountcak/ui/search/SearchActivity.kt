@@ -27,7 +27,7 @@ class SearchActivity : AppCompatActivity(), SearchView, android.support.v7.widge
         rvSearch.visible()
     }
 
-    override fun showData(data: MutableList<Mount?>) {
+    override fun showData(data: List<Mount?>) {
         mount.clear()
         mount.addAll(data)
         adapter.notifyDataSetChanged()

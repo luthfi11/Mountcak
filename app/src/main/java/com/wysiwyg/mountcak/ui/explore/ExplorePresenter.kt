@@ -21,11 +21,11 @@ class ExplorePresenter(private val view: ExploreView) {
                         val m = data.getValue(Mount::class.java)
                         mount.add(m)
                     }
+                    view.hideLoading()
                     view.showMountList(mount)
                 } catch (ex: Exception) {
                     ex.printStackTrace()
                 }
-                view.hideLoading()
             }
 
             override fun onCancelled(p0: DatabaseError) {

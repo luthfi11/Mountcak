@@ -15,17 +15,18 @@ class HomePresenter(private val view: HomeView) {
         db.child("event").addValueEventListener(object : ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
                 try {
+
                     val event: MutableList<Event?> = mutableListOf()
                     for (data: DataSnapshot in p0.children) {
                         val e = data.getValue(Event::class.java)
                         event.add(e)
                     }
                     event.reverse()
+                    view.hideLoading()
                     view.showEventList(event)
                 } catch (ex: Exception) {
                     ex.printStackTrace()
                 }
-                view.hideLoading()
             }
 
             override fun onCancelled(p0: DatabaseError) {

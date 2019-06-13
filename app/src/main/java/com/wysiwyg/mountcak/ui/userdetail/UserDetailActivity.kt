@@ -42,7 +42,7 @@ class UserDetailActivity : AppCompatActivity(), UserDetailView {
         imgAva.onClick { startActivity<ViewPhotoActivity>("photo" to user?.photo) }
     }
 
-    override fun showUserPost(event: MutableList<Event?>) {
+    override fun showUserPost(event: List<Event?>) {
         this.event.clear()
         this.event.addAll(event)
         adapter.notifyDataSetChanged()

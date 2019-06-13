@@ -28,7 +28,7 @@ class HomeFragment : Fragment(), HomeView {
         srlHome.isRefreshing = false
     }
 
-    override fun showEventList(event: MutableList<Event?>) {
+    override fun showEventList(event: List<Event?>) {
         this.event.clear()
         this.event.addAll(event)
         adapter.notifyDataSetChanged()

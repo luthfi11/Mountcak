@@ -20,11 +20,11 @@ class ProfilePresenter(private val view: ProfileView) {
             override fun onDataChange(p0: DataSnapshot) {
                 try {
                     val user = p0.getValue(User::class.java)
+                    view.hideLoading()
                     view.showData(user)
                 } catch (ex: Exception) {
                     ex.printStackTrace()
                 }
-                view.hideLoading()
             }
 
             override fun onCancelled(p0: DatabaseError) {

@@ -3,6 +3,7 @@ package com.wysiwyg.mountcak.util
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
+import android.text.format.DateUtils
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -48,5 +49,30 @@ object DateUtil {
         val format = SimpleDateFormat("dd/MM/yy", locale)
         val mDate = format.parse(date)
         return mDate.time
+    }
+
+    fun timeFormat(format: String, millis: Long): String {
+        val sdf = SimpleDateFormat(format, Locale.getDefault())
+        return sdf.format(Date(millis))
+    }
+
+    fun minAgo(millis: String): String {
+        return DateUtils.getRelativeTimeSpanString(
+            millis.toLong(),
+            System.currentTimeMillis(),
+            DateUtils.SECOND_IN_MILLIS
+        ).toString()
+    }
+
+    fun dayAgo(millis: Long): String {
+        return DateUtils.getRelativeTimeSpanString(
+            millis,
+            System.currentTimeMillis(),
+            DateUtils.DAY_IN_MILLIS
+        ).toString()
+    }
+
+    fun isYesterday(millis: Long): Boolean {
+        return DateUtils.isToday(millis + DateUtils.DAY_IN_MILLIS)
     }
 }
