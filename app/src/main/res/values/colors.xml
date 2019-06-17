@@ -5,6 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorTransparent">#55000000</color>
     <color name="colorSemiWhite">#EEEEEE</color>
+    <color name="colorSemiMuted">#DDDDDD</color>
     <color name="colorMuted">#CCCCCC</color>
     <color name="darkGray">#454255</color>
     <color name="blueGray1">#21314a</color>

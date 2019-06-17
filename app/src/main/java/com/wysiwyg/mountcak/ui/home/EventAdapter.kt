@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Event
-import com.wysiwyg.mountcak.ui.chatroom.ChatRoomActivity
 import com.wysiwyg.mountcak.ui.eventdetail.EventDetailActivity
 import com.wysiwyg.mountcak.util.DateUtil.dateFormat
 import com.wysiwyg.mountcak.util.FirebaseUtil.getMountData
@@ -74,11 +73,8 @@ class EventAdapter(private val events: MutableList<Event?>) : RecyclerView.Adapt
                 checkCost(event?.cost)
                 checkDate(event?.dateStart, event?.dateEnd)
 
-                itemView.btnInterested.onClick { itemView.context.startActivity<ChatRoomActivity>("userId" to event?.userId) }
-                itemView.btnDetail.onClick {
-                    itemView.context.startActivity<EventDetailActivity>(
-                        "eid" to event?.id
-                    )
+                itemView.cvEvent.onClick {
+                    itemView.context.startActivity<EventDetailActivity>("eid" to event?.id)
                 }
             } catch (ex: Exception) {
                 ex.printStackTrace()

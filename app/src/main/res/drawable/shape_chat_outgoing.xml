@@ -7,10 +7,7 @@
             <corners
                     android:radius="20dp"
                     android:topRightRadius="0dp"/>
-            <solid android:color="@color/colorPrimary"/>
-            <size
-                    android:width="0dp"
-                    android:height="0dp"/>
+            <solid android:color="@color/colorSemiMuted"/>
         </shape>
     </item>
 
@@ -21,10 +18,7 @@
             <corners
                     android:radius="20dp"
                     android:topRightRadius="0dp"/>
-            <solid android:color="@color/colorPrimaryDark"/>
-            <size
-                    android:width="0dp"
-                    android:height="0dp"/>
+            <solid android:color="@color/colorMuted"/>
         </shape>
     </item>
 </selector>

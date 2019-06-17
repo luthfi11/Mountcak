@@ -95,6 +95,17 @@
     <string name="cancel">Cancel</string>
     <string name="delete_chat">Delete this chat ?</string>
     <string name="read">Read</string>
+    <string name="request_join">Request Join</string>
+    <string name="chat_organizer">Chat Organizer</string>
+    <string name="waiting_confirm">Waiting for confirmation</string>
+    <string name="joined">Joined</string>
+    <string name="requested">Requested</string>
+    <string name="cancel_join">Cancel join this trip ?</string>
+    <string name="declined">Declined</string>
+    <string name="accepted">Accepted</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="delete_post">Delete Post</string>
+    <string name="delete_hint">Delete this post ?</string>
 
     <array name="example">
         <item>Example</item>

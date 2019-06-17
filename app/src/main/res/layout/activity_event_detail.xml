@@ -65,22 +65,6 @@
                 android:theme="@style/AppTheme.AppBarOverlay"
                 app:layout_scrollFlags="scroll|enterAlways|snap" />
 
-            <Button
-                android:id="@+id/btnEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignBottom="@id/imgMount"
-                android:paddingStart="14dp"
-                android:paddingEnd="12dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:textColor="@android:color/white"
-                android:drawableStart="@drawable/ic_edit"
-                android:drawablePadding="10dp"
-                android:text="@string/edit_post"
-                android:background="@color/colorTransparent"/>
-
             <TextView
                 android:id="@+id/tvEventTitle"
                 android:layout_width="wrap_content"
@@ -93,20 +77,92 @@
                 android:textColor="@android:color/black"
                 tools:text="Event Title" />
 
+            <LinearLayout
+                android:id="@+id/lytEventEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvEventTitle"
+                android:padding="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnEdit"
+                    android:layout_width="0dip"
+                    android:layout_weight="0.5"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/shape_button_white"
+                    android:textColor="@color/colorPrimary"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:text="@string/edit_post" />
+
+                <Button
+                    android:id="@+id/btnDelete"
+                    android:layout_width="0dip"
+                    android:layout_weight="0.5"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/shape_button_white"
+                    android:textColor="@color/colorAccent"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:text="@string/delete_post" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lytEventJoin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvEventTitle"
+                android:padding="10dp"
+                android:visibility="invisible"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnRequestJoin"
+                    android:layout_width="0dip"
+                    android:layout_weight="0.5"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/shape_button"
+                    android:textColor="@android:color/white"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:text="@string/joined" />
+
+                <Button
+                    android:id="@+id/btnChat"
+                    android:layout_width="0dip"
+                    android:layout_weight="0.5"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/shape_button_white"
+                    android:textColor="@color/colorPrimary"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:text="@string/chat_organizer" />
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/tvEventNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvEventTitle"
+                android:layout_below="@id/lytEventJoin"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                tools:text="@tools:sample/lorem" />
+                tools:text="@tools:sample/lorem/random"
+                tools:maxLines="7"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.2dp"
                 android:layout_below="@id/tvEventNote"
-                android:layout_marginTop="10dp"
+                android:layout_margin="10dp"
                 android:background="@color/colorMuted" />
 
             <TextView
@@ -138,7 +194,6 @@
                 android:layout_below="@id/tvMountName"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textColor="@android:color/black"
                 tools:text="Mount Location" />
 
             <TextView

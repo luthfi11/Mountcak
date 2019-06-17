@@ -24,8 +24,8 @@
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary"
         android:elevation="0dp"
-        android:onClick="onClick"
-        android:theme="@style/AppTheme.AppBarOverlay" >
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:onClick="onClick" >
 
         <TextView
             android:id="@+id/tvFriendName"
@@ -56,6 +56,7 @@
             android:hint="@string/type_a_message"
             android:background="@android:color/white"
             android:padding="10dp"
+            android:layout_marginTop="0.5dp"
             android:textSize="15sp"
             tools:ignore="Autofill" />
 

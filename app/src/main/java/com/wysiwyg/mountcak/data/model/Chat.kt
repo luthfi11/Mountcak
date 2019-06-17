@@ -7,6 +7,7 @@ data class Chat(
     val msgContent: String? = null,
     val timeStamp: Long? = null,
     val read: Boolean? = false,
-    val isJoinMsg: Boolean? = false,
-    val joinId: String? = null
+    val joinMsg: Boolean? = false,
+    val joinId: String? = null,
+    val eventId: String? = null
 )

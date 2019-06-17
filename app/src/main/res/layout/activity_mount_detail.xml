@@ -60,13 +60,15 @@
                 android:layout_below="@id/tvMountName"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                tools:text="@tools:sample/lorem" />
+                tools:text="@tools:sample/lorem/random"
+                tools:maxLines="10"/>
 
             <View
+                android:id="@+id/view1"
                 android:layout_width="match_parent"
                 android:layout_height="0.2dp"
                 android:layout_below="@id/tvMountDesc"
-                android:layout_marginTop="10dp"
+                android:layout_margin="10dp"
                 android:background="@color/colorMuted" />
 
             <TextView
@@ -76,8 +78,7 @@
                 android:textSize="12sp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_below="@id/tvMountDesc"
+                android:layout_below="@id/view1"
                 android:textColor="@color/colorPrimary"
                 android:text="@string/location" />
 
@@ -187,8 +188,8 @@
                     android:layout_weight="0.5"
                     android:layout_height="35dp"
                     android:layout_marginStart="6dp"
-                    android:background="@drawable/shape_button"
-                    android:textColor="@android:color/white"
+                    android:background="@drawable/shape_button_white"
+                    android:textColor="@color/colorPrimary"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:text="@string/view_photo" />
@@ -200,8 +201,8 @@
                     android:layout_height="35dp"
                     android:layout_marginStart="6dp"
                     android:layout_marginEnd="6dp"
-                    android:background="@drawable/shape_button"
-                    android:textColor="@android:color/white"
+                    android:background="@drawable/shape_button_white"
+                    android:textColor="@color/colorPrimary"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:text="@string/view_instagram" />

@@ -2,6 +2,7 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvEvent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="12dp"
@@ -14,6 +15,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="10dp"
         android:background="@drawable/shape_card" >
 
         <ImageView
@@ -169,33 +171,6 @@
             android:textSize="26sp"
             android:textColor="@color/colorPrimary"
             tools:text="12"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvParticipant"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnInterested"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:textColor="@color/colorPrimary"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:text="@string/iam_interested" />
-
-            <Button
-                android:id="@+id/btnDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:textColor="@color/blueGray1"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:text="@string/more_info" />
-
-        </LinearLayout>
 
     </RelativeLayout>
 
