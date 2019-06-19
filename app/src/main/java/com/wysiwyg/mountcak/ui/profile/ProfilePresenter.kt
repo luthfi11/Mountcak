@@ -38,8 +38,8 @@ class ProfilePresenter(private val view: ProfileView) {
             override fun onDataChange(p0: DataSnapshot) {
                 try {
                     val event: MutableList<Event?> = mutableListOf()
-                    for (data: DataSnapshot in p0.children) {
-                        val e = data.getValue(Event::class.java)
+                    p0.children.forEach {
+                        val e = it.getValue(Event::class.java)
                         event.add(e)
                     }
                     event.reverse()

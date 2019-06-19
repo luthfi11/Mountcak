@@ -194,7 +194,20 @@
                 android:layout_below="@id/tvMountName"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                tools:text="Mount Location" />
+                android:layout_marginEnd="30dp"
+                tools:text="@tools:sample/lorem/random"
+                tools:maxLines="2"/>
+
+            <ImageButton
+                android:id="@+id/btnMountDetail"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/tv1"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_arrow_forward"
+                android:contentDescription="@string/appname"
+                style="@style/Widget.AppCompat.Button.Borderless"/>
 
             <TextView
                 android:id="@+id/tv2"
@@ -219,6 +232,15 @@
                 tools:text="11 May - 13 May 2019" />
 
             <TextView
+                android:id="@+id/tvDayLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvDate"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                tools:text="10 Days Left" />
+
+            <TextView
                 android:id="@+id/tv3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -226,7 +248,7 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:layout_marginTop="10dp"
-                android:layout_below="@id/tvDate"
+                android:layout_below="@id/tvDayLeft"
                 android:textColor="@color/colorPrimary"
                 android:text="@string/max_participants" />
 
@@ -241,6 +263,15 @@
                 tools:text="50 Participants" />
 
             <TextView
+                android:id="@+id/tvJoinedCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvMaxPar"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                tools:text="20 People Joined" />
+
+            <TextView
                 android:id="@+id/tv4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -248,7 +279,7 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:layout_marginTop="10dp"
-                android:layout_below="@id/tvMaxPar"
+                android:layout_below="@id/tvJoinedCount"
                 android:textColor="@color/colorPrimary"
                 android:text="@string/trip_cost" />
 

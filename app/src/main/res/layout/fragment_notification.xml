@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/srlNotif"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.notification.NotificationFragment">
+    android:layout_height="match_parent" >
 
-</FrameLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvNotif"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_notification"
+        android:paddingBottom="60dp"
+        android:clipToPadding="false" />
+
+</android.support.v4.widget.SwipeRefreshLayout>

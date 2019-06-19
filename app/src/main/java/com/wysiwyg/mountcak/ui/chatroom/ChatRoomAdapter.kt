@@ -52,6 +52,7 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) : RecyclerView.Adap
                 itemView.viewOutgoing.gone()
                 itemView.viewIncoming.gone()
                 checkJoin(chat.eventId, chat.joinId)
+                getParticipantCount(chat.eventId)
                 if (chat.senderId == FirebaseUtil.currentUser()) {
                     itemView.viewJoin.gone()
                     itemView.viewJoinMe.visible()
@@ -105,9 +106,29 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) : RecyclerView.Adap
             itemView.tvTime.gone()
         }
 
+        private var participant: Int? = null
+        private fun getParticipantCount(eid: String?) {
+            val db = FirebaseDatabase.getInstance().reference
+            db.child("event").child(eid!!).child("joinedParticipant").addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(p0: DataSnapshot) {
+                    try {
+                        participant = p0.getValue(Int::class.java)
+                    } catch (ex: Exception) {
+                        ex.printStackTrace()
+                    }
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+
+                }
+            })
+        }
+
         private fun confirmReq(eid: String?, joinId: String?, stat: Int) {
             val db = FirebaseDatabase.getInstance().reference
             db.child("join").child(eid!!).child(joinId!!).child("status").setValue(stat)
+            db.child("join").child(eid).child(joinId).child("confirmTime").setValue(System.currentTimeMillis())
+            db.child("event").child(eid).child("joinedParticipant").setValue(participant?.plus(1))
         }
 
         private fun cancelRequest(eid: String?, joinId: String?) {

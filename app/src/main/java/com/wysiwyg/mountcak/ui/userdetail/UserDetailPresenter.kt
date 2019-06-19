@@ -19,7 +19,6 @@ class UserDetailPresenter(private val view: UserDetailView) {
             try {
                 val user = p0.getValue(User::class.java)
                 view.showUserData(user)
-                Log.d("HAHAHAHAH", user?.name)
                 getUserPost(user?.id)
             } catch (ex: Exception) {
                 ex.printStackTrace()
@@ -36,8 +35,8 @@ class UserDetailPresenter(private val view: UserDetailView) {
             override fun onDataChange(p0: DataSnapshot) {
                 try {
                     val event: MutableList<Event?> = mutableListOf()
-                    for (data: DataSnapshot in p0.children) {
-                        val e = data.getValue(Event::class.java)
+                    p0.children.forEach {
+                        val e = it.getValue(Event::class.java)
                         event.add(e)
                     }
                     event.reverse()

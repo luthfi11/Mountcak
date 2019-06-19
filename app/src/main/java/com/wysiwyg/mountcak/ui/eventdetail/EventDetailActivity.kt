@@ -10,6 +10,7 @@ import com.wysiwyg.mountcak.data.model.Mount
 import com.wysiwyg.mountcak.data.model.User
 import com.wysiwyg.mountcak.ui.chatroom.ChatRoomActivity
 import com.wysiwyg.mountcak.ui.editevent.EditEventActivity
+import com.wysiwyg.mountcak.ui.mountdetail.MountDetailActivity
 import com.wysiwyg.mountcak.ui.userdetail.UserDetailActivity
 import com.wysiwyg.temanolga.utilities.gone
 import com.wysiwyg.temanolga.utilities.invisible
@@ -42,7 +43,9 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
         tvEventNote.text = event?.eventNote
         tvMeetLoc.text = event?.meetLocation
         tvDate.text = presenter.checkDate(event?.dateStart, event?.dateEnd)
+        tvDayLeft.text = presenter.checkDayLeft(event?.dateStart)
         tvMaxPar.text = String.format(getString(R.string.participant_count), event?.maxParticipant)
+        tvJoinedCount.text = String.format(getString(R.string.participant_joined), event?.joinedParticipant)
 
         presenter.checkCost(event?.cost, tvCost)
     }
@@ -53,6 +56,8 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
         Glide.with(this).load(mount?.cover).placeholder(R.color.colorMuted).into(imgMount)
         tvMountName.text = mount?.mountName
         tvLocation.text = mount?.location
+
+        btnMountDetail.onClick { startActivity<MountDetailActivity>("mountId" to mount?.id) }
     }
 
     override fun showUserData(user: User?) {
@@ -104,7 +109,7 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
         alert {
             titleResource = R.string.cancel_join
             isCancelable = false
-            yesButton { presenter.cancelRequest(id) }
+            yesButton { presenter.cancelJoin(id) }
             noButton { it.dismiss() }
         }.show()
     }

@@ -17,8 +17,8 @@ class ChatRoomPresenter(private val view: ChatRoomView, private val friendId: St
         override fun onDataChange(p0: DataSnapshot) {
             try {
                 val chat: MutableList<Chat?> = mutableListOf()
-                for (data: DataSnapshot in p0.children) {
-                    val c = data.getValue(Chat::class.java)
+                p0.children.forEach {
+                    val c = it.getValue(Chat::class.java)
                     chat.add(c)
                 }
                 view.showChat(chat)
@@ -36,10 +36,10 @@ class ChatRoomPresenter(private val view: ChatRoomView, private val friendId: St
     private val readListener = object : ValueEventListener {
         override fun onDataChange(p0: DataSnapshot) {
             try {
-                for (data: DataSnapshot in p0.children) {
-                    val id = data.child("senderId").getValue(String::class.java)
+                p0.children.forEach {
+                    val id = it.child("senderId").getValue(String::class.java)
                     if (id != uid) {
-                        val msgId = data.child("id").getValue(String::class.java)!!
+                        val msgId = it.child("id").getValue(String::class.java)!!
                         readRef.child(msgId).child("read").setValue(true)
                     }
                 }
@@ -57,10 +57,10 @@ class ChatRoomPresenter(private val view: ChatRoomView, private val friendId: St
     private val readListenerFriend = object : ValueEventListener {
         override fun onDataChange(p0: DataSnapshot) {
             try {
-                for (data: DataSnapshot in p0.children) {
-                    val id = data.child("receiverId").getValue(String::class.java)
+                p0.children.forEach {
+                    val id = it.child("receiverId").getValue(String::class.java)
                     if (id == uid) {
-                        val msgId = data.child("id").getValue(String::class.java)!!
+                        val msgId = it.child("id").getValue(String::class.java)!!
                         readRefFriend.child(msgId).child("read").setValue(true)
                     }
                 }

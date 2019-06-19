@@ -1,19 +1,15 @@
 package com.wysiwyg.mountcak.util
 
 import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.content.Context
 import android.text.format.DateUtils
-import android.view.View
 import android.widget.EditText
-import android.widget.TextView
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
 object DateUtil {
 
-    fun datePicker(editText: EditText, context: Context, minDate: Long){
+    fun datePicker(editText: EditText, context: Context, minDate: Long) {
         val c = Calendar.getInstance()
         val day = c.get(Calendar.DAY_OF_MONTH)
         val month = c.get(Calendar.MONTH)

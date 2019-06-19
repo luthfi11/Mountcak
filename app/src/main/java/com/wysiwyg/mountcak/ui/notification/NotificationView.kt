@@ -1,5 +1,9 @@
 package com.wysiwyg.mountcak.ui.notification
 
-interface NotificationView {
+import com.wysiwyg.mountcak.data.model.Join
 
+interface NotificationView {
+    fun showLoading()
+    fun hideLoading()
+    fun showNotification(join : List<Join?>)
 }

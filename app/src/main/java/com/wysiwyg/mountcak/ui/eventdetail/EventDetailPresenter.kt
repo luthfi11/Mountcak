@@ -1,6 +1,9 @@
 package com.wysiwyg.mountcak.ui.eventdetail
 
+import android.graphics.Color
+import android.text.SpannableString
 import android.widget.TextView
+import color
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -9,7 +12,9 @@ import com.google.firebase.database.ValueEventListener
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.*
 import com.wysiwyg.mountcak.util.DateUtil
+import com.wysiwyg.mountcak.util.DateUtil.dateToLong
 import org.jetbrains.anko.textResource
+import spannable
 import java.text.NumberFormat
 import java.util.*
 
@@ -17,6 +22,7 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
 
     private val db = FirebaseDatabase.getInstance().reference
     private val user = FirebaseAuth.getInstance().currentUser!!.uid
+    private var participant: Int? = null
 
     private fun checkSender(event: Event) {
         if (event.userId == user) view.showOwnPost(event)
@@ -38,6 +44,8 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
                 userData(event.userId!!)
                 checkSender(event)
                 checkIsJoin()
+
+                participant = event.joinedParticipant
             } catch (ex: Exception) {
                 ex.printStackTrace()
                 view.eventNotFound()
@@ -120,6 +128,17 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
             DateUtil.dateFormat(dateStart, "EEEE, dd MMMM") + " - " + DateUtil.dateFormat(dateEnd, "EEEE, dd MMMM yyyy")
     }
 
+    fun checkDayLeft(dateStart: String?): SpannableString {
+        val diff = dateToLong(dateStart!!) - System.currentTimeMillis()
+        val day = (diff / (24 * 60 * 60 * 1000) + 1).toInt()
+
+        return when {
+            day < 0 -> spannable{ color(Color.RED, "Trip Has Ended") }
+            day == 1 -> spannable{ color(Color.parseColor("#808080"),  "Tomorrow") }
+            else -> spannable{ color(Color.parseColor("#808080"),  "$day Days Left") }
+        }
+    }
+
     fun checkCost(cost: Int?, tv: TextView) {
         return if (cost == 0) {
             tv.textResource = R.string.free
@@ -137,7 +156,7 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
                 "Hello, I want to join your trip to $mountName. Please respond my request immediately. Thank you."
             val joinId = db.child("join").push().key!!
 
-            db.child("join").child(eid).child(joinId).setValue(Join(joinId, eid, uid, user, 2, ts))
+            db.child("join").child(eid).child(joinId).setValue(Join(joinId, eid, uid, user, 2, ts, ts))
                 .addOnSuccessListener {
                     val chatId = db.child("chat").child(user).child(uid!!).push().key!!
                     val chat = Chat(chatId, user, uid, msgContent, ts, false, true, joinId, eid)
@@ -160,6 +179,12 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
 
     fun cancelRequest(joinId: String?) {
         db.child("join").child(eid).child(joinId!!).removeValue()
+    }
+
+    fun cancelJoin(joinId: String?) {
+        cancelRequest(joinId)
+        val newPar = participant?.minus(1)
+        db.child("event").child(eid).child("joinedParticipant").setValue(newPar)
     }
 
     fun deletePost() {

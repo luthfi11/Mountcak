@@ -14,5 +14,6 @@ data class Event (
     val eventNote: String? = null,
     val cost: Int? = 0,
     val maxParticipant: Int? = 0,
-    val meetLocation: String? = null
+    val meetLocation: String? = null,
+    val joinedParticipant: Int? = 0
 ) : Parcelable

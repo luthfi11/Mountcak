@@ -17,14 +17,14 @@ class MessagePresenter(private val view: MessageView) {
 
         }
 
-        override fun onDataChange(chatSnapshot: DataSnapshot) {
+        override fun onDataChange(p0: DataSnapshot) {
             try {
                 view.hideLoading()
                 val chatList: MutableList<Chat?> = mutableListOf()
                 var chat: Chat? = null
-                for (dt: DataSnapshot in chatSnapshot.children) {
-                    for (dt2: DataSnapshot in dt.children) {
-                        chat = dt2.getValue(Chat::class.java)
+                p0.children.forEach {
+                    it.children.forEach { data ->
+                        chat = data.getValue(Chat::class.java)
                     }
                     chatList.add(chat)
                 }

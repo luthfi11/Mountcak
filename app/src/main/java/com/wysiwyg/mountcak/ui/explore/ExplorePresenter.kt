@@ -17,8 +17,8 @@ class ExplorePresenter(private val view: ExploreView) {
             override fun onDataChange(p0: DataSnapshot) {
                 try {
                     val mount: MutableList<Mount?> = mutableListOf()
-                    for (data: DataSnapshot in p0.children) {
-                        val m = data.getValue(Mount::class.java)
+                    p0.children.forEach {
+                        val m = it.getValue(Mount::class.java)
                         mount.add(m)
                     }
                     view.hideLoading()

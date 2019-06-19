@@ -107,6 +107,10 @@
     <string name="delete_post">Delete Post</string>
     <string name="delete_hint">Delete this post ?</string>
 
+    <string name="notification_title">%1s has %2s your request to join %3s trip.</string>
+    <string name="participant_joined">%s People Joined</string>
+    <string name="days_left">Days Left</string>
+
     <array name="example">
         <item>Example</item>
     </array>

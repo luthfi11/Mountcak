@@ -15,8 +15,8 @@ class SearchPresenter(private val view: SearchView) {
         override fun onDataChange(p0: DataSnapshot) {
             try {
                 val mount: MutableList<Mount?> = mutableListOf()
-                for (data: DataSnapshot in p0.children) {
-                    val m = data.getValue(Mount::class.java)
+                p0.children.forEach {
+                    val m = it.getValue(Mount::class.java)
                     if (m?.mountName?.contains(name, true)!!)
                         mount.add(m)
                 }
