@@ -21,14 +21,13 @@
         android:id="@+id/viewJoin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp">
+        android:layout_marginBottom="4dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgSenderJoin"
             android:layout_width="35dp"
             android:layout_height="35dp"
             app:civ_border_color="@color/colorMuted"
-            android:layout_centerVertical="true"
             android:layout_marginStart="6dp"
             app:civ_border_width="1dp"
             app:civ_fill_color="@android:color/white"
@@ -109,7 +108,7 @@
         android:id="@+id/viewJoinMe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp">
+        android:layout_marginBottom="4dp">
 
         <TextView
             android:id="@+id/tvReadJoin"
@@ -157,7 +156,7 @@
                 android:layout_height="0.3dp"
                 android:layout_below="@id/tvJoinMsgMe"
                 android:layout_marginBottom="3dp"
-                android:background="@color/colorPrimaryDark"/>
+                android:background="@android:color/darker_gray"/>
 
             <Button
                 android:id="@+id/btnCancelMe"
@@ -188,7 +187,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
-        android:layout_marginBottom="2dp">
+        android:layout_marginBottom="4dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgSender"
@@ -249,7 +248,7 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/tvMessageOut"
             android:layout_alignBottom="@id/tvMessageOut"
-            android:layout_marginBottom="2dp"
+            android:layout_marginBottom="4dp"
             android:textSize="12sp"
             tools:text="10:43" />
 

@@ -64,6 +64,7 @@ class EditEventActivity: AppCompatActivity(), EditEventView, View.OnClickListene
         setContentView(R.layout.activity_add_event)
         setSupportActionBar(toolbarAddEvent)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
         tvTitle.textResource = R.string.edit_post
 
         event = intent.getParcelableExtra("event")

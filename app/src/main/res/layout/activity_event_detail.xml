@@ -8,7 +8,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="30dp" >
 
         <ProgressBar
             android:id="@+id/progressEvent"
@@ -21,8 +22,7 @@
         <RelativeLayout
             android:id="@+id/eventContent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="20dp">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/imgMount"
@@ -36,9 +36,9 @@
                 android:id="@+id/tvUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_alignBottom="@id/imgMount"
                 android:layout_marginBottom="10dp"
-                android:layout_marginStart="16dp"
                 android:textSize="16sp"
                 android:textColor="@android:color/white"
                 tools:text="User Name" />
@@ -48,7 +48,7 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_above="@id/tvUsername"
-                android:layout_marginStart="16dp"
+                android:layout_centerHorizontal="true"
                 app:civ_border_color="@color/colorPrimary"
                 app:civ_border_width="2dp"
                 app:civ_fill_color="@android:color/white"

@@ -51,8 +51,13 @@ class MountAdapter(private val mounts: MutableList<Mount?>) : RecyclerView.Adapt
             itemView.tvHeight.text = mount?.height
             itemView.tvCity.text = String.format(itemView.context.getString(R.string.mount_location), mount?.city, mount?.region)
 
-            itemView.btnDetail.onClick {
-                itemView.context.startActivity<MountDetailActivity>("mountId" to mount?.id)
+            itemView.btnDetail.toDetail(mount?.id)
+            itemView.viewMount.toDetail(mount?.id)
+        }
+
+        fun View.toDetail(id: Int?) {
+            onClick {
+                itemView.context.startActivity<MountDetailActivity>("mountId" to id)
             }
         }
     }

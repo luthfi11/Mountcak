@@ -23,6 +23,10 @@ import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.item_chat_room.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.selector
+import org.jetbrains.anko.textColorResource
+import org.jetbrains.anko.textResource
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ChatRoomAdapter(private val chats: MutableList<Chat?>) : RecyclerView.Adapter<ChatRoomAdapter.ViewHolder>() {
 
@@ -51,8 +55,9 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) : RecyclerView.Adap
             if (chat?.joinMsg == true) {
                 itemView.viewOutgoing.gone()
                 itemView.viewIncoming.gone()
+                getEventData(chat.eventId)
                 checkJoin(chat.eventId, chat.joinId)
-                getParticipantCount(chat.eventId)
+
                 if (chat.senderId == FirebaseUtil.currentUser()) {
                     itemView.viewJoin.gone()
                     itemView.viewJoinMe.visible()
@@ -62,9 +67,11 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) : RecyclerView.Adap
 
                     if (chat.read == true) itemView.tvReadJoin.visible()
                     else itemView.tvReadJoin.invisible()
+
                 } else {
                     itemView.viewJoin.visible()
                     itemView.viewJoinMe.gone()
+                    FirebaseUtil.getUserData(itemView.context, chat.senderId!!, null, itemView.imgSenderJoin)
                     itemView.tvJoinMsg.text = chat.msgContent
                     itemView.tvJoinTime.text = DateUtil.timeFormat("HH:mm", chat.timeStamp!!)
                     itemView.btnAccept.onClick { confirmReq(chat.eventId, chat.joinId, 1) }
@@ -106,13 +113,18 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) : RecyclerView.Adap
             itemView.tvTime.gone()
         }
 
+        private var maxPar: Int? = null
         private var participant: Int? = null
-        private fun getParticipantCount(eid: String?) {
+        private var eventDate: String? = null
+        private fun getEventData(eid: String?) {
             val db = FirebaseDatabase.getInstance().reference
-            db.child("event").child(eid!!).child("joinedParticipant").addValueEventListener(object : ValueEventListener{
+            db.child("event").child(eid!!).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     try {
-                        participant = p0.getValue(Int::class.java)
+                        maxPar = p0.child("maxParticipant").getValue(Int::class.java)
+                        participant = p0.child("joinedParticipant").getValue(Int::class.java)
+                        eventDate = p0.child("dateStart").getValue(String::class.java)
+
                     } catch (ex: Exception) {
                         ex.printStackTrace()
                     }
@@ -142,12 +154,24 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) : RecyclerView.Adap
                 override fun onDataChange(p0: DataSnapshot) {
                     try {
                         if (p0.exists()) {
-                            val data = p0.getValue(Join::class.java)
-                            when (data?.status) {
-                                0 -> showConfirm(R.string.declined)
-                                1 -> showConfirm(R.string.accepted)
+                            val parseDate: Date = SimpleDateFormat("dd/MM/yy", Locale.getDefault()).parse(eventDate)
+                            if (Date().after(parseDate)) showConfirm(R.string.expired, android.R.color.darker_gray)
+
+                            else {
+                                if (participant!! >= maxPar!!) showConfirm(R.string.waiting_list, android.R.color.darker_gray)
+
+                                else {
+                                    val data = p0.getValue(Join::class.java)
+                                    when (data?.status) {
+                                        0 -> showConfirm(R.string.declined, android.R.color.holo_red_light)
+                                        1 -> showConfirm(R.string.accepted, R.color.colorPrimary)
+                                        2 -> showDefault()
+                                    }
+                                }
                             }
-                        } else showConfirm(R.string.cancelled)
+
+                        } else showConfirm(R.string.cancelled, android.R.color.darker_gray)
+
                     } catch (ex: Exception) {
                         ex.printStackTrace()
                     }
@@ -176,14 +200,24 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) : RecyclerView.Adap
             }
         }
 
-        private fun showConfirm(text: Int) {
+        private fun showDefault() {
+            itemView.btnCancelMe.visible()
+            itemView.btnAccept.visible()
+            itemView.btnDecline.visible()
+            itemView.tvConfirmed.gone()
+            itemView.tvConfirmedMe.gone()
+        }
+
+        private fun showConfirm(text: Int, color: Int) {
             itemView.btnCancelMe.gone()
             itemView.btnAccept.gone()
             itemView.btnDecline.gone()
             itemView.tvConfirmed.visible()
             itemView.tvConfirmedMe.visible()
-            itemView.tvConfirmed.text = itemView.context.getString(text)
-            itemView.tvConfirmedMe.text = itemView.context.getString(text)
+            itemView.tvConfirmed.textResource = text
+            itemView.tvConfirmedMe.textResource = text
+            itemView.tvConfirmed.textColorResource = color
+            itemView.tvConfirmedMe.textColorResource = color
         }
     }
 }

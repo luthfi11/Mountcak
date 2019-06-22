@@ -20,4 +20,5 @@ interface EventDetailView {
     fun cancelDialog(id: String?)
     fun deleteDialog()
     fun eventNotFound()
+    fun disableRequest()
 }

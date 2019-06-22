@@ -87,7 +87,7 @@
     <string name="edit_post">Edit Post</string>
 
     <string name="event_date">%1s - %2s</string>
-    <string name="participant_count">%d Participant</string>
+    <string name="participant_count">%1d Participants</string>
     <string name="mount_location">%1s, %2s</string>
     <string name="type_a_message">Type a message</string>
     <string name="decline">Decline</string>
@@ -108,8 +108,11 @@
     <string name="delete_hint">Delete this post ?</string>
 
     <string name="notification_title">%1s has %2s your request to join %3s trip.</string>
-    <string name="participant_joined">%s People Joined</string>
+    <string name="participant_joined">%1$d People Joined, , %2$d Place Left</string>
     <string name="days_left">Days Left</string>
+    <string name="favorite">Favorite</string>
+    <string name="expired">Expired</string>
+    <string name="waiting_list">Waiting List</string>
 
     <array name="example">
         <item>Example</item>

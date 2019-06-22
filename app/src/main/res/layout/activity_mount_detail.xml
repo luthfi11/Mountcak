@@ -42,6 +42,18 @@
                 android:theme="@style/AppTheme.AppBarOverlay"
                 app:layout_scrollFlags="scroll|enterAlways|snap" />
 
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabFav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/imgMountDetail"
+                android:layout_alignEnd="@id/imgMountDetail"
+                android:layout_marginBottom="-26dp"
+                android:layout_marginEnd="16dp"
+                app:backgroundTint="@color/colorPrimary"
+                app:fabSize="normal"
+                app:srcCompat="@drawable/ic_favorite_border" />
+
             <TextView
                 android:id="@+id/tvMountName"
                 android:layout_width="wrap_content"
@@ -236,7 +248,7 @@
                 android:layout_height="200dp"
                 android:layout_below="@id/tvRoute"
                 android:layout_marginTop="10dp"
-                app:mapbox_styleUrl="@string/mapbox_style_outdoors" />
+                app:mapbox_styleUrl="@string/mapbox_style_traffic_day" />
 
         </RelativeLayout>
     </RelativeLayout>

@@ -24,7 +24,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbarUser"
@@ -41,7 +41,9 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_below="@id/toolbarUser"
-                    android:layout_margin="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="12dp"
                     tools:src="@tools:sample/avatars"
                     app:civ_border_color="@color/colorPrimaryDark"
                     app:civ_border_width="2dp"
@@ -52,11 +54,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/toolbarUser"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="12dp"
                     android:layout_toEndOf="@id/imgAva"
                     tools:text="Luthfi Alfarisi"
                     android:textColor="@android:color/white"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/tvCity"
@@ -70,11 +73,10 @@
                 <TextView
                     android:id="@+id/tvPost"
                     android:layout_below="@id/tvCity"
-                    android:layout_toEndOf="@id/imgAva"
+                    android:layout_toStartOf="@id/tvTrip"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginStart="-12dp"
+                    android:layout_marginTop="20dp"
                     android:gravity="center"
                     android:textColor="@color/colorSemiWhite"
                     android:text="@string/post" />
@@ -82,11 +84,10 @@
                 <TextView
                     android:id="@+id/tvPostCount"
                     android:layout_below="@id/tvPost"
-                    android:layout_toEndOf="@id/imgAva"
+                    android:layout_toStartOf="@id/tvTripCount"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:layout_marginStart="-12dp"
+                    android:textSize="20sp"
                     android:gravity="center"
                     android:textColor="@android:color/white"
                     android:text="12" />
@@ -94,10 +95,10 @@
                 <TextView
                     android:id="@+id/tvTrip"
                     android:layout_below="@id/tvCity"
-                    android:layout_toEndOf="@id/tvPost"
+                    android:layout_centerHorizontal="true"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="20dp"
                     android:gravity="center"
                     android:textColor="@color/colorSemiWhite"
                     android:text="@string/trip" />
@@ -105,10 +106,10 @@
                 <TextView
                     android:id="@+id/tvTripCount"
                     android:layout_below="@id/tvPost"
-                    android:layout_toEndOf="@id/tvPost"
+                    android:layout_centerHorizontal="true"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:gravity="center"
                     android:textColor="@android:color/white"
                     android:text="7" />
@@ -119,7 +120,7 @@
                     android:layout_toEndOf="@id/tvTrip"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="20dp"
                     android:gravity="center"
                     android:textColor="@color/colorSemiWhite"
                     android:text="@string/like" />
@@ -130,7 +131,7 @@
                     android:layout_toEndOf="@id/tvTrip"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:gravity="center"
                     android:textColor="@android:color/white"
                     android:text="102" />
@@ -171,7 +172,7 @@
             <android.support.design.widget.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Favorite" />
+                android:text="@string/favorite" />
 
         </android.support.design.widget.TabLayout>
 
@@ -194,5 +195,16 @@
             tools:listitem="@layout/item_event" />
 
     </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_anchor="@id/appbar"
+        app:layout_anchorGravity="bottom|end"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_chat" />
 
 </android.support.design.widget.CoordinatorLayout>

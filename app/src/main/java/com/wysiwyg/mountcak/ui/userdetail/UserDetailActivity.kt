@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Event
 import com.wysiwyg.mountcak.data.model.User
+import com.wysiwyg.mountcak.ui.chatroom.ChatRoomActivity
 import com.wysiwyg.mountcak.ui.home.EventAdapter
 import com.wysiwyg.mountcak.ui.viewphoto.ViewPhotoActivity
 import com.wysiwyg.temanolga.utilities.gone
@@ -64,6 +65,8 @@ class UserDetailActivity : AppCompatActivity(), UserDetailView {
 
         presenter = UserDetailPresenter(this)
         presenter.getUserData(uid)
+
+        fabChat.onClick { startActivity<ChatRoomActivity>("userId" to uid) }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

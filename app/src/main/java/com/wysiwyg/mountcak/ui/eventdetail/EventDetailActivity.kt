@@ -39,14 +39,15 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
     override fun showEventDetail(event: Event?) {
         postSender = event?.userId
 
+        if (event?.eventNote != "") tvEventNote.text = event?.eventNote
+        else tvEventNote.gone()
+
         tvEventTitle.text = event?.title
-        tvEventNote.text = event?.eventNote
         tvMeetLoc.text = event?.meetLocation
         tvDate.text = presenter.checkDate(event?.dateStart, event?.dateEnd)
         tvDayLeft.text = presenter.checkDayLeft(event?.dateStart)
         tvMaxPar.text = String.format(getString(R.string.participant_count), event?.maxParticipant)
-        tvJoinedCount.text = String.format(getString(R.string.participant_joined), event?.joinedParticipant)
-
+        tvJoinedCount.text = presenter.checkParticipant(event?.joinedParticipant, event?.maxParticipant)
         presenter.checkCost(event?.cost, tvCost)
     }
 
@@ -88,43 +89,55 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
     }
 
     override fun showIsRequested(id: String?) {
-        btnRequestJoin.textResource = R.string.requested
-        btnRequestJoin.textColorResource = android.R.color.black
-        btnRequestJoin.backgroundResource = R.drawable.shape_button_white
+        changeButton(R.string.requested, android.R.color.black, R.drawable.shape_button_white)
         btnRequestJoin.onClick { presenter.cancelRequest(id) }
     }
 
     override fun showIsJoined(id: String?) {
+        changeButton(R.string.joined, android.R.color.white, R.drawable.shape_button)
         btnRequestJoin.onClick { cancelDialog(id) }
     }
 
     override fun showDefault() {
-        btnRequestJoin.textResource = R.string.request_join
-        btnRequestJoin.textColorResource = R.color.colorPrimary
-        btnRequestJoin.backgroundResource = R.drawable.shape_button_white
+        changeButton(R.string.request_join, R.color.colorPrimary, R.drawable.shape_button_white)
         btnRequestJoin.onClick { presenter.requestJoin(postSender, mountName) }
     }
 
     override fun cancelDialog(id: String?) {
-        alert {
-            titleResource = R.string.cancel_join
-            isCancelable = false
-            yesButton { presenter.cancelJoin(id) }
-            noButton { it.dismiss() }
-        }.show()
+        viewDialog(R.string.cancel_join) {
+            presenter.cancelJoin(id)
+        }
     }
 
     override fun deleteDialog() {
-        alert {
-            titleResource = R.string.delete_hint
-            isCancelable = false
-            yesButton { presenter.deletePost() }
-            noButton { it.dismiss() }
-        }.show()
+        viewDialog(R.string.delete_hint) {
+            presenter.deletePost()
+        }
     }
 
     override fun eventNotFound() {
         finish()
+    }
+
+    override fun disableRequest() {
+        btnRequestJoin.isClickable = false
+        btnRequestJoin.textColorResource = android.R.color.darker_gray
+        btnRequestJoin.backgroundResource = R.drawable.shape_button_white
+    }
+
+    private fun changeButton(text: Int, color: Int, bg: Int) {
+        btnRequestJoin.textResource = text
+        btnRequestJoin.textColorResource = color
+        btnRequestJoin.backgroundResource = bg
+    }
+
+    private fun viewDialog(title: Int, action: () -> Unit) {
+        alert {
+            titleResource = title
+            isCancelable = false
+            yesButton { action() }
+            noButton { it.dismiss() }
+        }.show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

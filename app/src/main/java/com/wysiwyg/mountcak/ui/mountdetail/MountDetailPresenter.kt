@@ -1,14 +1,16 @@
 package com.wysiwyg.mountcak.ui.mountdetail
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.wysiwyg.mountcak.data.model.Mount
 
-class MountDetailPresenter(private val view: MountDetailView) {
+class MountDetailPresenter(private val view: MountDetailView, private val id: String) {
 
-    private val db = FirebaseDatabase.getInstance().reference.child("mount")
+    private val db = FirebaseDatabase.getInstance().reference
+    private val uid = FirebaseAuth.getInstance().currentUser?.uid!!
 
     private val mountListener = object : ValueEventListener {
         override fun onCancelled(p0: DatabaseError) {
@@ -28,6 +30,7 @@ class MountDetailPresenter(private val view: MountDetailView) {
                 sendMessage(mount?.contact)
                 getMap(mount?.longLat, mount?.mountName)
                 viewInstagram(mount?.instagram!!)
+                checkLike()
             } catch (ex: Exception) {
                 ex.printStackTrace()
             }
@@ -71,12 +74,33 @@ class MountDetailPresenter(private val view: MountDetailView) {
         view.onMapTouch()
     }
 
-    fun getMountDetail(id: Int) {
-        view.showLoading()
-        db.child(id.toString()).addValueEventListener(mountListener)
+    private fun checkLike() {
+        db.child("like").child(uid).child(id).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                if (p0.exists()) view.isLiked()
+                else view.isNotLiked()
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+        })
     }
 
-    fun onClose(id: Int) {
-        db.child(id.toString()).removeEventListener(mountListener)
+    fun getMountDetail() {
+        view.showLoading()
+        db.child("mount").child(id).addValueEventListener(mountListener)
+    }
+
+    fun likeMount() {
+        db.child("like").child(uid).child(id).setValue(id).addOnSuccessListener { view.isLiked() }
+    }
+
+    fun dislikeMount() {
+        db.child("like").child(uid).child(id).removeValue().addOnSuccessListener { view.isNotLiked() }
+    }
+
+    fun onClose() {
+        db.child("mount").child(id).removeEventListener(mountListener)
     }
 }

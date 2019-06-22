@@ -29,7 +29,7 @@ class MessagePresenter(private val view: MessageView) {
                     chatList.add(chat)
                 }
 
-                chatList.sortBy { it?.timeStamp }
+                chatList.sortByDescending { it?.timeStamp }
                 view.showMessageList(chatList)
             } catch (ex: Exception) {
                 ex.printStackTrace()

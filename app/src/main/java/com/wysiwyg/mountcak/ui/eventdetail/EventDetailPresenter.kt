@@ -11,11 +11,12 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.*
-import com.wysiwyg.mountcak.util.DateUtil
+import com.wysiwyg.mountcak.util.DateUtil.dateFormat
 import com.wysiwyg.mountcak.util.DateUtil.dateToLong
 import org.jetbrains.anko.textResource
 import spannable
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 class EventDetailPresenter(private val view: EventDetailView, private val eid: String) {
@@ -43,7 +44,7 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
                 mountData(event?.mountId!!)
                 userData(event.userId!!)
                 checkSender(event)
-                checkIsJoin()
+                checkIsJoin(event.dateStart!!, event.joinedParticipant!!, event.maxParticipant!!)
 
                 participant = event.joinedParticipant
             } catch (ex: Exception) {
@@ -88,7 +89,7 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
         })
     }
 
-    private fun checkIsJoin() {
+    private fun checkIsJoin(dateStart: String, par: Int, maxPar: Int) {
         db.child("join").child(eid).orderByChild("userReqId").equalTo(user)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
@@ -100,11 +101,15 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
                             }
 
                             when (data?.status) {
-                                0 -> view.showDefault()
+                                0 -> checkFull(par, maxPar) { view.showDefault() }
                                 1 -> view.showIsJoined(data?.id)
-                                2 -> view.showIsRequested(data?.id)
+                                2 -> checkFull(par, maxPar) { view.showIsRequested(data?.id) }
                             }
+
                         } else view.showDefault()
+
+                        checkExpire(dateStart)
+
                     } catch (ex: Exception) {
                         ex.printStackTrace()
                     }
@@ -116,6 +121,16 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
             })
     }
 
+    private fun checkExpire(dateStart: String) {
+        val parseDate: Date = SimpleDateFormat("dd/MM/yy", Locale.getDefault()).parse(dateStart)
+        if (Date().after(parseDate)) view.disableRequest()
+    }
+
+    private fun checkFull(par: Int, maxPar: Int, action: () -> Unit) {
+        if (par >= maxPar) view.disableRequest()
+        else action()
+    }
+
     fun getEventDetail() {
         view.showLoading()
         db.child("event").child(eid).addValueEventListener(eventListener)
@@ -123,20 +138,26 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
 
     fun checkDate(dateStart: String?, dateEnd: String?): String {
         return if (dateStart.equals(dateEnd))
-            DateUtil.dateFormat(dateEnd, "EEEE, dd MMMM yyyy")
+            dateFormat(dateEnd, "EEEE, dd MMMM yyyy")
         else
-            DateUtil.dateFormat(dateStart, "EEEE, dd MMMM") + " - " + DateUtil.dateFormat(dateEnd, "EEEE, dd MMMM yyyy")
+            dateFormat(dateStart, "EEEE, dd MMMM") + " - " + dateFormat(dateEnd, "EEEE, dd MMMM yyyy")
     }
 
     fun checkDayLeft(dateStart: String?): SpannableString {
-        val diff = dateToLong(dateStart!!) - System.currentTimeMillis()
+        val diff = dateToLong(dateStart!!) - System.currentTimeMillis() - 1000
         val day = (diff / (24 * 60 * 60 * 1000) + 1).toInt()
 
         return when {
-            day < 0 -> spannable{ color(Color.RED, "Trip Has Ended") }
-            day == 1 -> spannable{ color(Color.parseColor("#808080"),  "Tomorrow") }
-            else -> spannable{ color(Color.parseColor("#808080"),  "$day Days Left") }
+            day < 1 -> spannable { color(Color.RED, "Trip Has Ended") }
+            day == 1 -> spannable { color(Color.parseColor("#808080"), "Tomorrow") }
+            else -> spannable { color(Color.parseColor("#808080"), "$day Days Left") }
         }
+    }
+
+    fun checkParticipant(joined: Int?, maxPar: Int?): SpannableString {
+        val remain = maxPar!! - joined!!
+        return if (joined >= maxPar) spannable { color(Color.RED, "$joined People Joined, Quota Full") }
+        else spannable { color(Color.parseColor("#808080"), "$joined People Joined, $remain Place Left") }
     }
 
     fun checkCost(cost: Int?, tv: TextView) {

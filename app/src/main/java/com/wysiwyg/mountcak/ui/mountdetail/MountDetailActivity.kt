@@ -18,6 +18,7 @@ import com.wysiwyg.temanolga.utilities.gone
 import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.activity_mount_detail.*
 import org.jetbrains.anko.browse
+import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.sdk27.coroutines.onTouch
 import org.jetbrains.anko.startActivity
@@ -25,6 +26,7 @@ import org.jetbrains.anko.startActivity
 class MountDetailActivity : AppCompatActivity(), MountDetailView {
 
     private lateinit var presenter: MountDetailPresenter
+    private lateinit var linkGoogleMaps: String
 
     override fun showLoading() {
         progressMount.visible()
@@ -46,6 +48,8 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
         tvHeight.text = mount?.height
         tvContact.text = mount?.contact
         tvRoute.text = mount?.route
+
+        linkGoogleMaps = mount?.linkGMaps!!
     }
 
     override fun callNumber(number: String) {
@@ -87,21 +91,32 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
                     .position(LatLng(lat, long))
                     .title(title)
             )
+            mapboxMap.addOnMapClickListener {
+                browse(linkGoogleMaps)
+            }
         }
     }
 
     override fun onMapTouch() {
         placeMap.onTouch { _, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                scrollView.requestDisallowInterceptTouchEvent(true)
-            } else if (event.action == MotionEvent.ACTION_UP) {
-                scrollView.requestDisallowInterceptTouchEvent(false)
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> scrollView.requestDisallowInterceptTouchEvent(true)
+                MotionEvent.ACTION_UP -> scrollView.requestDisallowInterceptTouchEvent(false)
             }
         }
     }
 
     override fun hideInsta() {
         btnInsta.gone()
+    }
+
+    override fun isLiked() {
+        fabFav.imageResource = R.drawable.ic_favorite
+        fabFav.onClick { presenter.dislikeMount() }
+    }
+
+    override fun isNotLiked() {
+        fabFav.imageResource = R.drawable.ic_favorite_border
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -115,18 +130,17 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
 
         placeMap.onCreate(savedInstanceState)
 
-        presenter = MountDetailPresenter(this)
-        presenter.getMountDetail(mountId)
+        presenter = MountDetailPresenter(this, mountId.toString())
+        presenter.getMountDetail()
 
         //btnPhoto.onClick { presenter.viewPhoto(mount.linkPhotoGM!!, mount.mountName!!) }
+        fabFav.onClick { presenter.likeMount() }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         placeMap.onDestroy()
-
-        val mountId = intent.getIntExtra("mountId", 99)
-        presenter.onClose(mountId)
+        presenter.onClose()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

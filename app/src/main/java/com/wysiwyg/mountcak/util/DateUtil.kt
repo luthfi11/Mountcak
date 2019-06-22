@@ -52,14 +52,6 @@ object DateUtil {
         return sdf.format(Date(millis))
     }
 
-    fun minAgo(millis: String): String {
-        return DateUtils.getRelativeTimeSpanString(
-            millis.toLong(),
-            System.currentTimeMillis(),
-            DateUtils.SECOND_IN_MILLIS
-        ).toString()
-    }
-
     fun dayAgo(millis: Long): String {
         return DateUtils.getRelativeTimeSpanString(
             millis,
