@@ -1,6 +1,6 @@
 package com.wysiwyg.mountcak.ui.home
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +12,7 @@ import com.wysiwyg.mountcak.util.DateUtil.dateFormat
 import com.wysiwyg.mountcak.util.FirebaseUtil.getMountData
 import com.wysiwyg.mountcak.util.FirebaseUtil.getUserData
 import com.wysiwyg.temanolga.utilities.gone
+import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.item_event.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
@@ -99,6 +100,10 @@ class EventAdapter(private val events: MutableList<Event?>) : RecyclerView.Adapt
                 itemView.tvDayStart.gone()
                 itemView.tvMontStart.gone()
                 itemView.tvDiv.gone()
+            } else {
+                itemView.tvDayStart.visible()
+                itemView.tvMontStart.visible()
+                itemView.tvDiv.visible()
             }
         }
     }

@@ -13,6 +13,7 @@ import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.*
 import com.wysiwyg.mountcak.util.DateUtil.dateFormat
 import com.wysiwyg.mountcak.util.DateUtil.dateToLong
+import com.wysiwyg.mountcak.util.DateUtil.locale
 import org.jetbrains.anko.textResource
 import spannable
 import java.text.NumberFormat
@@ -94,6 +95,7 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     try {
+                        var status: Int? = null
                         if (p0.exists()) {
                             var data: Join? = null
                             p0.children.forEach {
@@ -101,15 +103,15 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
                             }
 
                             when (data?.status) {
-                                0 -> checkFull(par, maxPar) { view.showDefault() }
+                                0 -> view.showDefault()
                                 1 -> view.showIsJoined(data?.id)
-                                2 -> checkFull(par, maxPar) { view.showIsRequested(data?.id) }
+                                2 -> view.showIsRequested(data?.id)
                             }
 
+                            status = data?.status
                         } else view.showDefault()
 
-                        checkExpire(dateStart)
-
+                        checkExpire(dateStart, status, par, maxPar)
                     } catch (ex: Exception) {
                         ex.printStackTrace()
                     }
@@ -121,14 +123,13 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
             })
     }
 
-    private fun checkExpire(dateStart: String) {
-        val parseDate: Date = SimpleDateFormat("dd/MM/yy", Locale.getDefault()).parse(dateStart)
+    private fun checkExpire(dateStart: String, status: Int?, par: Int, maxPar: Int) {
+        val parseDate: Date = SimpleDateFormat("dd/MM/yy", locale).parse(dateStart)
         if (Date().after(parseDate)) view.disableRequest()
-    }
-
-    private fun checkFull(par: Int, maxPar: Int, action: () -> Unit) {
-        if (par >= maxPar) view.disableRequest()
-        else action()
+        else {
+            if (status != 1)
+                if (par >= maxPar) view.disableRequest()
+        }
     }
 
     fun getEventDetail() {
@@ -144,14 +145,13 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
     }
 
     fun checkDayLeft(dateStart: String?): SpannableString {
-        val diff = dateToLong(dateStart!!) - System.currentTimeMillis() - 1000
-        val day = (diff / (24 * 60 * 60 * 1000) + 1).toInt()
+        val diff = dateToLong(dateStart!!) - System.currentTimeMillis()
+        val day = (diff / (24 * 60 * 60 * 1000)).toInt()
+        val parseDate: Date = SimpleDateFormat("dd/MM/yy", locale).parse(dateStart)
 
-        return when {
-            day < 1 -> spannable { color(Color.RED, "Trip Has Ended") }
-            day == 1 -> spannable { color(Color.parseColor("#808080"), "Tomorrow") }
-            else -> spannable { color(Color.parseColor("#808080"), "$day Days Left") }
-        }
+        var span: SpannableString = spannable { color(Color.parseColor("#808080"), "${day + 1} Days Left") }
+        if (Date().after(parseDate)) span = spannable { color(Color.RED, "Trip Has Ended") }
+        return span
     }
 
     fun checkParticipant(joined: Int?, maxPar: Int?): SpannableString {

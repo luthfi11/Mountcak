@@ -1,7 +1,7 @@
 package com.wysiwyg.mountcak.ui.main
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.ui.home.HomeFragment
 import com.wysiwyg.mountcak.ui.login.LoginFragmentManager

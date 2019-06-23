@@ -1,7 +1,7 @@
 package com.wysiwyg.mountcak.ui.editevent
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View

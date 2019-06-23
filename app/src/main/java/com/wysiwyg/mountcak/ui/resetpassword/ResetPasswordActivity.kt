@@ -1,14 +1,12 @@
 package com.wysiwyg.mountcak.ui.resetpassword
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.util.LoadingDialog
 import com.wysiwyg.mountcak.util.ValidateUtil.emailValidate
 import com.wysiwyg.mountcak.util.ValidateUtil.etToString
-import com.wysiwyg.temanolga.utilities.gone
-import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.activity_reset_password.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.yesButton

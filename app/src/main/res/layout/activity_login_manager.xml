@@ -22,7 +22,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="30dp" />
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,17 +32,17 @@
             app:tabTextAppearance="@style/Base.TextAppearance.AppCompat.Small"
             app:tabTextColor="@android:color/tab_indicator_text" >
 
-            <android.support.design.widget.TabItem
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/login"/>
 
-            <android.support.design.widget.TabItem
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/signup"/>
 
-        </android.support.design.widget.TabLayout>
+        </com.google.android.material.tabs.TabLayout>
 
         <LinearLayout
             android:id="@+id/loginContent"

@@ -8,4 +8,5 @@ interface UserDetailView {
     fun hideLoading()
     fun showUserData(user: User?)
     fun showUserPost(event: List<Event?>)
+    fun showUserTrip(event: List<Event?>)
 }

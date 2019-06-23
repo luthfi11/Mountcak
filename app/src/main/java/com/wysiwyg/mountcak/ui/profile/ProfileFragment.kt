@@ -1,18 +1,23 @@
 package com.wysiwyg.mountcak.ui.profile
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.view.*
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import bold
 import com.bumptech.glide.Glide
+import com.google.android.material.tabs.TabLayout
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Event
+import com.wysiwyg.mountcak.data.model.Mount
 import com.wysiwyg.mountcak.data.model.User
 import com.wysiwyg.mountcak.ui.editprofile.EditProfileActivity
+import com.wysiwyg.mountcak.ui.explore.MountAdapter
 import com.wysiwyg.mountcak.ui.home.EventAdapter
 import com.wysiwyg.mountcak.ui.login.LoginFragmentManager
 import com.wysiwyg.mountcak.ui.viewphoto.ViewPhotoActivity
@@ -25,22 +30,28 @@ import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.browse
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.yesButton
+import plus
+import size
+import spannable
 
-class ProfileFragment : Fragment(), ProfileView {
+class ProfileFragment : Fragment(), ProfileView, TabLayout.OnTabSelectedListener {
 
     private lateinit var presenter: ProfilePresenter
     private lateinit var adapter: EventAdapter
+    private lateinit var mountAdapter: MountAdapter
     private val event: MutableList<Event?> = mutableListOf()
+    private val trip: MutableList<Event?> = mutableListOf()
+    private val mount: MutableList<Mount?> = mutableListOf()
     private var user: User? = null
 
     override fun showLoading() {
         progressProfile.visible()
-        rvUserEvent.gone()
+        rvProfile.gone()
     }
 
     override fun hideLoading() {
         progressProfile.gone()
-        rvUserEvent.visible()
+        rvProfile.visible()
     }
 
     override fun showData(user: User?) {
@@ -58,6 +69,24 @@ class ProfileFragment : Fragment(), ProfileView {
         this.event.clear()
         this.event.addAll(event)
         adapter.notifyDataSetChanged()
+
+        tabs.getTabAt(0)?.text = spannable { bold(size(1.4F,"${event.size}")) + "\nPost" }
+    }
+
+    override fun showTrip(event: List<Event?>) {
+        trip.clear()
+        trip.addAll(event)
+        adapter.notifyDataSetChanged()
+
+        tabs.getTabAt(1)?.text = spannable { bold(size(1.4F,"${event.size}")) + "\nTrip" }
+    }
+
+    override fun showMount(mount: List<Mount?>) {
+        this.mount.clear()
+        this.mount.addAll(mount)
+        mountAdapter.notifyDataSetChanged()
+
+        tabs.getTabAt(2)?.text = spannable { bold(size(1.4F,"${mount.size.plus(0)}")) + "\nFavorite" }
     }
 
     override fun doLogout() {
@@ -72,6 +101,31 @@ class ProfileFragment : Fragment(), ProfileView {
         }.show()
     }
 
+    override fun onTabReselected(p0: TabLayout.Tab?) {
+
+    }
+
+    override fun onTabUnselected(p0: TabLayout.Tab?) {
+
+    }
+
+    override fun onTabSelected(p0: TabLayout.Tab?) {
+        when (p0?.position) {
+            0 -> {
+                adapter = EventAdapter(event)
+                rvProfile.adapter = adapter
+            }
+            1 -> {
+                adapter = EventAdapter(trip)
+                rvProfile.adapter = adapter
+            }
+            2 -> {
+                mountAdapter = MountAdapter(mount)
+                rvProfile.adapter = mountAdapter
+            }
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
@@ -82,19 +136,29 @@ class ProfileFragment : Fragment(), ProfileView {
         setHasOptionsMenu(true)
 
         adapter = EventAdapter(event)
+        mountAdapter = MountAdapter(mount)
 
-        rvUserEvent.setHasFixedSize(true)
-        rvUserEvent.layoutManager = LinearLayoutManager(context)
-        rvUserEvent.adapter = adapter
+        rvProfile.setHasFixedSize(true)
+        rvProfile.layoutManager = LinearLayoutManager(context)
+        rvProfile.adapter = adapter
 
         presenter = ProfilePresenter(this)
-        presenter.getUserData()
-        presenter.getUserPost()
+
+        getData()
+        btnEditProfile.onClick { startActivity<EditProfileActivity>("user" to user) }
+        tabs.addOnTabSelectedListener(this)
     }
 
     override fun onResume() {
         super.onResume()
+        getData()
+    }
+
+    private fun getData() {
         presenter.getUserData()
+        presenter.getUserPost()
+        presenter.getUserTrip()
+        presenter.getUserFav()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -103,12 +167,9 @@ class ProfileFragment : Fragment(), ProfileView {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    @SuppressLint("InflateParams")
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when(item?.itemId) {
-            R.id.nav_edit -> {
-                startActivity<EditProfileActivity>("user" to user)
-                true
-            }
             R.id.nav_about -> {
                 val mDialogView = LayoutInflater.from(activity).inflate(R.layout.layout_about, null)
                 AlertDialog.Builder(context!!)
@@ -116,7 +177,7 @@ class ProfileFragment : Fragment(), ProfileView {
                     .show()
                 true
             }
-            R.id.nav_report -> {
+            R.id.nav_feedback -> {
                 val i = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:luthfialfarizi98@gmail.com"))
                 i.putExtra(Intent.EXTRA_SUBJECT,"Mountcak Feedback")
                 startActivity(i)

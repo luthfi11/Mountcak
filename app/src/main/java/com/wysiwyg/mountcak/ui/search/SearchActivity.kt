@@ -1,8 +1,8 @@
 package com.wysiwyg.mountcak.ui.search
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.MenuItem
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Mount
@@ -11,7 +11,7 @@ import com.wysiwyg.temanolga.utilities.gone
 import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.activity_search.*
 
-class SearchActivity : AppCompatActivity(), SearchView, android.support.v7.widget.SearchView.OnQueryTextListener {
+class SearchActivity : AppCompatActivity(), SearchView, androidx.appcompat.widget.SearchView.OnQueryTextListener {
 
     private lateinit var presenter: SearchPresenter
     private lateinit var adapter: MountAdapter

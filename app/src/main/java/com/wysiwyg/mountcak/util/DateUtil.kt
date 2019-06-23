@@ -9,6 +9,8 @@ import java.util.*
 
 object DateUtil {
 
+    val locale = Locale("in", "ID")
+
     fun datePicker(editText: EditText, context: Context, minDate: Long) {
         val c = Calendar.getInstance()
         val day = c.get(Calendar.DAY_OF_MONTH)
@@ -21,8 +23,7 @@ object DateUtil {
             c.timeInMillis = 0
             c.set(years, monthOfYear, dayOfMonth, 0, 0, 0)
             val chosenDate = c.time
-            val local = Locale("in", "ID")
-            val dateFormat = SimpleDateFormat("dd/MM/yy", local)
+            val dateFormat = SimpleDateFormat("dd/MM/yy", locale)
             val date = dateFormat.format(chosenDate)
             editText.setText(date)
 
@@ -33,22 +34,20 @@ object DateUtil {
     }
 
     fun dateFormat(date: String?, pattern: String): String {
-        val locale = Locale("in", "ID")
         val format = SimpleDateFormat("dd/MM/yy", locale)
-        val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+        val sdf = SimpleDateFormat(pattern, locale)
 
         return sdf.format(format.parse(date))
     }
 
     fun dateToLong(date: String): Long {
-        val locale = Locale("in", "ID")
         val format = SimpleDateFormat("dd/MM/yy", locale)
         val mDate = format.parse(date)
         return mDate.time
     }
 
     fun timeFormat(format: String, millis: Long): String {
-        val sdf = SimpleDateFormat(format, Locale.getDefault())
+        val sdf = SimpleDateFormat(format, locale)
         return sdf.format(Date(millis))
     }
 

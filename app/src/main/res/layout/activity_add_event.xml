@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarAddEvent"
             android:layout_width="match_parent"
             android:layout_height="@dimen/appBar"
@@ -28,7 +28,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/toolbarText" />
 
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
         <TextView
             android:layout_width="wrap_content"

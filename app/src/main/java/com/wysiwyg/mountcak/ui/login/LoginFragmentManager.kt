@@ -1,8 +1,8 @@
 package com.wysiwyg.mountcak.ui.login
 
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.tabs.TabLayout
+import androidx.appcompat.app.AppCompatActivity
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.ui.signup.SignUpFragment
 import kotlinx.android.synthetic.main.activity_login_manager.*

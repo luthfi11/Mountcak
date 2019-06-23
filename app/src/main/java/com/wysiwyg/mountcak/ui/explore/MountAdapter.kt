@@ -1,6 +1,6 @@
 package com.wysiwyg.mountcak.ui.explore
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,7 +55,7 @@ class MountAdapter(private val mounts: MutableList<Mount?>) : RecyclerView.Adapt
             itemView.viewMount.toDetail(mount?.id)
         }
 
-        fun View.toDetail(id: Int?) {
+        private fun View.toDetail(id: Int?) {
             onClick {
                 itemView.context.startActivity<MountDetailActivity>("mountId" to id)
             }

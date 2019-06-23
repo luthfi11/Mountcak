@@ -3,24 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/nav_edit"
-        android:title="@string/edit_profile"
-        android:icon="@drawable/ic_edit"
-        app:showAsAction="always" />
+        android:title="@string/about"
+        android:icon="@drawable/ic_menu"
+        app:showAsAction="always">
 
-    <item
-        android:id="@+id/nav_about"
-        android:title="@string/about" />
+        <menu>
 
-    <item
-        android:id="@+id/nav_report"
-        android:title="@string/report" />
+            <item
+                android:id="@+id/nav_about"
+                android:title="@string/about"
+                android:icon="@drawable/ic_info"
+                app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/nav_privacy"
-        android:title="@string/privacy" />
+            <item
+                android:id="@+id/nav_feedback"
+                android:title="@string/send_feedback"
+                android:icon="@drawable/ic_feedback"
+                app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/nav_logout"
-        android:title="@string/logout" />
+            <item
+                android:id="@+id/nav_privacy"
+                android:title="@string/privacy"
+                android:icon="@drawable/ic_security"
+                app:showAsAction="ifRoom" />
+
+            <item
+                android:id="@+id/nav_logout"
+                android:title="@string/logout"
+                android:icon="@drawable/ic_logout"
+                app:showAsAction="ifRoom" />
+
+        </menu>
+    </item>
 </menu>

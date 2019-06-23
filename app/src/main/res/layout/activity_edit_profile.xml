@@ -14,7 +14,7 @@
         android:paddingBottom="40dp"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarEditProfile"
             android:layout_width="match_parent"
             android:layout_height="@dimen/appBar"
@@ -30,7 +30,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/toolbarText" />
 
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgUserPhoto"
@@ -62,7 +62,7 @@
             android:layout_marginTop="20dp"
             android:background="@color/colorMuted"/>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="20dp"
@@ -84,14 +84,14 @@
                 tools:text="Luthfi Alfarisi"
                 tools:ignore="Autofill" />
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.3dp"
             android:background="@color/colorMuted"/>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="20dp"
@@ -111,14 +111,14 @@
                 android:background="@android:color/white"
                 tools:text="Kab. Bandung"/>
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.3dp"
             android:background="@color/colorMuted"/>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="20dp"
@@ -140,7 +140,7 @@
                 tools:text="luthfi@gmail.com"
                 tools:ignore="Autofill" />
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <View
             android:layout_width="match_parent"

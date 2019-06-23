@@ -13,7 +13,6 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
 
-    <string name="signup_msg">Don\'t Have an Account ?</string>
     <string name="signup">Sign Up</string>
 
     <string name="forgot_password">Forgot Your Password ?</string>
@@ -30,7 +29,7 @@
     <string name="done">Done</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="about">About</string>
-    <string name="report">Report</string>
+    <string name="send_feedback">Send Feedback</string>
     <string name="logout">Logout</string>
 
     <string name="reset_password">Reset Password</string>
@@ -57,7 +56,6 @@
     <string name="message">Message</string>
     <string name="notification">Notification</string>
 
-    <string name="more_info">More Info</string>
     <string name="post_event">Post Event</string>
     <string name="posting">Posting</string>
     <string name="event_posted">Event Posted Successfully</string>
@@ -74,7 +72,6 @@
     <string name="set">Set</string>
     <string name="event_title">Event Title</string>
     <string name="post">Post</string>
-    <string name="iam_interested">I am Interested</string>
     <string name="trip">Trip</string>
     <string name="like">Like</string>
     <string name="free">FREE</string>
@@ -86,7 +83,6 @@
     <string name="change_password_hint">Leave blank if you won\'t change your password</string>
     <string name="edit_post">Edit Post</string>
 
-    <string name="event_date">%1s - %2s</string>
     <string name="participant_count">%1d Participants</string>
     <string name="mount_location">%1s, %2s</string>
     <string name="type_a_message">Type a message</string>
@@ -97,7 +93,6 @@
     <string name="read">Read</string>
     <string name="request_join">Request Join</string>
     <string name="chat_organizer">Chat Organizer</string>
-    <string name="waiting_confirm">Waiting for confirmation</string>
     <string name="joined">Joined</string>
     <string name="requested">Requested</string>
     <string name="cancel_join">Cancel join this trip ?</string>
@@ -108,11 +103,10 @@
     <string name="delete_hint">Delete this post ?</string>
 
     <string name="notification_title">%1s has %2s your request to join %3s trip.</string>
-    <string name="participant_joined">%1$d People Joined, , %2$d Place Left</string>
-    <string name="days_left">Days Left</string>
     <string name="favorite">Favorite</string>
     <string name="expired">Expired</string>
     <string name="waiting_list">Waiting List</string>
+    <string name="send_message">Send Message</string>
 
     <array name="example">
         <item>Example</item>

@@ -20,7 +20,7 @@
         app:zoomage_minScale="0.6"
         app:zoomage_maxScale="8"/>
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarPhoto"
         android:layout_width="40dp"
         android:layout_height="40dp"

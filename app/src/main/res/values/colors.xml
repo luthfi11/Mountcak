@@ -7,7 +7,5 @@
     <color name="colorSemiWhite">#EEEEEE</color>
     <color name="colorSemiMuted">#DDDDDD</color>
     <color name="colorMuted">#CCCCCC</color>
-    <color name="darkGray">#454255</color>
-    <color name="blueGray1">#21314a</color>
-    <color name="blueGray2">#384862</color>
+    <color name="defaultBg">#FAFAFA</color>
 </resources>

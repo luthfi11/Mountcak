@@ -32,7 +32,7 @@
                 tools:src="@tools:sample/backgrounds/scenic"
                 android:id="@+id/imgMountDetail" />
 
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarMountDetail"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -42,7 +42,7 @@
                 android:theme="@style/AppTheme.AppBarOverlay"
                 app:layout_scrollFlags="scroll|enterAlways|snap" />
 
-            <android.support.design.widget.FloatingActionButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fabFav"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

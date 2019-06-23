@@ -1,10 +1,12 @@
 package com.wysiwyg.mountcak.ui.userdetail
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.MenuItem
+import bold
 import com.bumptech.glide.Glide
+import com.google.android.material.tabs.TabLayout
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Event
 import com.wysiwyg.mountcak.data.model.User
@@ -16,22 +18,26 @@ import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.activity_user_detail.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
+import plus
+import size
+import spannable
 
-class UserDetailActivity : AppCompatActivity(), UserDetailView {
+class UserDetailActivity : AppCompatActivity(), UserDetailView, TabLayout.OnTabSelectedListener {
 
     private lateinit var presenter: UserDetailPresenter
     private lateinit var adapter: EventAdapter
     private lateinit var uid: String
     private val event: MutableList<Event?> = mutableListOf()
+    private val trip: MutableList<Event?> = mutableListOf()
 
     override fun showLoading() {
         progressUser.visible()
-        rvUserEvent.gone()
+        rvProfile.gone()
     }
 
     override fun hideLoading() {
         progressUser.gone()
-        rvUserEvent.visible()
+        rvProfile.visible()
     }
 
     override fun showUserData(user: User?) {
@@ -47,6 +53,37 @@ class UserDetailActivity : AppCompatActivity(), UserDetailView {
         this.event.clear()
         this.event.addAll(event)
         adapter.notifyDataSetChanged()
+
+        tabs.getTabAt(0)?.text = spannable { bold(size(1.4F,"${event.size}")) + "\nPost" }
+    }
+
+    override fun showUserTrip(event: List<Event?>) {
+        trip.clear()
+        trip.addAll(event)
+        adapter.notifyDataSetChanged()
+
+        tabs.getTabAt(1)?.text = spannable { bold(size(1.4F,"${event.size}")) + "\nTrip" }
+    }
+
+    override fun onTabReselected(p0: TabLayout.Tab?) {
+
+    }
+
+    override fun onTabUnselected(p0: TabLayout.Tab?) {
+
+    }
+
+    override fun onTabSelected(p0: TabLayout.Tab?) {
+        when (p0?.position) {
+            0 -> {
+                adapter = EventAdapter(event)
+                rvProfile.adapter = adapter
+            }
+            1 -> {
+                adapter = EventAdapter(trip)
+                rvProfile.adapter = adapter
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,16 +94,22 @@ class UserDetailActivity : AppCompatActivity(), UserDetailView {
 
         adapter = EventAdapter(event)
 
-        rvUserEvent.setHasFixedSize(true)
-        rvUserEvent.layoutManager = LinearLayoutManager(this)
-        rvUserEvent.adapter = adapter
+        rvProfile.setHasFixedSize(true)
+        rvProfile.layoutManager = LinearLayoutManager(this)
+        rvProfile.adapter = adapter
 
         uid = intent.getStringExtra("userId")
 
-        presenter = UserDetailPresenter(this)
-        presenter.getUserData(uid)
+        presenter = UserDetailPresenter(this, uid)
+        presenter.getUserData()
 
-        fabChat.onClick { startActivity<ChatRoomActivity>("userId" to uid) }
+        tabs.addOnTabSelectedListener(this)
+        btnChat.onClick { startActivity<ChatRoomActivity>("userId" to uid) }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.getUserData()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -76,6 +119,6 @@ class UserDetailActivity : AppCompatActivity(), UserDetailView {
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter.onClose(uid)
+        presenter.onClose()
     }
 }

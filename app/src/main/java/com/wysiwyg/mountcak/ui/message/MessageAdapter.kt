@@ -1,7 +1,7 @@
 package com.wysiwyg.mountcak.ui.message
 
 import android.graphics.Typeface
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.text.format.DateUtils.isToday
 import android.view.LayoutInflater
 import android.view.View
