@@ -84,6 +84,7 @@ class ProfileFragment : Fragment(), ProfileView, TabLayout.OnTabSelectedListener
     override fun showMount(mount: List<Mount?>) {
         this.mount.clear()
         this.mount.addAll(mount)
+        this.mount.sortBy { it?.mountName }
         mountAdapter.notifyDataSetChanged()
 
         tabs.getTabAt(2)?.text = spannable { bold(size(1.4F,"${mount.size.plus(0)}")) + "\nFavorite" }

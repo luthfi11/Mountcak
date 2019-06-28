@@ -6,16 +6,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.MenuItem
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Mount
+import com.wysiwyg.mountcak.data.model.Rental
 import com.wysiwyg.mountcak.ui.explore.MountAdapter
+import com.wysiwyg.mountcak.ui.rental.RentalAdapter
 import com.wysiwyg.temanolga.utilities.gone
 import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.activity_search.*
 
-class SearchActivity : AppCompatActivity(), SearchView, androidx.appcompat.widget.SearchView.OnQueryTextListener {
+class SearchActivity : AppCompatActivity(), SearchView, android.widget.SearchView.OnQueryTextListener {
 
     private lateinit var presenter: SearchPresenter
-    private lateinit var adapter: MountAdapter
+    private lateinit var mountAdapter: MountAdapter
+    private lateinit var rentalAdapter: RentalAdapter
     private val mount: MutableList<Mount?> = mutableListOf()
+    private val rental: MutableList<Rental?> = mutableListOf()
 
     override fun showLoading() {
         progressSearch.visible()
@@ -27,19 +31,27 @@ class SearchActivity : AppCompatActivity(), SearchView, androidx.appcompat.widge
         rvSearch.visible()
     }
 
-    override fun showData(data: List<Mount?>) {
-        mount.clear()
-        mount.addAll(data)
-        adapter.notifyDataSetChanged()
+    override fun showMountData(mount: List<Mount?>) {
+        rvSearch.adapter = mountAdapter
+        this.mount.clear()
+        this.mount.addAll(mount)
+        mountAdapter.notifyDataSetChanged()
+    }
+
+    override fun showRentalData(rental: List<Rental?>) {
+        rvSearch.adapter = rentalAdapter
+        this.rental.clear()
+        this.rental.addAll(rental)
+        rentalAdapter.notifyDataSetChanged()
     }
 
     override fun onQueryTextSubmit(p0: String?): Boolean {
-        presenter.getData(p0!!)
+        presenter.search(p0!!)
         return true
     }
 
     override fun onQueryTextChange(p0: String?): Boolean {
-        presenter.getData(p0!!)
+        presenter.search(p0!!)
         return true
     }
 
@@ -49,12 +61,15 @@ class SearchActivity : AppCompatActivity(), SearchView, androidx.appcompat.widge
         setSupportActionBar(toolbarSearch)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        presenter = SearchPresenter(this)
+        val type = intent.getIntExtra("type", 1)
 
-        adapter = MountAdapter(mount)
+        presenter = SearchPresenter(this, type)
+
+        mountAdapter = MountAdapter(mount)
+        rentalAdapter = RentalAdapter(rental)
+
         rvSearch.setHasFixedSize(true)
         rvSearch.layoutManager = LinearLayoutManager(this)
-        rvSearch.adapter = adapter
 
         search.setOnQueryTextListener(this)
     }

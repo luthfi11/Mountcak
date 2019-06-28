@@ -58,54 +58,21 @@ class ProfilePresenter(private val view: ProfileView) {
             })
     }
 
-    fun getUserFav() {
-        db.child("like").child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot) {
-                val mId = mutableListOf<String?>()
-                p0.children.forEach {
-                    val data = it.getValue(String::class.java)
-                    mId.add(data)
-                }
-
-                userFavData(mId)
-            }
-
-            override fun onCancelled(p0: DatabaseError) {
-
-            }
-        })
-    }
-
-    private fun userFavData(mId: MutableList<String?>) {
-        val listMount = mutableListOf<Mount?>()
-        mId.forEach {
-            db.child("mount").child(it!!).addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(p0: DataSnapshot) {
-                    val mount = p0.getValue(Mount::class.java)
-                    listMount.add(mount)
-                    view.showMount(listMount)
-                }
-
-                override fun onCancelled(p0: DatabaseError) {
-
-                }
-            })
-        }
-    }
-
     fun getUserTrip() {
-        db.child("join").addValueEventListener(object : ValueEventListener {
+        db.child("join").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 val eid = mutableListOf<String?>()
                 p0.children.forEach {
                     it.children.forEach { data ->
-                        val join = data.getValue(Join::class.java)
-                        if (join?.userReqId == uid) {
-                            eid.add(join.eventId)
-                        }
+                        if (data.exists()) {
+                            val join = data.getValue(Join::class.java)
+                            if ((join?.userReqId == uid) and (join?.status == 1)) {
+                                eid.add(join?.eventId)
+                            }
+                        } else eid.clear()
                     }
                 }
-
+                eid.reverse()
                 userTripData(eid)
             }
 
@@ -117,18 +84,58 @@ class ProfilePresenter(private val view: ProfileView) {
 
     private fun userTripData(eid: MutableList<String?>) {
         val listTrip = mutableListOf<Event?>()
-        eid.forEach {
-            db.child("event").child(it!!).addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(p0: DataSnapshot) {
-                    val data = p0.getValue(Event::class.java)
-                    listTrip.add(data)
-                    view.showTrip(listTrip)
-                }
+        if (eid.size == 0) view.showTrip(listTrip)
+        else {
+            eid.forEach {
+                db.child("event").child(it!!).addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(p0: DataSnapshot) {
+                        val data = p0.getValue(Event::class.java)
+                        listTrip.add(data)
+                        view.showTrip(listTrip)
+                    }
 
-                override fun onCancelled(p0: DatabaseError) {
+                    override fun onCancelled(p0: DatabaseError) {
 
+                    }
+                })
+            }
+        }
+    }
+
+    fun getUserFav() {
+        db.child("like").child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                val mId = mutableListOf<String?>()
+                p0.children.forEach {
+                    val data = it.getValue(String::class.java)
+                    mId.add(data)
                 }
-            })
+                userFavData(mId)
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+        })
+    }
+
+    private fun userFavData(mId: MutableList<String?>) {
+        val listMount = mutableListOf<Mount?>()
+        if (mId.size == 0) view.showMount(listMount)
+        else {
+            mId.forEach {
+                db.child("mount").child(it!!).addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(p0: DataSnapshot) {
+                        val mount = p0.getValue(Mount::class.java)
+                        listMount.add(mount)
+                        view.showMount(listMount)
+                    }
+
+                    override fun onCancelled(p0: DatabaseError) {
+
+                    }
+                })
+            }
         }
     }
 

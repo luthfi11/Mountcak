@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="8dp"
+    android:background="@android:color/white"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardElevation="5dp" >
+
+    <RelativeLayout
+        android:id="@+id/viewRental"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_white">
+
+        <ImageView
+            android:id="@+id/imgRental"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="6dp"
+            android:contentDescription="@string/title_rental"
+            android:scaleType="fitCenter"
+            android:background="@drawable/shape_button_white"
+            tools:src="@tools:sample/backgrounds/scenic"/>
+
+        <TextView
+            android:id="@+id/tvStoreName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/imgRental"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="4dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            tools:text="Store Name"/>
+
+        <TextView
+            android:id="@+id/tvOpenHour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/imgRental"
+            android:layout_below="@+id/tvStoreName"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="10dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="Sunday - Monday, 10:00 - 19:00" />
+
+        <TextView
+            android:id="@+id/tvCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/imgRental"
+            android:layout_below="@+id/tvOpenHour"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="4dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:paddingBottom="8dp"
+            tools:text="City, Region" />
+
+        <Button
+            android:id="@+id/btnDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvCity"
+            android:layout_toEndOf="@id/imgRental"
+            android:layout_marginStart="4dp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/colorPrimary"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:text="@string/see_more"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

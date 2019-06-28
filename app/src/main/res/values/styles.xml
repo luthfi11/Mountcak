@@ -11,6 +11,7 @@
         <item name="android:textViewStyle">@style/MyTextView</item>
         <item name="buttonStyle">@style/MyButton</item>
         <item name="editTextStyle">@style/MyEditText</item>
+        <item name="autoCompleteTextViewStyle">@style/MyEditText</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >

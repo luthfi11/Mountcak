@@ -64,7 +64,7 @@ class UserDetailPresenter(private val view: UserDetailView, private val uid: Str
                         }
                     }
                 }
-
+                eid.reverse()
                 userTripData(eid)
             }
 
@@ -76,18 +76,21 @@ class UserDetailPresenter(private val view: UserDetailView, private val uid: Str
 
     private fun userTripData(eid: MutableList<String?>) {
         val listTrip = mutableListOf<Event?>()
-        eid.forEach {
-            db.child("event").child(it!!).addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(p0: DataSnapshot) {
-                    val data = p0.getValue(Event::class.java)
-                    listTrip.add(data)
-                    view.showUserTrip(listTrip)
-                }
+        if (eid.size == 0) view.showUserTrip(listTrip)
+        else {
+            eid.forEach {
+                db.child("event").child(it!!).addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(p0: DataSnapshot) {
+                        val data = p0.getValue(Event::class.java)
+                        listTrip.add(data)
+                        view.showUserTrip(listTrip)
+                    }
 
-                override fun onCancelled(p0: DatabaseError) {
+                    override fun onCancelled(p0: DatabaseError) {
 
-                }
-            })
+                    }
+                })
+            }
         }
     }
 

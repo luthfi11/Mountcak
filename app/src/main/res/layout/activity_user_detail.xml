@@ -74,12 +74,6 @@
                     android:layout_marginBottom="14dp"
                     tools:text="Bandung" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.3dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/colorSemiMuted" />
-
                 <Button
                     android:id="@+id/btnChat"
                     android:layout_width="wrap_content"
@@ -107,6 +101,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@color/colorSemiMuted" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"

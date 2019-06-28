@@ -1,9 +1,12 @@
 package com.wysiwyg.mountcak.ui.search
 
 import com.wysiwyg.mountcak.data.model.Mount
+import com.wysiwyg.mountcak.data.model.Rental
 
 interface SearchView {
     fun showLoading()
     fun hideLoading()
-    fun showData(data: List<Mount?>)
+    fun showMountData(mount: List<Mount?>)
+    fun showRentalData(rental: List<Rental?>)
+
 }

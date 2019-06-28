@@ -59,40 +59,50 @@ class NotificationAdapter(private val joins: MutableList<Join?>) :
                 val db = FirebaseDatabase.getInstance().reference
                 db.child("user").child(sender).addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(p0: DataSnapshot) {
-                        val user = p0.getValue(User::class.java)
-                        Glide.with(itemView.context).load(user?.photo).into(itemView.imgUserNotif)
-                        name = user?.name
+                        try {
+                            val user = p0.getValue(User::class.java)
+                            Glide.with(itemView.context).load(user?.photo).into(itemView.imgUserNotif)
+                            name = user?.name
 
-                        db.child("event").child(eid).child("mountId")
-                            .addValueEventListener(object : ValueEventListener {
-                                override fun onDataChange(p0: DataSnapshot) {
+                            db.child("event").child(eid).child("mountId")
+                                .addValueEventListener(object : ValueEventListener {
+                                    override fun onDataChange(p0: DataSnapshot) {
+                                        try {
+                                            if (p0.exists()) {
+                                                val mountId = p0.getValue(String::class.java)
+                                                db.child("mount").child(mountId!!).child("mountName")
+                                                    .addValueEventListener(object : ValueEventListener {
+                                                        override fun onDataChange(p0: DataSnapshot) {
+                                                            try {
+                                                                mount = p0.getValue(String::class.java)
+                                                                val status = String.format(
+                                                                    itemView.context.getString(R.string.notification_title),
+                                                                    name,
+                                                                    checkStatus(stat),
+                                                                    mount
+                                                                )
 
-                                    val mountId = p0.getValue(String::class.java)
-                                    db.child("mount").child(mountId!!).child("mountName")
-                                        .addValueEventListener(object : ValueEventListener {
-                                            override fun onDataChange(p0: DataSnapshot) {
-                                                mount = p0.getValue(String::class.java)
+                                                                itemView.tvNotification.text =
+                                                                    setBlackSpannable(status, name)
+                                                            } finally {
+                                                            }
+                                                        }
 
-                                                val status = String.format(
-                                                    itemView.context.getString(R.string.notification_title),
-                                                    name,
-                                                    checkStatus(stat),
-                                                    mount
-                                                )
+                                                        override fun onCancelled(p0: DatabaseError) {
 
-                                                itemView.tvNotification.text = setBlackSpannable(status, name)
+                                                        }
+                                                    })
                                             }
+                                        } finally {
+                                        }
+                                    }
 
-                                            override fun onCancelled(p0: DatabaseError) {
+                                    override fun onCancelled(p0: DatabaseError) {
 
-                                            }
-                                        })
-                                }
-
-                                override fun onCancelled(p0: DatabaseError) {
-
-                                }
-                            })
+                                    }
+                                })
+                        } finally {
+                        }
                     }
 
                     override fun onCancelled(p0: DatabaseError) {

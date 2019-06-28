@@ -14,7 +14,7 @@ import org.jetbrains.anko.support.v4.onRefresh
 
 class NotificationFragment : Fragment(), NotificationView {
 
-    private lateinit var presenter: NotificationPresnter
+    private lateinit var presenter: NotificationPresenter
     private lateinit var adapter: NotificationAdapter
     private val join: MutableList<Join?> = mutableListOf()
 
@@ -45,7 +45,7 @@ class NotificationFragment : Fragment(), NotificationView {
         rvNotif.layoutManager = LinearLayoutManager(activity)
         rvNotif.adapter = adapter
 
-        presenter = NotificationPresnter(this)
+        presenter = NotificationPresenter(this)
         presenter.getNotification()
 
         srlNotif.onRefresh { presenter.getNotification() }

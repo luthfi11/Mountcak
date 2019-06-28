@@ -3,6 +3,7 @@ package com.wysiwyg.mountcak.ui.eventdetail
 import com.wysiwyg.mountcak.data.model.Event
 import com.wysiwyg.mountcak.data.model.Mount
 import com.wysiwyg.mountcak.data.model.User
+import java.util.*
 
 interface EventDetailView {
     fun showLoading()
@@ -17,8 +18,10 @@ interface EventDetailView {
     fun showIsRequested(id: String?)
     fun showIsJoined(id: String?)
     fun showDefault()
+    fun showJoinedUser(user: List<User?>)
     fun cancelDialog(id: String?)
     fun deleteDialog()
     fun eventNotFound()
     fun disableRequest()
+    fun addToCalendar(event: Event?, dateStart: GregorianCalendar, dateEnd: GregorianCalendar)
 }

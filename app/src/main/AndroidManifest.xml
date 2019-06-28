@@ -15,7 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.chatroom.ChatRoomActivity" android:label=""/>
+        <activity android:name=".ui.mountgallery.MountGallery" />
+        <activity android:name=".ui.rentaldetail.RentalDetailActivity" android:label=""/>
+        <activity
+            android:name=".ui.chatroom.ChatRoomActivity"
+            android:label="" />
         <activity
             android:name=".ui.userdetail.UserDetailActivity"
             android:label="" />
@@ -52,6 +56,21 @@
         <activity
             android:name=".ui.editevent.EditEventActivity"
             android:label="" />
+
+
+        <service android:name=".service.FirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logo_green"/>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorPrimary"/>
+
     </application>
 
 </manifest>

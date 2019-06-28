@@ -1,10 +1,10 @@
 package com.wysiwyg.mountcak.ui.explore
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Mount
 import com.wysiwyg.mountcak.ui.search.SearchActivity
@@ -60,12 +60,7 @@ class ExploreFragment : Fragment(), ExploreView {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
-            R.id.nav_search -> {
-                startActivity<SearchActivity>()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+        if (item?.itemId == R.id.nav_search) startActivity<SearchActivity>("type" to 1)
+        return super.onOptionsItemSelected(item)
     }
 }

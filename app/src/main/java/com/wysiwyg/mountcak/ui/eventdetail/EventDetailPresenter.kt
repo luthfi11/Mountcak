@@ -46,18 +46,17 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
                 userData(event.userId!!)
                 checkSender(event)
                 checkIsJoin(event.dateStart!!, event.joinedParticipant!!, event.maxParticipant!!)
-
+                getJoinedId()
                 participant = event.joinedParticipant
             } catch (ex: Exception) {
                 ex.printStackTrace()
                 view.eventNotFound()
             }
         }
-
     }
 
     private fun mountData(id: String) {
-        db.child("mount").child(id).addValueEventListener(object : ValueEventListener {
+        db.child("mount").child(id).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 try {
                     val mount = p0.getValue(Mount::class.java)
@@ -74,7 +73,7 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
     }
 
     private fun userData(id: String) {
-        db.child("user").child(id).addValueEventListener(object : ValueEventListener {
+        db.child("user").child(id).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 try {
                     val user = p0.getValue(User::class.java)
@@ -129,6 +128,51 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
         else {
             if (status != 1)
                 if (par >= maxPar) view.disableRequest()
+        }
+    }
+
+    private fun getJoinedId() {
+        db.child("join").child(eid).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                try {
+                    val user = mutableListOf<String?>()
+                    p0.children.forEach {
+                        val data = it.getValue(Join::class.java)
+                        if (data?.status == 1)
+                            user.add(data.userReqId)
+                    }
+                    getJoinedPict(user)
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+        })
+    }
+
+    private fun getJoinedPict(uid: MutableList<String?>) {
+        val user = mutableListOf<User?>()
+        if (uid.size > 0) {
+            uid.forEach {
+                db.child("user").child(it!!).addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(p0: DataSnapshot) {
+                        try {
+                            val data = p0.getValue(User::class.java)
+                            user.add(data)
+                            view.showJoinedUser(user)
+                        } catch (ex: Exception) {
+                            ex.printStackTrace()
+                        }
+                    }
+
+                    override fun onCancelled(p0: DatabaseError) {
+
+                    }
+                })
+            }
         }
     }
 
@@ -213,6 +257,15 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
             view.eventNotFound()
             db.child("join").child(eid).removeValue()
         }
+    }
+
+    fun addToCalendar(event: Event?) {
+        val start = event?.dateStart?.split("/")!!
+        val dateStart = GregorianCalendar(start[2].toInt(), start[1].toInt()-1, start[0].toInt())
+        val end = event.dateEnd?.split("/")!!
+        val dateEnd = GregorianCalendar(end[2].toInt(), end[1].toInt()-1, end[0].toInt()+1)
+
+        view.addToCalendar(event, dateStart, dateEnd)
     }
 
     fun onClose() {

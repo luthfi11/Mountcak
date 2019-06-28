@@ -73,7 +73,6 @@
     <string name="event_title">Event Title</string>
     <string name="post">Post</string>
     <string name="trip">Trip</string>
-    <string name="like">Like</string>
     <string name="free">FREE</string>
     <string name="privacy">Privacy Policy</string>
     <string name="change_photo">Change Photo</string>
@@ -107,8 +106,11 @@
     <string name="expired">Expired</string>
     <string name="waiting_list">Waiting List</string>
     <string name="send_message">Send Message</string>
+    <string name="instagram">Instagram</string>
+    <string name="price_list">Price List</string>
+    <string name="open_hour">Open Hour</string>
+    <string name="address">Address</string>
 
-    <array name="example">
-        <item>Example</item>
-    </array>
+    <string name="default_notification_channel_id">mountcak_default_channel</string>
+
 </resources>

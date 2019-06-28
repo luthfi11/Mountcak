@@ -3,6 +3,7 @@ package com.wysiwyg.mountcak.ui.eventdetail
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Event
@@ -18,13 +19,18 @@ import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.activity_event_detail.*
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
+import android.content.Intent
+import android.provider.CalendarContract
+import java.util.*
 
 class EventDetailActivity : AppCompatActivity(), EventDetailView {
 
     private lateinit var presenter: EventDetailPresenter
     private lateinit var eid: String
+    private lateinit var adapter: JoinedAdapter
     private var postSender: String? = null
     private var mountName: String? = null
+    private val user = mutableListOf<User?>()
 
     override fun showLoading() {
         progressEvent.visible()
@@ -48,7 +54,10 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
         tvDayLeft.text = presenter.checkDayLeft(event?.dateStart)
         tvMaxPar.text = String.format(getString(R.string.participant_count), event?.maxParticipant)
         tvJoinedCount.text = presenter.checkParticipant(event?.joinedParticipant, event?.maxParticipant)
+
         presenter.checkCost(event?.cost, tvCost)
+
+        btnAddCalendar.onClick { presenter.addToCalendar(event) }
     }
 
     override fun showMountData(mount: Mount?) {
@@ -103,6 +112,12 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
         btnRequestJoin.onClick { presenter.requestJoin(postSender, mountName) }
     }
 
+    override fun showJoinedUser(user: List<User?>) {
+        this.user.clear()
+        this.user.addAll(user)
+        adapter.notifyDataSetChanged()
+    }
+
     override fun cancelDialog(id: String?) {
         viewDialog(R.string.cancel_join) {
             presenter.cancelJoin(id)
@@ -140,6 +155,20 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
         }.show()
     }
 
+    override fun addToCalendar(event: Event?, dateStart: GregorianCalendar, dateEnd: GregorianCalendar) {
+        val intent = Intent(Intent.ACTION_INSERT)
+        intent.apply {
+            type = "vnd.android.cursor.item/event"
+            putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, dateStart.timeInMillis)
+            putExtra(CalendarContract.EXTRA_EVENT_END_TIME, dateEnd.timeInMillis)
+            putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true)
+            putExtra(CalendarContract.Events.TITLE, event?.title)
+            putExtra(CalendarContract.Events.DESCRIPTION, event?.eventNote)
+            putExtra(CalendarContract.Events.EVENT_LOCATION, tvMountName.text)
+        }
+        startActivity(intent)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_detail)
@@ -150,6 +179,12 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
 
         presenter = EventDetailPresenter(this, eid)
         presenter.getEventDetail()
+
+        adapter = JoinedAdapter(user)
+
+        rvJoined.setHasFixedSize(true)
+        rvJoined.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rvJoined.adapter = adapter
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

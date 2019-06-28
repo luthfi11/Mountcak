@@ -13,7 +13,7 @@ class ExplorePresenter(private val view: ExploreView) {
 
     fun getData() {
         view.showLoading()
-        db.child("mount").addValueEventListener(object : ValueEventListener{
+        db.child("mount").addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
                 try {
                     val mount: MutableList<Mount?> = mutableListOf()

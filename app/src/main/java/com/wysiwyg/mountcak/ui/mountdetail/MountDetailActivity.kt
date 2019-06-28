@@ -47,7 +47,7 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
         tvLocation.text = mount?.location
         tvHeight.text = mount?.height
         tvContact.text = mount?.contact
-        tvRoute.text = mount?.route
+        tvRoute.text = mount?.route?.replace(", ","\n- ")?.replaceFirst("","- ")
 
         linkGoogleMaps = mount?.linkGMaps!!
     }

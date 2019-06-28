@@ -23,13 +23,13 @@
                 android:layout_height="match_parent"
                 app:layout_scrollFlags="scroll|enterAlways|snap"/>
 
-            <androidx.appcompat.widget.SearchView
+            <SearchView
                 android:id="@+id/search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="-40dp"
-                app:searchIcon="@color/colorPrimary"
-                app:iconifiedByDefault="false" />
+                android:iconifiedByDefault="false"
+                android:searchIcon="@color/colorPrimary" />
 
         </LinearLayout>
 

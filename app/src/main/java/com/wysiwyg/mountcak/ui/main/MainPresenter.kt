@@ -4,6 +4,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.iid.FirebaseInstanceId
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.ui.activities.ActivitiesFragmentManager
 import com.wysiwyg.mountcak.ui.explore.ExploreFragment
@@ -12,6 +14,9 @@ import com.wysiwyg.mountcak.ui.profile.ProfileFragment
 import com.wysiwyg.mountcak.ui.rental.RentalFragment
 
 class MainPresenter(private val view: MainView) {
+
+    private val uid = FirebaseAuth.getInstance().currentUser?.uid!!
+    private val db = FirebaseDatabase.getInstance().reference.child("user").child(uid)
 
     private val home = HomeFragment()
     private val explore = ExploreFragment()
@@ -22,13 +27,19 @@ class MainPresenter(private val view: MainView) {
     fun checkLogin() {
         try {
             if (FirebaseAuth.getInstance().currentUser == null) view.toLogin()
+            else {
+                FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { p0 ->
+                    val token = p0?.token.toString()
+                    db.child("tokenId").setValue(token)
+                }
+            }
         } catch (ex: Exception) {
             view.toLogin()
             ex.printStackTrace()
         }
     }
 
-    fun changeView(fm: androidx.fragment.app.FragmentManager, fragment: androidx.fragment.app.Fragment) {
+    fun changeView(fm: FragmentManager, fragment: Fragment) {
         val transaction = fm.beginTransaction()
 
         val current = fm.primaryNavigationFragment
@@ -45,7 +56,8 @@ class MainPresenter(private val view: MainView) {
         }.commitNowAllowingStateLoss()
     }
 
-    fun selectedView(fm: androidx.fragment.app.FragmentManager) = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+    fun selectedView(fm: FragmentManager)
+            = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> changeView(fm, home)
             R.id.navigation_explore -> changeView(fm, explore)
