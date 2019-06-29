@@ -18,7 +18,7 @@ class ProfilePresenter(private val view: ProfileView) {
 
     fun getUserData() {
         view.showLoading()
-        db.child("user").child(uid).addValueEventListener(object : ValueEventListener {
+        db.child("user").child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 try {
                     val user = p0.getValue(User::class.java)
@@ -59,17 +59,17 @@ class ProfilePresenter(private val view: ProfileView) {
     }
 
     fun getUserTrip() {
-        db.child("join").addListenerForSingleValueEvent(object : ValueEventListener {
+        val eid = mutableListOf<String?>()
+        db.child("join").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
-                val eid = mutableListOf<String?>()
+                eid.clear()
                 p0.children.forEach {
                     it.children.forEach { data ->
-                        if (data.exists()) {
-                            val join = data.getValue(Join::class.java)
-                            if ((join?.userReqId == uid) and (join?.status == 1)) {
+                        val join = data.getValue(Join::class.java)
+                        if ((join?.userReqId == uid) and (join?.status == 1)) {
+                            if (data.exists())
                                 eid.add(join?.eventId)
-                            }
-                        } else eid.clear()
+                        }
                     }
                 }
                 eid.reverse()

@@ -13,6 +13,7 @@ import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Mount
+import com.wysiwyg.mountcak.ui.mountgallery.MountGalleryActivity
 import com.wysiwyg.mountcak.ui.viewphoto.ViewPhotoActivity
 import com.wysiwyg.temanolga.utilities.gone
 import com.wysiwyg.temanolga.utilities.visible
@@ -71,8 +72,8 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
         btnSMS.gone()
     }
 
-    override fun showPhoto(url: String, title: String) {
-
+    override fun showPhoto(title: String?, photo: String?) {
+        btnPhoto.onClick { startActivity<MountGalleryActivity>("photo" to photo, "title" to title) }
     }
 
     override fun showInstagram(ig: String) {

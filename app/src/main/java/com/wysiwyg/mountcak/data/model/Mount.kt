@@ -17,6 +17,6 @@ data class Mount (
     val route: String? = null,
     val cover: String? = null,
     val linkGMaps: String? = null,
-    val linkPhotoGM: String? = null,
+    val gallery: String? = null,
     val longLat: String? = null
 ): Parcelable

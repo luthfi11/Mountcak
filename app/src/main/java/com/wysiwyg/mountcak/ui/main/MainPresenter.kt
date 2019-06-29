@@ -15,8 +15,8 @@ import com.wysiwyg.mountcak.ui.rental.RentalFragment
 
 class MainPresenter(private val view: MainView) {
 
-    private val uid = FirebaseAuth.getInstance().currentUser?.uid!!
-    private val db = FirebaseDatabase.getInstance().reference.child("user").child(uid)
+    private val uid = FirebaseAuth.getInstance().currentUser?.uid
+    private val db = FirebaseDatabase.getInstance().reference.child("user")
 
     private val home = HomeFragment()
     private val explore = ExploreFragment()
@@ -30,7 +30,7 @@ class MainPresenter(private val view: MainView) {
             else {
                 FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { p0 ->
                     val token = p0?.token.toString()
-                    db.child("tokenId").setValue(token)
+                    db.child(uid!!).child("tokenId").setValue(token)
                 }
             }
         } catch (ex: Exception) {

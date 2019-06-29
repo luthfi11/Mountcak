@@ -39,7 +39,7 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) : RecyclerView.Adap
     }
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
-        if (p1 > 0) {
+        if (p1 > 1) {
             if (dayAgo(chats[p1 - 1]?.timeStamp!!) != dayAgo(chats[p1]?.timeStamp!!)) p0.showTime(chats[p1])
             else p0.hideTime()
         }

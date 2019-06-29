@@ -9,7 +9,7 @@ interface MountDetailView {
     fun callNumber(number: String)
     fun sendMessage(number: String)
     fun hideCall()
-    fun showPhoto(url: String, title: String)
+    fun showPhoto(title: String?, photo: String?)
     fun showInstagram(ig: String)
     fun showMap(long: Double?, lat: Double?, title: String?)
     fun onMapTouch()

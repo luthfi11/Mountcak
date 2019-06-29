@@ -28,6 +28,7 @@ class MountDetailPresenter(private val view: MountDetailView, private val id: St
                 }
                 callNumber(mount?.contact)
                 sendMessage(mount?.contact)
+                viewPhoto(mount?.mountName, mount?.gallery)
                 getMap(mount?.longLat, mount?.mountName)
                 viewInstagram(mount?.instagram!!)
                 checkLike()
@@ -51,8 +52,8 @@ class MountDetailPresenter(private val view: MountDetailView, private val id: St
         }
     }
 
-    private fun viewPhoto(url: String, title: String) {
-        view.showPhoto(url, title)
+    private fun viewPhoto(title: String?, photo: String?) {
+        view.showPhoto(title, photo)
     }
 
     private fun viewInstagram(ig: String) {

@@ -224,7 +224,12 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
             db.child("join").child(eid).child(joinId).setValue(Join(joinId, eid, uid, user, 2, ts, ts))
                 .addOnSuccessListener {
                     val chatId = db.child("chat").child(user).child(uid!!).push().key!!
-                    val chat = Chat(chatId, user, uid, msgContent, ts, false, true, joinId, eid)
+                    val chat = Chat(chatId, user, uid, msgContent, ts,
+                        read = false,
+                        joinMsg = true,
+                        joinId = joinId,
+                        eventId = eid
+                    )
 
                     db.child("chat").child(user).child(uid).child(chatId).setValue(chat)
                     db.child("chat").child(uid).child(user).child(chatId).setValue(chat)
@@ -260,10 +265,11 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
     }
 
     fun addToCalendar(event: Event?) {
-        val start = event?.dateStart?.split("/")!!
-        val dateStart = GregorianCalendar(start[2].toInt(), start[1].toInt()-1, start[0].toInt())
-        val end = event.dateEnd?.split("/")!!
-        val dateEnd = GregorianCalendar(end[2].toInt(), end[1].toInt()-1, end[0].toInt()+1)
+        val start = dateFormat(event?.dateStart, "yyyy/MM/dd").split("/")
+        val dateStart = GregorianCalendar(start[0].toInt(), start[1].toInt()-1, start[2].toInt())
+
+        val end = dateFormat(event?.dateEnd, "yyyy/MM/dd").split("/")
+        val dateEnd = GregorianCalendar(end[0].toInt(), end[1].toInt()-1, end[2].toInt()+1)
 
         view.addToCalendar(event, dateStart, dateEnd)
     }

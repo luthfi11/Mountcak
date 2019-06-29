@@ -36,11 +36,13 @@ class ChatRoomPresenter(private val view: ChatRoomView, private val friendId: St
     private val readListener = object : ValueEventListener {
         override fun onDataChange(p0: DataSnapshot) {
             try {
-                p0.children.forEach {
-                    val id = it.child("senderId").getValue(String::class.java)
-                    if (id != uid) {
-                        val msgId = it.child("id").getValue(String::class.java)!!
-                        readRef.child(msgId).child("read").setValue(true)
+                if (p0.hasChildren()) {
+                    p0.children.forEach {
+                        val id = it.child("senderId").getValue(String::class.java)
+                        if (id != uid) {
+                            val msgId = it.child("id").getValue(String::class.java)!!
+                            readRef.child(msgId).child("read").setValue(true)
+                        }
                     }
                 }
             } catch (ex: Exception) {
@@ -57,11 +59,13 @@ class ChatRoomPresenter(private val view: ChatRoomView, private val friendId: St
     private val readListenerFriend = object : ValueEventListener {
         override fun onDataChange(p0: DataSnapshot) {
             try {
-                p0.children.forEach {
-                    val id = it.child("receiverId").getValue(String::class.java)
-                    if (id == uid) {
-                        val msgId = it.child("id").getValue(String::class.java)!!
-                        readRefFriend.child(msgId).child("read").setValue(true)
+                if (p0.hasChildren()) {
+                    p0.children.forEach {
+                        val id = it.child("receiverId").getValue(String::class.java)
+                        if (id == uid) {
+                            val msgId = it.child("id").getValue(String::class.java)!!
+                            readRefFriend.child(msgId).child("read").setValue(true)
+                        }
                     }
                 }
             } catch (ex: Exception) {
