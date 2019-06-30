@@ -18,12 +18,13 @@ class ActivitiesFragmentManager : Fragment() {
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_manager_activities, container, false)
+        val view = inflater.inflate(R.layout.fragment_manager_activities, container, false)
+        setHasOptionsMenu(false)
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setHasOptionsMenu(false)
 
         mSectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
 

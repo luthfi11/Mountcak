@@ -26,7 +26,7 @@ class RentalDetailActivity : AppCompatActivity(), RentalDetailView {
     private lateinit var presenter: RentalDetailPresenter
 
     override fun showRentalDetail(rental: Rental?) {
-        Glide.with(this).load(rental?.storePict).placeholder(R.drawable.logo_green).into(imgStorePict)
+        Glide.with(this).load(rental?.storePict).placeholder(R.mipmap.ic_launcher_round).into(imgStorePict)
         Glide.with(this).load(rental?.priceList).placeholder(R.color.colorMuted).into(imgPriceList)
 
         tvStoreName.text = rental?.storeName

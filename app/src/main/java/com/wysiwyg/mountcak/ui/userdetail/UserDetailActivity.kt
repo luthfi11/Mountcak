@@ -1,9 +1,10 @@
 package com.wysiwyg.mountcak.ui.userdetail
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.view.MenuItem
 import bold
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
@@ -54,7 +55,7 @@ class UserDetailActivity : AppCompatActivity(), UserDetailView, TabLayout.OnTabS
         this.event.addAll(event)
         adapter.notifyDataSetChanged()
 
-        tabs.getTabAt(0)?.text = spannable { bold(size(1.4F,"${event.size}")) + "\nPost" }
+        tabs.getTabAt(0)?.text = spannable { bold(size(1.4F, "${event.size}")) + "\nPost" }
     }
 
     override fun showUserTrip(event: List<Event?>) {
@@ -62,7 +63,18 @@ class UserDetailActivity : AppCompatActivity(), UserDetailView, TabLayout.OnTabS
         trip.addAll(event)
         adapter.notifyDataSetChanged()
 
-        tabs.getTabAt(1)?.text = spannable { bold(size(1.4F,"${event.size}")) + "\nTrip" }
+        tabs.getTabAt(1)?.text = spannable { bold(size(1.4F, "${event.size}")) + "\nTrip" }
+    }
+
+    override fun emptyList(title: String) {
+        rvProfile.gone()
+        tvEmpty.visible()
+        tvEmpty.text = title
+    }
+
+    override fun notEmptyList() {
+        rvProfile.visible()
+        tvEmpty.gone()
     }
 
     override fun onTabReselected(p0: TabLayout.Tab?) {
@@ -78,10 +90,16 @@ class UserDetailActivity : AppCompatActivity(), UserDetailView, TabLayout.OnTabS
             0 -> {
                 adapter = EventAdapter(event)
                 rvProfile.adapter = adapter
+
+                if (event.isEmpty()) emptyList("No Post Yet")
+                else notEmptyList()
             }
             1 -> {
                 adapter = EventAdapter(trip)
                 rvProfile.adapter = adapter
+
+                if (trip.isEmpty()) emptyList("No Trip Yet")
+                else notEmptyList()
             }
         }
     }
@@ -112,8 +130,14 @@ class UserDetailActivity : AppCompatActivity(), UserDetailView, TabLayout.OnTabS
         presenter.getUserData()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_refresh, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == android.R.id.home) finish()
+        else if (item?.itemId == R.id.nav_refresh) presenter.getUserData()
         return super.onOptionsItemSelected(item)
     }
 

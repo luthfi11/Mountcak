@@ -6,4 +6,6 @@ interface HomeView {
     fun showLoading()
     fun hideLoading()
     fun showEventList(event: List<Event?>)
+    fun emptyEvent()
+    fun notEmptyEvent()
 }

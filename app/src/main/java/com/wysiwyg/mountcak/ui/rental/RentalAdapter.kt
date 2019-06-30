@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wysiwyg.mountcak.R
@@ -47,7 +46,7 @@ class RentalAdapter(private val rental: MutableList<Rental?>) : RecyclerView.Ada
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bindItem(rental: Rental?) {
-            Glide.with(itemView.context).load(rental?.storePict).placeholder(R.drawable.logo_green).into(itemView.imgRental)
+            Glide.with(itemView.context).load(rental?.storePict).placeholder(R.mipmap.ic_launcher_round).into(itemView.imgRental)
 
             itemView.tvStoreName.text = rental?.storeName
             itemView.tvOpenHour.text = rental?.openHour

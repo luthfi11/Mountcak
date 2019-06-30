@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Chat
+import com.wysiwyg.temanolga.utilities.gone
+import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.fragment_message.*
 import org.jetbrains.anko.support.v4.onRefresh
 
@@ -29,6 +31,16 @@ class MessageFragment : Fragment(), MessageView {
         this.message.clear()
         this.message.addAll(chat)
         adapter.notifyDataSetChanged()
+    }
+
+    override fun emptyMessage() {
+        rvMessage.gone()
+        tvEmpty.visible()
+    }
+
+    override fun notEmptyMessage() {
+        rvMessage.visible()
+        tvEmpty.gone()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Event
 import com.wysiwyg.mountcak.ui.addevent.AddEventActivity
+import com.wysiwyg.temanolga.utilities.gone
+import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.onRefresh
@@ -34,13 +36,24 @@ class HomeFragment : Fragment(), HomeView {
         adapter.notifyDataSetChanged()
     }
 
+    override fun emptyEvent() {
+        rvEvent.gone()
+        tvEmpty.visible()
+    }
+
+    override fun notEmptyEvent() {
+        rvEvent.visible()
+        tvEmpty.gone()
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        setHasOptionsMenu(false)
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setHasOptionsMenu(false)
 
         adapter = EventAdapter(event)
 

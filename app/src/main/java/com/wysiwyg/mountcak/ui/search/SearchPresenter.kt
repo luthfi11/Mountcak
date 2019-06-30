@@ -23,6 +23,10 @@ class SearchPresenter(private val view: SearchView, private val type: Int?) {
                 }
                 mount.sortBy { it?.mountName }
                 view.showMountData(mount)
+
+                if (mount.size == 0) view.showEmpty()
+                else view.showNotEmpty()
+
             } catch (ex: Exception) {
                 ex.printStackTrace()
             }
@@ -45,6 +49,10 @@ class SearchPresenter(private val view: SearchView, private val type: Int?) {
                 }
                 rental.sortBy { it?.storeName }
                 view.showRentalData(rental)
+
+                if (rental.size == 0) view.showEmpty()
+                else view.showNotEmpty()
+
             } catch (ex: Exception) {
                 ex.printStackTrace()
             }

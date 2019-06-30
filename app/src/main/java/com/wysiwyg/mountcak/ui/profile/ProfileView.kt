@@ -11,5 +11,7 @@ interface ProfileView {
     fun showEvent(event: List<Event?>)
     fun showTrip(event: List<Event?>)
     fun showMount(mount: List<Mount?>)
+    fun emptyPost(title: String)
+    fun notEmptyPost()
     fun doLogout()
 }

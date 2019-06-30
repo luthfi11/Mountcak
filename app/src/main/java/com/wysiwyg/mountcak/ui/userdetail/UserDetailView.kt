@@ -9,4 +9,6 @@ interface UserDetailView {
     fun showUserData(user: User?)
     fun showUserPost(event: List<Event?>)
     fun showUserTrip(event: List<Event?>)
+    fun emptyList(title: String)
+    fun notEmptyList()
 }

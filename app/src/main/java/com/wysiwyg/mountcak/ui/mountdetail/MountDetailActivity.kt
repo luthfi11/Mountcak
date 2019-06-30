@@ -2,10 +2,10 @@ package com.wysiwyg.mountcak.ui.mountdetail
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.MotionEvent
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.annotations.MarkerOptions
@@ -16,13 +16,14 @@ import com.wysiwyg.mountcak.data.model.Mount
 import com.wysiwyg.mountcak.ui.mountgallery.MountGalleryActivity
 import com.wysiwyg.mountcak.ui.viewphoto.ViewPhotoActivity
 import com.wysiwyg.temanolga.utilities.gone
-import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.activity_mount_detail.*
 import org.jetbrains.anko.browse
+import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.sdk27.coroutines.onTouch
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.support.v4.onRefresh
 
 class MountDetailActivity : AppCompatActivity(), MountDetailView {
 
@@ -30,13 +31,11 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
     private lateinit var linkGoogleMaps: String
 
     override fun showLoading() {
-        progressMount.visible()
-        mountContent.gone()
+        srlMountDetail.isRefreshing = true
     }
 
     override fun hideLoading() {
-        progressMount.gone()
-        mountContent.visible()
+        srlMountDetail.isRefreshing = false
     }
 
     override fun showDetail(mount: Mount?) {
@@ -111,6 +110,10 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
         btnInsta.gone()
     }
 
+    override fun successLike() {
+        srlMountDetail.snackbar("Added to the favorites list")
+    }
+
     override fun isLiked() {
         fabFav.imageResource = R.drawable.ic_favorite
         fabFav.onClick { presenter.dislikeMount() }
@@ -134,8 +137,8 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
         presenter = MountDetailPresenter(this, mountId.toString())
         presenter.getMountDetail()
 
-        //btnPhoto.onClick { presenter.viewPhoto(mount.linkPhotoGM!!, mount.mountName!!) }
         fabFav.onClick { presenter.likeMount() }
+        srlMountDetail.onRefresh { presenter.getMountDetail() }
     }
 
     override fun onDestroy() {

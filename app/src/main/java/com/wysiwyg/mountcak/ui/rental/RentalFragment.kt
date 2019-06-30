@@ -11,6 +11,7 @@ import com.wysiwyg.mountcak.ui.search.SearchActivity
 import com.wysiwyg.temanolga.utilities.gone
 import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.fragment_rental.*
+import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.startActivity
 
 class RentalFragment : Fragment(), RentalView {
@@ -20,13 +21,11 @@ class RentalFragment : Fragment(), RentalView {
     private val rental = mutableListOf<Rental?>()
 
     override fun showLoading() {
-        progressRental.visible()
-        rvRental.gone()
+        srlRental.isRefreshing = true
     }
 
     override fun hideLoading() {
-        progressRental.gone()
-        rvRental.visible()
+        srlRental.isRefreshing = false
     }
 
     override fun showData(rental: List<Rental?>) {
@@ -36,13 +35,14 @@ class RentalFragment : Fragment(), RentalView {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_rental, container, false)
+        val view = inflater.inflate(R.layout.fragment_rental, container, false)
+        setHasOptionsMenu(true)
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(toolbarRental)
-        setHasOptionsMenu(true)
 
         adapter = RentalAdapter(rental)
         rvRental.setHasFixedSize(true)
@@ -51,12 +51,14 @@ class RentalFragment : Fragment(), RentalView {
 
         presenter = RentalPresenter(this)
         presenter.getRentalStore()
+
+        srlRental.onRefresh { presenter.getRentalStore() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
         menu?.clear()
         inflater?.inflate(R.menu.menu_search, menu)
-        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

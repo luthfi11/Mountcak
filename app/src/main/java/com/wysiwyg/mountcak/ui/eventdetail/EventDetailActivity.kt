@@ -21,6 +21,7 @@ import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import android.content.Intent
 import android.provider.CalendarContract
+import org.jetbrains.anko.support.v4.onRefresh
 import java.util.*
 
 class EventDetailActivity : AppCompatActivity(), EventDetailView {
@@ -33,13 +34,11 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
     private val user = mutableListOf<User?>()
 
     override fun showLoading() {
-        progressEvent.visible()
-        eventContent.gone()
+        srlEventDetail.isRefreshing = true
     }
 
     override fun hideLoading() {
-        progressEvent.gone()
-        eventContent.visible()
+        srlEventDetail.isRefreshing = false
     }
 
     override fun showEventDetail(event: Event?) {
@@ -185,6 +184,8 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
         rvJoined.setHasFixedSize(true)
         rvJoined.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvJoined.adapter = adapter
+
+        srlEventDetail.onRefresh { presenter.getEventDetail() }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

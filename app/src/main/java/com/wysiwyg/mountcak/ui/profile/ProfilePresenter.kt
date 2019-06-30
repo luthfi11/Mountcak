@@ -47,6 +47,7 @@ class ProfilePresenter(private val view: ProfileView) {
                         }
                         event.reverse()
                         view.showEvent(event)
+
                     } catch (ex: Exception) {
                         ex.printStackTrace()
                     }
@@ -62,18 +63,22 @@ class ProfilePresenter(private val view: ProfileView) {
         val eid = mutableListOf<String?>()
         db.child("join").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
-                eid.clear()
-                p0.children.forEach {
-                    it.children.forEach { data ->
-                        val join = data.getValue(Join::class.java)
-                        if ((join?.userReqId == uid) and (join?.status == 1)) {
-                            if (data.exists())
-                                eid.add(join?.eventId)
+                try {
+                    eid.clear()
+                    p0.children.forEach {
+                        it.children.forEach { data ->
+                            val join = data.getValue(Join::class.java)
+                            if ((join?.userReqId == uid) and (join?.status == 1)) {
+                                if (data.exists())
+                                    eid.add(join?.eventId)
+                            }
                         }
                     }
+                    eid.reverse()
+                    userTripData(eid)
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
                 }
-                eid.reverse()
-                userTripData(eid)
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -105,12 +110,16 @@ class ProfilePresenter(private val view: ProfileView) {
     fun getUserFav() {
         db.child("like").child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
-                val mId = mutableListOf<String?>()
-                p0.children.forEach {
-                    val data = it.getValue(String::class.java)
-                    mId.add(data)
+                try {
+                    val mId = mutableListOf<String?>()
+                    p0.children.forEach {
+                        val data = it.getValue(String::class.java)
+                        mId.add(data)
+                    }
+                    userFavData(mId)
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
                 }
-                userFavData(mId)
             }
 
             override fun onCancelled(p0: DatabaseError) {

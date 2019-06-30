@@ -55,19 +55,22 @@ class UserDetailPresenter(private val view: UserDetailView, private val uid: Str
     private fun getUserTrip() {
         db.child("join").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
-                val eid = mutableListOf<String?>()
-                p0.children.forEach {
-                    it.children.forEach { data ->
-                        val join = data.getValue(Join::class.java)
-                        if (join?.userReqId == uid) {
-                            eid.add(join.eventId)
+                try {
+                    val eid = mutableListOf<String?>()
+                    p0.children.forEach {
+                        it.children.forEach { data ->
+                            val join = data.getValue(Join::class.java)
+                            if (join?.userReqId == uid) {
+                                eid.add(join.eventId)
+                            }
                         }
                     }
+                    eid.reverse()
+                    userTripData(eid)
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
                 }
-                eid.reverse()
-                userTripData(eid)
             }
-
             override fun onCancelled(p0: DatabaseError) {
 
             }

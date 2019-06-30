@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/defaultBg">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -14,7 +15,7 @@
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:layout_scrollInterpolator="@android:anim/decelerate_interpolator"
@@ -111,10 +112,10 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
+            app:tabBackground="@android:color/white"
             app:tabIndicatorColor="@color/colorPrimary"
             app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabIndicatorFullWidth="false"
             app:tabMode="fixed"
             app:tabTextAppearance="@style/Base.TextAppearance.AppCompat.Small">
 
@@ -144,11 +145,23 @@
             android:visibility="gone"
             android:indeterminateTint="@color/colorPrimary" />
 
+        <TextView
+            android:id="@+id/tvEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:drawableTop="@drawable/ic_empty"
+            android:drawablePadding="10dp"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            tools:text="No Post Yet"
+            android:visibility="gone"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvProfile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/defaultBg"
             android:clipToPadding="false"
             android:paddingTop="8dp"
             android:paddingBottom="12dp"

@@ -195,7 +195,7 @@
             android:layout_height="35dp"
             app:civ_border_color="@color/colorMuted"
             app:civ_border_width="1dp"
-            app:civ_fill_color="@color/colorPrimary"
+            app:civ_fill_color="@android:color/white"
             tools:src="@tools:sample/avatars" />
 
         <TextView

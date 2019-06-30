@@ -248,20 +248,26 @@ class EventDetailPresenter(private val view: EventDetailView, private val eid: S
     }
 
     fun cancelRequest(joinId: String?) {
-        db.child("join").child(eid).child(joinId!!).removeValue()
+        try {
+            db.child("join").child(eid).child(joinId!!).removeValue()
+        } finally { }
     }
 
     fun cancelJoin(joinId: String?) {
         cancelRequest(joinId)
         val newPar = participant?.minus(1)
-        db.child("event").child(eid).child("joinedParticipant").setValue(newPar)
+        try {
+            db.child("event").child(eid).child("joinedParticipant").setValue(newPar)
+        } finally { }
     }
 
     fun deletePost() {
-        db.child("event").child(eid).removeValue().addOnSuccessListener {
-            view.eventNotFound()
-            db.child("join").child(eid).removeValue()
-        }
+        try {
+            db.child("event").child(eid).removeValue().addOnSuccessListener {
+                view.eventNotFound()
+                db.child("join").child(eid).removeValue()
+            }
+        } finally { }
     }
 
     fun addToCalendar(event: Event?) {

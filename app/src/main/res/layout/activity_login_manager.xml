@@ -16,10 +16,10 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="120dp"
+            android:layout_height="80dp"
             android:src="@drawable/logo_white"
             android:contentDescription="@string/login"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp" />
 
         <com.google.android.material.tabs.TabLayout

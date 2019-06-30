@@ -8,5 +8,6 @@ interface SearchView {
     fun hideLoading()
     fun showMountData(mount: List<Mount?>)
     fun showRentalData(rental: List<Rental?>)
-
+    fun showEmpty()
+    fun showNotEmpty()
 }

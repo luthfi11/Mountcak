@@ -23,6 +23,10 @@ class HomePresenter(private val view: HomeView) {
                     event.reverse()
                     view.hideLoading()
                     view.showEventList(event)
+                    
+                    if (event.size == 0) view.emptyEvent()
+                    else view.notEmptyEvent()
+
                 } catch (ex: Exception) {
                     ex.printStackTrace()
                 }

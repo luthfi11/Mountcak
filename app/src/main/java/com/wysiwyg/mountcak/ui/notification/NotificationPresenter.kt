@@ -32,6 +32,10 @@ class NotificationPresenter(private val view: NotificationView) {
                 join.sortBy { it?.confirmTime }
                 view.hideLoading()
                 view.showNotification(join)
+
+                if (join.size == 0) view.emptyNotification()
+                else view.notEmptyNotification()
+
             } catch (ex: Exception) {
                 ex.printStackTrace()
             }

@@ -112,5 +112,11 @@
     <string name="address">Address</string>
 
     <string name="default_notification_channel_id">mountcak_default_channel</string>
+    <string name="result_not_found">Result not found</string>
+    <string name="no_trip_found">No Trip Found</string>
+    <string name="no_chat_yet">No Chat Yet</string>
+    <string name="no_notification_yet">No Notification Yet</string>
+    <string name="refresh">Refresh</string>
+    <string name="menu">Menu</string>
 
 </resources>

@@ -94,7 +94,10 @@ class MountDetailPresenter(private val view: MountDetailView, private val id: St
     }
 
     fun likeMount() {
-        db.child("like").child(uid).child(id).setValue(id).addOnSuccessListener { view.isLiked() }
+        db.child("like").child(uid).child(id).setValue(id).addOnSuccessListener {
+            view.successLike()
+            view.isLiked()
+        }
     }
 
     fun dislikeMount() {

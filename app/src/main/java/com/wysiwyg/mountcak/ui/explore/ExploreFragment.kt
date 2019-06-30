@@ -8,9 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Mount
 import com.wysiwyg.mountcak.ui.search.SearchActivity
-import com.wysiwyg.temanolga.utilities.gone
-import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.fragment_explore.*
+import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.startActivity
 
 class ExploreFragment : Fragment(), ExploreView {
@@ -20,13 +19,11 @@ class ExploreFragment : Fragment(), ExploreView {
     private val mount: MutableList<Mount?> = mutableListOf()
 
     override fun showLoading() {
-        progressExplore.visible()
-        rvHome.gone()
+        srlExplore.isRefreshing = true
     }
 
     override fun hideLoading() {
-        progressExplore.gone()
-        rvHome.visible()
+        srlExplore.isRefreshing = false
     }
 
     override fun showMountList(mount: List<Mount?>) {
@@ -36,13 +33,14 @@ class ExploreFragment : Fragment(), ExploreView {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_explore, container, false)
+        val view = inflater.inflate(R.layout.fragment_explore, container, false)
+        setHasOptionsMenu(true)
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(toolbarExplore)
-        setHasOptionsMenu(true)
 
         adapter = MountAdapter(mount)
         rvHome.setHasFixedSize(true)
@@ -51,6 +49,8 @@ class ExploreFragment : Fragment(), ExploreView {
 
         presenter = ExplorePresenter(this)
         presenter.getData()
+
+        srlExplore.onRefresh { presenter.getData() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

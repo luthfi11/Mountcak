@@ -45,6 +45,16 @@ class SearchActivity : AppCompatActivity(), SearchView, android.widget.SearchVie
         rentalAdapter.notifyDataSetChanged()
     }
 
+    override fun showEmpty() {
+        rvSearch.gone()
+        tvEmpty.visible()
+    }
+
+    override fun showNotEmpty() {
+        rvSearch.visible()
+        tvEmpty.gone()
+    }
+
     override fun onQueryTextSubmit(p0: String?): Boolean {
         presenter.search(p0!!)
         return true

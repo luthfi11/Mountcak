@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/scrollView"
+    android:id="@+id/srlMountDetail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.mountdetail.MountDetailActivity">
 
-    <RelativeLayout
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <ProgressBar
-            android:id="@+id/progressMount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminateTint="@color/colorPrimary"
-            android:visibility="gone"
-            android:layout_centerInParent="true" />
 
         <RelativeLayout
             android:id="@+id/mountContent"
@@ -251,5 +244,5 @@
                 app:mapbox_styleUrl="@string/mapbox_style_traffic_day" />
 
         </RelativeLayout>
-    </RelativeLayout>
-</ScrollView>
+    </ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

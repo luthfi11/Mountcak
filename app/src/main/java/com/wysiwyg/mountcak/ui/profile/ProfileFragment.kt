@@ -70,7 +70,7 @@ class ProfileFragment : Fragment(), ProfileView, TabLayout.OnTabSelectedListener
         this.event.addAll(event)
         adapter.notifyDataSetChanged()
 
-        tabs.getTabAt(0)?.text = spannable { bold(size(1.4F,"${event.size}")) + "\nPost" }
+        tabs.getTabAt(0)?.text = spannable { bold(size(1.4F, "${event.size}")) + "\nPost" }
     }
 
     override fun showTrip(event: List<Event?>) {
@@ -78,7 +78,7 @@ class ProfileFragment : Fragment(), ProfileView, TabLayout.OnTabSelectedListener
         trip.addAll(event)
         adapter.notifyDataSetChanged()
 
-        tabs.getTabAt(1)?.text = spannable { bold(size(1.4F,"${event.size}")) + "\nTrip" }
+        tabs.getTabAt(1)?.text = spannable { bold(size(1.4F, "${event.size}")) + "\nTrip" }
     }
 
     override fun showMount(mount: List<Mount?>) {
@@ -87,7 +87,18 @@ class ProfileFragment : Fragment(), ProfileView, TabLayout.OnTabSelectedListener
         this.mount.sortBy { it?.mountName }
         mountAdapter.notifyDataSetChanged()
 
-        tabs.getTabAt(2)?.text = spannable { bold(size(1.4F,"${mount.size.plus(0)}")) + "\nFavorite" }
+        tabs.getTabAt(2)?.text = spannable { bold(size(1.4F, "${mount.size.plus(0)}")) + "\nFavorite" }
+    }
+
+    override fun emptyPost(title: String) {
+        rvProfile.gone()
+        tvEmpty.visible()
+        tvEmpty.text = title
+    }
+
+    override fun notEmptyPost() {
+        rvProfile.visible()
+        tvEmpty.gone()
     }
 
     override fun doLogout() {
@@ -115,26 +126,36 @@ class ProfileFragment : Fragment(), ProfileView, TabLayout.OnTabSelectedListener
             0 -> {
                 adapter = EventAdapter(event)
                 rvProfile.adapter = adapter
+
+                if (event.isEmpty()) emptyPost("No Post Yet")
+                else notEmptyPost()
             }
             1 -> {
                 adapter = EventAdapter(trip)
                 rvProfile.adapter = adapter
+
+                if (trip.isEmpty()) emptyPost("No Trip Yet")
+                else notEmptyPost()
             }
             2 -> {
                 mountAdapter = MountAdapter(mount)
                 rvProfile.adapter = mountAdapter
+
+                if (mount.isEmpty()) emptyPost("No Favorite List Yet")
+                else notEmptyPost()
             }
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        setHasOptionsMenu(true)
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(toolbarProfile)
-        setHasOptionsMenu(true)
 
         adapter = EventAdapter(event)
         mountAdapter = MountAdapter(mount)
@@ -146,8 +167,9 @@ class ProfileFragment : Fragment(), ProfileView, TabLayout.OnTabSelectedListener
         presenter = ProfilePresenter(this)
 
         getData()
-        btnEditProfile.onClick { startActivity<EditProfileActivity>("user" to user) }
+
         tabs.addOnTabSelectedListener(this)
+        btnEditProfile.onClick { startActivity<EditProfileActivity>("user" to user) }
     }
 
     override fun onResume() {
@@ -163,36 +185,29 @@ class ProfileFragment : Fragment(), ProfileView, TabLayout.OnTabSelectedListener
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
         menu?.clear()
         inflater?.inflate(R.menu.menu_profile, menu)
-        super.onCreateOptionsMenu(menu, inflater)
     }
 
     @SuppressLint("InflateParams")
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when(item?.itemId) {
+        when (item?.itemId) {
             R.id.nav_about -> {
                 val mDialogView = LayoutInflater.from(activity).inflate(R.layout.layout_about, null)
                 AlertDialog.Builder(context!!)
                     .setView(mDialogView)
                     .show()
-                true
             }
             R.id.nav_feedback -> {
                 val i = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:luthfialfarizi98@gmail.com"))
-                i.putExtra(Intent.EXTRA_SUBJECT,"Mountcak Feedback")
+                i.putExtra(Intent.EXTRA_SUBJECT, "Mountcak Feedback")
                 startActivity(i)
-                true
             }
-            R.id.nav_privacy -> {
-                browse("https://mountcak-16aa7.web.app/privacy_policy.html")
-                true
-            }
-            R.id.nav_logout -> {
-                presenter.logout()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+            R.id.nav_privacy -> browse("https://mountcak-16aa7.web.app/privacy_policy.html")
+            R.id.nav_logout -> presenter.logout()
+            R.id.nav_refresh -> getData()
         }
+        return super.onOptionsItemSelected(item)
     }
 }

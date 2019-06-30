@@ -14,6 +14,7 @@ interface MountDetailView {
     fun showMap(long: Double?, lat: Double?, title: String?)
     fun onMapTouch()
     fun hideInsta()
+    fun successLike()
     fun isLiked()
     fun isNotLiked()
 }

@@ -9,6 +9,8 @@ import android.view.ViewGroup
 
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Join
+import com.wysiwyg.temanolga.utilities.gone
+import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.fragment_notification.*
 import org.jetbrains.anko.support.v4.onRefresh
 
@@ -30,6 +32,16 @@ class NotificationFragment : Fragment(), NotificationView {
         this.join.clear()
         this.join.addAll(join)
         adapter.notifyDataSetChanged()
+    }
+
+    override fun emptyNotification() {
+        rvNotif.gone()
+        tvEmpty.visible()
+    }
+
+    override fun notEmptyNotification() {
+        rvNotif.visible()
+        tvEmpty.gone()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

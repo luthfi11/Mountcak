@@ -31,6 +31,10 @@ class MessagePresenter(private val view: MessageView) {
 
                 chatList.sortByDescending { it?.timeStamp }
                 view.showMessageList(chatList)
+
+                if (chatList.size == 0) view.emptyMessage()
+                else view.notEmptyMessage()
+
             } catch (ex: Exception) {
                 ex.printStackTrace()
             }
