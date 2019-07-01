@@ -64,8 +64,7 @@
             android:paddingBottom="8dp"
             tools:text="City, Region" />
 
-        <Button
-            android:id="@+id/btnDetail"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvCity"

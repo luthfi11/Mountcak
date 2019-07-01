@@ -58,20 +58,22 @@ class ChatRoomActivity : AppCompatActivity(), ChatRoomView, View.OnClickListener
         setSupportActionBar(toolbarChat)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        adapter = ChatRoomAdapter(chat)
-
-        rvChat.setHasFixedSize(true)
-        rvChat.layoutManager = LinearLayoutManager(this)
-        rvChat.adapter = adapter
-
         friendId = intent.getStringExtra("userId")
         presenter = ChatRoomPresenter(this, friendId)
         presenter.getFriendName(this, tvFriendName)
         presenter.getChatList()
         presenter.setRead()
 
+        setupRecyclerView()
         buttonEnable(false, R.color.colorMuted)
         etMessageText.addTextChangedListener(this)
+    }
+
+    private fun setupRecyclerView() {
+        adapter = ChatRoomAdapter(chat)
+        rvChat.setHasFixedSize(true)
+        rvChat.layoutManager = LinearLayoutManager(this)
+        rvChat.adapter = adapter
     }
 
     private fun buttonEnable(ena: Boolean, color: Int) {

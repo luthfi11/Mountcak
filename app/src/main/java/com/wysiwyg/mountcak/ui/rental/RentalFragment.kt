@@ -44,15 +44,18 @@ class RentalFragment : Fragment(), RentalView {
         super.onActivityCreated(savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(toolbarRental)
 
+        presenter = RentalPresenter(this)
+        presenter.getRentalStore()
+
+        setupRecyclerView()
+        srlRental.onRefresh { presenter.getRentalStore() }
+    }
+
+    private fun setupRecyclerView() {
         adapter = RentalAdapter(rental)
         rvRental.setHasFixedSize(true)
         rvRental.layoutManager = LinearLayoutManager(context)
         rvRental.adapter = adapter
-
-        presenter = RentalPresenter(this)
-        presenter.getRentalStore()
-
-        srlRental.onRefresh { presenter.getRentalStore() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

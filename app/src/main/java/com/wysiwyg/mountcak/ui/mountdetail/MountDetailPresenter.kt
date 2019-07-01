@@ -5,7 +5,12 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
+import com.wysiwyg.mountcak.data.model.ForecastResponse
 import com.wysiwyg.mountcak.data.model.Mount
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
+import java.net.URL
 
 class MountDetailPresenter(private val view: MountDetailView, private val id: String) {
 
@@ -26,6 +31,7 @@ class MountDetailPresenter(private val view: MountDetailView, private val id: St
                 if (mount?.instagram == null) {
                     view.hideInsta()
                 }
+                getForecast(mount?.longLat)
                 callNumber(mount?.contact)
                 sendMessage(mount?.contact)
                 viewPhoto(mount?.mountName, mount?.gallery)
@@ -91,6 +97,22 @@ class MountDetailPresenter(private val view: MountDetailView, private val id: St
     fun getMountDetail() {
         view.showLoading()
         db.child("mount").child(id).addValueEventListener(mountListener)
+    }
+
+    fun getForecast(lonLat: String?) {
+        val coord = lonLat!!.split(",")
+        val apiKey = "0b66142dd36477783c06951d3da8d0cb"
+        val url =
+            "http://api.openweathermap.org/data/2.5/forecast?lat=${coord[0]}&lon=${coord[1]}&mode=json&appid=$apiKey&units=metric"
+
+        doAsync {
+            val responseJson = URL(url).readText()
+            val data = Gson().fromJson(responseJson, ForecastResponse::class.java)
+
+            uiThread {
+                view.showForecast(data.list)
+            }
+        }
     }
 
     fun likeMount() {

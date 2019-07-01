@@ -42,15 +42,18 @@ class ExploreFragment : Fragment(), ExploreView {
         super.onActivityCreated(savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(toolbarExplore)
 
+        presenter = ExplorePresenter(this)
+        presenter.getData()
+
+        setupRecyclerView()
+        srlExplore.onRefresh { presenter.getData() }
+    }
+
+    private fun setupRecyclerView() {
         adapter = MountAdapter(mount)
         rvHome.setHasFixedSize(true)
         rvHome.layoutManager = LinearLayoutManager(context)
         rvHome.adapter = adapter
-
-        presenter = ExplorePresenter(this)
-        presenter.getData()
-
-        srlExplore.onRefresh { presenter.getData() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

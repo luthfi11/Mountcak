@@ -72,16 +72,17 @@ class SearchActivity : AppCompatActivity(), SearchView, android.widget.SearchVie
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val type = intent.getIntExtra("type", 1)
-
         presenter = SearchPresenter(this, type)
 
+        setupRecyclerView()
+        search.setOnQueryTextListener(this)
+    }
+
+    private fun setupRecyclerView() {
         mountAdapter = MountAdapter(mount)
         rentalAdapter = RentalAdapter(rental)
-
         rvSearch.setHasFixedSize(true)
         rvSearch.layoutManager = LinearLayoutManager(this)
-
-        search.setOnQueryTextListener(this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

@@ -179,13 +179,15 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
         presenter = EventDetailPresenter(this, eid)
         presenter.getEventDetail()
 
-        adapter = JoinedAdapter(user)
+        setupRecyclerView()
+        srlEventDetail.onRefresh { presenter.getEventDetail() }
+    }
 
+    private fun setupRecyclerView() {
+        adapter = JoinedAdapter(user)
         rvJoined.setHasFixedSize(true)
         rvJoined.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvJoined.adapter = adapter
-
-        srlEventDetail.onRefresh { presenter.getEventDetail() }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

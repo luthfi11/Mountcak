@@ -50,16 +50,17 @@ class MessageFragment : Fragment(), MessageView {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        adapter = MessageAdapter(message)
-
-        rvMessage.setHasFixedSize(true)
-        rvMessage.layoutManager = LinearLayoutManager(context)
-        rvMessage.adapter = adapter
-
         presenter = MessagePresenter(this)
         presenter.getMessageList()
 
+        setupRecyclerView()
         srlMessage.onRefresh { presenter.getMessageList() }
     }
 
+    private fun setupRecyclerView() {
+        adapter = MessageAdapter(message)
+        rvMessage.setHasFixedSize(true)
+        rvMessage.layoutManager = LinearLayoutManager(context)
+        rvMessage.adapter = adapter
+    }
 }

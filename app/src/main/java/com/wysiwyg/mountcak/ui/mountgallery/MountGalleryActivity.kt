@@ -30,14 +30,17 @@ class MountGalleryActivity : AppCompatActivity(), MountGalleryView {
         val listPhoto = intent.getStringExtra("photo").split("*")
 
         tvMountName.text = title
+        setupRecyclerView()
 
+        presenter = MountGalleryPresenter(this)
+        presenter.getPhotos(listPhoto)
+    }
+
+    private fun setupRecyclerView() {
         adapter = GalleryAdapter(photo)
         rvGallery.setHasFixedSize(true)
         rvGallery.layoutManager = LinearLayoutManager(this)
         rvGallery.adapter = adapter
-
-        presenter = MountGalleryPresenter(this)
-        presenter.getPhotos(listPhoto)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

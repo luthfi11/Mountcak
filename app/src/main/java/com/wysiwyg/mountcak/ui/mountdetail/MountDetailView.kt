@@ -1,5 +1,6 @@
 package com.wysiwyg.mountcak.ui.mountdetail
 
+import com.wysiwyg.mountcak.data.model.Forecast
 import com.wysiwyg.mountcak.data.model.Mount
 
 interface MountDetailView {
@@ -14,6 +15,7 @@ interface MountDetailView {
     fun showMap(long: Double?, lat: Double?, title: String?)
     fun onMapTouch()
     fun hideInsta()
+    fun showForecast(forecast: List<Forecast?>)
     fun successLike()
     fun isLiked()
     fun isNotLiked()

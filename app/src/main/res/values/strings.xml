@@ -118,5 +118,6 @@
     <string name="no_notification_yet">No Notification Yet</string>
     <string name="refresh">Refresh</string>
     <string name="menu">Menu</string>
+    <string name="forecast">Forecast</string>
 
 </resources>

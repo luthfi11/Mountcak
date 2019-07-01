@@ -157,24 +157,13 @@ class ProfileFragment : Fragment(), ProfileView, TabLayout.OnTabSelectedListener
         super.onActivityCreated(savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(toolbarProfile)
 
-        adapter = EventAdapter(event)
-        mountAdapter = MountAdapter(mount)
-
-        rvProfile.setHasFixedSize(true)
-        rvProfile.layoutManager = LinearLayoutManager(context)
-        rvProfile.adapter = adapter
-
         presenter = ProfilePresenter(this)
 
         getData()
+        setupRecyclerView()
 
         tabs.addOnTabSelectedListener(this)
         btnEditProfile.onClick { startActivity<EditProfileActivity>("user" to user) }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        getData()
     }
 
     private fun getData() {
@@ -182,6 +171,19 @@ class ProfileFragment : Fragment(), ProfileView, TabLayout.OnTabSelectedListener
         presenter.getUserPost()
         presenter.getUserTrip()
         presenter.getUserFav()
+    }
+
+    private fun setupRecyclerView() {
+        adapter = EventAdapter(event)
+        mountAdapter = MountAdapter(mount)
+        rvProfile.setHasFixedSize(true)
+        rvProfile.layoutManager = LinearLayoutManager(context)
+        rvProfile.adapter = adapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getData()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

@@ -110,19 +110,20 @@ class UserDetailActivity : AppCompatActivity(), UserDetailView, TabLayout.OnTabS
         setSupportActionBar(toolbarUser)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        adapter = EventAdapter(event)
-
-        rvProfile.setHasFixedSize(true)
-        rvProfile.layoutManager = LinearLayoutManager(this)
-        rvProfile.adapter = adapter
-
         uid = intent.getStringExtra("userId")
-
         presenter = UserDetailPresenter(this, uid)
         presenter.getUserData()
 
+        setupRecyclerView()
         tabs.addOnTabSelectedListener(this)
         btnChat.onClick { startActivity<ChatRoomActivity>("userId" to uid) }
+    }
+
+    private fun setupRecyclerView() {
+        adapter = EventAdapter(event)
+        rvProfile.setHasFixedSize(true)
+        rvProfile.layoutManager = LinearLayoutManager(this)
+        rvProfile.adapter = adapter
     }
 
     override fun onResume() {

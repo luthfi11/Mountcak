@@ -94,9 +94,13 @@ class ProfilePresenter(private val view: ProfileView) {
             eid.forEach {
                 db.child("event").child(it!!).addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(p0: DataSnapshot) {
-                        val data = p0.getValue(Event::class.java)
-                        listTrip.add(data)
-                        view.showTrip(listTrip)
+                        try {
+                            val data = p0.getValue(Event::class.java)
+                            listTrip.add(data)
+                            view.showTrip(listTrip)
+                        } catch (ex: Exception) {
+                            ex.printStackTrace()
+                        }
                     }
 
                     override fun onCancelled(p0: DatabaseError) {
@@ -135,9 +139,13 @@ class ProfilePresenter(private val view: ProfileView) {
             mId.forEach {
                 db.child("mount").child(it!!).addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(p0: DataSnapshot) {
-                        val mount = p0.getValue(Mount::class.java)
-                        listMount.add(mount)
-                        view.showMount(listMount)
+                        try {
+                            val mount = p0.getValue(Mount::class.java)
+                            listMount.add(mount)
+                            view.showMount(listMount)
+                        } catch (ex: Exception) {
+                            ex.printStackTrace()
+                        }
                     }
 
                     override fun onCancelled(p0: DatabaseError) {

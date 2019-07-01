@@ -84,9 +84,13 @@ class UserDetailPresenter(private val view: UserDetailView, private val uid: Str
             eid.forEach {
                 db.child("event").child(it!!).addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(p0: DataSnapshot) {
-                        val data = p0.getValue(Event::class.java)
-                        listTrip.add(data)
-                        view.showUserTrip(listTrip)
+                        try {
+                            val data = p0.getValue(Event::class.java)
+                            listTrip.add(data)
+                            view.showUserTrip(listTrip)
+                        } catch (ex: Exception) {
+                            ex.printStackTrace()
+                        }
                     }
 
                     override fun onCancelled(p0: DatabaseError) {

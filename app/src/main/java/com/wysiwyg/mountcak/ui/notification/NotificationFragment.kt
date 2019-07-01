@@ -51,16 +51,17 @@ class NotificationFragment : Fragment(), NotificationView {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        adapter = NotificationAdapter(join)
-
-        rvNotif.setHasFixedSize(true)
-        rvNotif.layoutManager = LinearLayoutManager(activity)
-        rvNotif.adapter = adapter
-
         presenter = NotificationPresenter(this)
         presenter.getNotification()
 
+        setupRecyclerView()
         srlNotif.onRefresh { presenter.getNotification() }
     }
 
+    private fun setupRecyclerView() {
+        adapter = NotificationAdapter(join)
+        rvNotif.setHasFixedSize(true)
+        rvNotif.layoutManager = LinearLayoutManager(activity)
+        rvNotif.adapter = adapter
+    }
 }

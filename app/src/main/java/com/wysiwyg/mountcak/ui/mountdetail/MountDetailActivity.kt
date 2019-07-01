@@ -6,12 +6,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.annotations.MarkerOptions
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.wysiwyg.mountcak.R
+import com.wysiwyg.mountcak.data.model.Forecast
 import com.wysiwyg.mountcak.data.model.Mount
 import com.wysiwyg.mountcak.ui.mountgallery.MountGalleryActivity
 import com.wysiwyg.mountcak.ui.viewphoto.ViewPhotoActivity
@@ -29,6 +31,8 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
 
     private lateinit var presenter: MountDetailPresenter
     private lateinit var linkGoogleMaps: String
+    private lateinit var adapter: ForecastAdapter
+    private val forecast = mutableListOf<Forecast?>()
 
     override fun showLoading() {
         srlMountDetail.isRefreshing = true
@@ -110,6 +114,12 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
         btnInsta.gone()
     }
 
+    override fun showForecast(forecast: List<Forecast?>) {
+        this.forecast.clear()
+        this.forecast.addAll(forecast)
+        adapter.notifyDataSetChanged()
+    }
+
     override fun successLike() {
         srlMountDetail.snackbar("Added to the favorites list")
     }
@@ -137,6 +147,19 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
         presenter = MountDetailPresenter(this, mountId.toString())
         presenter.getMountDetail()
 
+        setupRecyclerView()
+        onAction()
+    }
+
+    private fun setupRecyclerView() {
+        adapter = ForecastAdapter(forecast)
+        rvForecast.setHasFixedSize(true)
+        rvForecast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rvForecast.adapter = adapter
+        rvForecast.isNestedScrollingEnabled = false
+    }
+
+    private fun onAction() {
         fabFav.onClick { presenter.likeMount() }
         srlMountDetail.onRefresh { presenter.getMountDetail() }
     }

@@ -77,7 +77,7 @@
                 android:background="@color/colorMuted" />
 
             <TextView
-                android:id="@+id/tv1"
+                android:id="@+id/tv0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
@@ -85,8 +85,33 @@
                 android:paddingEnd="16dp"
                 android:layout_below="@id/view1"
                 android:textColor="@color/colorPrimary"
-                android:text="@string/location" />
+                android:text="@string/forecast" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvForecast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv0"
+                android:clipToPadding="false"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_forecast"
+                tools:orientation="horizontal"
+                tools:itemCount="5"/>
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="12sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_below="@id/rvForecast"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/location" />
+            
             <TextView
                 android:id="@+id/tvLocation"
                 android:layout_width="wrap_content"

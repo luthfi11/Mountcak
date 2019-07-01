@@ -7,24 +7,67 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/appBar"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         app:elevation="0dp">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarHome"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
             app:layout_scrollFlags="scroll|enterAlways|snap">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/title_home"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/toolbarText" />
+            <ImageView
+                android:id="@+id/imgWeather"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerCrop"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="@string/title_home"
+                tools:src="@drawable/logo" />
 
-        </androidx.appcompat.widget.Toolbar>
+            <TextView
+                android:id="@+id/tvLocationName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imgWeather"
+                android:layout_marginTop="4dp"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                tools:text="Bandung" />
+
+            <TextView
+                android:id="@+id/tvCurrentWeather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imgWeather"
+                android:layout_below="@id/tvLocationName"
+                android:textColor="@color/colorSemiWhite"
+                tools:text="Rainny" />
+
+            <TextView
+                android:id="@+id/tvTemperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@id/btnRefresh"
+                android:layout_centerVertical="true"
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                tools:text="19C" />
+
+            <ImageButton
+                android:id="@+id/btnRefresh"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginEnd="2dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/refresh"
+                android:background="@drawable/shape_back"
+                android:src="@drawable/ic_refresh"/>
+
+        </RelativeLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -56,7 +99,7 @@
         android:textSize="16sp"
         android:textAlignment="center"
         android:text="@string/no_trip_found"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"
