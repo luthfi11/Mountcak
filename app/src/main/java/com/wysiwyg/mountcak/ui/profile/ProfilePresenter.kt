@@ -159,6 +159,7 @@ class ProfilePresenter(private val view: ProfileView) {
     fun logout() {
         auth.signOut().also {
             view.doLogout()
+            db.child("user").child(uid).child("tokenId").removeValue()
         }
     }
 }

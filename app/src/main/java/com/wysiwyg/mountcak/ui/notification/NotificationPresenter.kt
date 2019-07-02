@@ -29,7 +29,7 @@ class NotificationPresenter(private val view: NotificationView) {
                         } else join.clear()
                     }
                 }
-                join.sortBy { it?.confirmTime }
+                join.sortByDescending { it?.confirmTime }
                 view.hideLoading()
                 view.showNotification(join)
 

@@ -47,8 +47,10 @@ class HomeFragment : Fragment(), HomeView, LocationListener {
 
     @SuppressLint("SetTextI18n")
     override fun showCurrentWeather(weatherResponse: WeatherResponse) {
-        val icon = "http://openweathermap.org/img/wn/${weatherResponse.weather[0].icon}@2x.png"
-        Glide.with(this).load(icon).into(imgWeather)
+        try {
+            val icon = "http://openweathermap.org/img/wn/${weatherResponse.weather[0].icon}@2x.png"
+            Glide.with(context!!).load(icon).into(imgWeather)
+        } finally { }
         tvLocationName.text = weatherResponse.name
         tvCurrentWeather.text = weatherResponse.weather[0].main + ", " + weatherResponse.weather[0].description
         tvTemperature.text = "${weatherResponse.main.temp}\u00B0 C"
@@ -73,6 +75,7 @@ class HomeFragment : Fragment(), HomeView, LocationListener {
     override fun onLocationChanged(location: Location?) {
         longitude = location?.longitude!!
         latitude = location.latitude
+        getLastWeather(longitude, latitude)
     }
 
     override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
@@ -101,16 +104,17 @@ class HomeFragment : Fragment(), HomeView, LocationListener {
         presenter = HomePresenter(this)
         presenter.getEventData()
 
-        getLastWeather()
+        longitude = defaultSharedPreferences.getString("lon", "0.0")!!.toDouble()
+        latitude = defaultSharedPreferences.getString("lat", "0.0")!!.toDouble()
+
+        getLastWeather(longitude, latitude)
         setupRecyclerView()
         onAction()
     }
 
-    private fun getLastWeather() {
-        val lon = defaultSharedPreferences.getString("lon", "0.0")
-        val lat = defaultSharedPreferences.getString("lat", "0.0")
-        if ((lon == "0.0") and (lat == "0.0")) presenter.getCurrentWeatherByCity()
-        else presenter.getCurrentWeather(lat!!.toDouble(), lon!!.toDouble())
+    private fun getLastWeather(longitude: Double, latitude: Double) {
+        if ((longitude == 0.0) and (latitude == 0.0)) presenter.getCurrentWeatherByCity()
+        else presenter.getCurrentWeather(latitude, longitude)
     }
 
     private fun setupRecyclerView() {
@@ -143,10 +147,10 @@ class HomeFragment : Fragment(), HomeView, LocationListener {
             if (location != null) {
                 longitude = location.longitude
                 latitude = location.latitude
+                getLastWeather(longitude, latitude)
             } else {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0F, this)
             }
-            presenter.getCurrentWeather(latitude, longitude)
         }
     }
 
