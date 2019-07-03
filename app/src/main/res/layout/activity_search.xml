@@ -29,6 +29,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="-40dp"
                 android:iconifiedByDefault="false"
+                android:queryHint="Search ..."
+                android:queryBackground="@color/colorPrimary"
                 android:searchIcon="@color/colorPrimary" />
 
         </LinearLayout>

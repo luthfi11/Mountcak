@@ -24,7 +24,7 @@ class SignUpFragment : Fragment(), SignUpView {
     private lateinit var presenter: SignUpPresenter
 
     override fun showCity() {
-        val adapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_dropdown_item, CityUtil.city)
+        val adapter = ArrayAdapter(context!!, R.layout.spinner_item, CityUtil.city)
         etCity.setAdapter(adapter)
     }
 

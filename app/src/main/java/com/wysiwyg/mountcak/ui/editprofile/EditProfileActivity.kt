@@ -37,7 +37,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfileView {
 
         email = user?.email!!
 
-        etCityUpdate.setAdapter(ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, CityUtil.city))
+        etCityUpdate.setAdapter(ArrayAdapter(this, R.layout.spinner_item, CityUtil.city))
     }
 
     override fun showLoading(title: String) {

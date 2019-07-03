@@ -7,6 +7,7 @@
     android:paddingBottom="6dp"
     android:paddingStart="8dp"
     android:paddingEnd="8dp"
+    android:background="@color/defaultBg"
     android:textColor="@android:color/black"
     android:textSize="15sp"
     android:ellipsize="marquee"/>
