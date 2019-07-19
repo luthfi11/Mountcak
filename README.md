@@ -1,7 +1,7 @@
 # Mountcak
 ## Available on play store 
 
-Mountcak Apps is an application that helps you to climb mountains to get mountain-related information that you can visit. The features found in Mountcak Apps are:
+Mountcak Apps is an application that helps you to get mountain-related information that you can visit. The features found in Mountcak Apps are:
 
 - Information on the mountains in Indonesia (especially Java). The mountain information includes mountain descriptions, altitude, location, realtime weather forecast for the next 5 days, galleries, manager contacts, and mountain location maps.
 
