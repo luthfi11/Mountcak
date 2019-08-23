@@ -83,7 +83,6 @@
             android:id="@+id/tv1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:layout_below="@id/view1"
@@ -108,7 +107,6 @@
             android:layout_below="@id/tvAddress"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textSize="12sp"
             android:textColor="@color/colorPrimary"
             android:text="@string/open_hour" />
 
@@ -130,7 +128,6 @@
             android:layout_below="@id/tvOpenHour"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textSize="12sp"
             android:textColor="@color/colorPrimary"
             android:text="@string/contact" />
 
@@ -178,7 +175,6 @@
             android:layout_below="@id/tvContact"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textSize="12sp"
             android:textColor="@color/colorPrimary"
             android:text="@string/instagram" />
 
@@ -211,7 +207,6 @@
             android:layout_marginTop="10dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textSize="12sp"
             android:layout_below="@id/tvInstagram"
             android:textColor="@color/colorPrimary"
             android:text="@string/price_list" />
@@ -232,7 +227,6 @@
             android:id="@+id/tv6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:layout_marginTop="10dp"
