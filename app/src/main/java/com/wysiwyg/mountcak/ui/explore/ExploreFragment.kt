@@ -12,11 +12,13 @@ import kotlinx.android.synthetic.main.fragment_explore.*
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.startActivity
 
-class ExploreFragment : Fragment(), ExploreView {
+class ExploreFragment : Fragment(), ExploreView, RegionView {
 
     private lateinit var presenter: ExplorePresenter
     private lateinit var adapter: MountAdapter
-    private val mount: MutableList<Mount?> = mutableListOf()
+    private lateinit var regionAdapter: RegionAdapter
+    private val mountList = mutableListOf<Mount?>()
+    private val regionList = mutableListOf<String?>()
 
     override fun showLoading() {
         srlExplore.isRefreshing = true
@@ -26,13 +28,30 @@ class ExploreFragment : Fragment(), ExploreView {
         srlExplore.isRefreshing = false
     }
 
+    override fun showRegionList(region: List<String?>) {
+        regionList.clear()
+        regionList.addAll(region.distinct())
+        regionAdapter.notifyDataSetChanged()
+    }
+
     override fun showMountList(mount: List<Mount?>) {
-        this.mount.clear()
-        this.mount.addAll(mount)
+        mountList.clear()
+        mountList.addAll(mount)
         adapter.notifyDataSetChanged()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onRegionChange(region: String) {
+        if (regionAdapter.regionPos == 0)
+            presenter.getData()
+        else
+            presenter.filterData(region)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_explore, container, false)
         setHasOptionsMenu(true)
         return view
@@ -47,13 +66,18 @@ class ExploreFragment : Fragment(), ExploreView {
 
         setupRecyclerView()
         srlExplore.onRefresh { presenter.getData() }
+
     }
 
     private fun setupRecyclerView() {
-        adapter = MountAdapter(mount)
-        rvHome.setHasFixedSize(true)
-        rvHome.layoutManager = LinearLayoutManager(context)
-        rvHome.adapter = adapter
+        adapter = MountAdapter(mountList)
+        rvMount.setHasFixedSize(true)
+        rvMount.layoutManager = LinearLayoutManager(context)
+        rvMount.adapter = adapter
+
+        regionAdapter = RegionAdapter(regionList, this)
+        rvRegion.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        rvRegion.adapter = regionAdapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
