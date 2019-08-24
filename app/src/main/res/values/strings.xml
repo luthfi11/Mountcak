@@ -11,6 +11,7 @@
     <string name="name">Your Name</string>
     <string name="city">City</string>
     <string name="email">Email</string>
+    <string name="phone">Phone</string>
     <string name="password">Password</string>
 
     <string name="signup">Sign Up</string>
@@ -21,6 +22,7 @@
     <string name="name_validate">Please fill your full name</string>
     <string name="city_validate">Please fill your current city</string>
     <string name="email_validate">Please fill your email correctly</string>
+    <string name="phone_validate">Please fill your phone number correctly</string>
     <string name="password_validate">Password length minimal 8 character</string>
     <string name="general_validate">Please fill this box</string>
 
@@ -119,5 +121,7 @@
     <string name="refresh">Refresh</string>
     <string name="menu">Menu</string>
     <string name="forecast">Forecast</string>
+
+
 
 </resources>

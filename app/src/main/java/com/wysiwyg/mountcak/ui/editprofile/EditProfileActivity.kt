@@ -34,6 +34,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfileView {
         etNameUpdate.setText(user?.name)
         etCityUpdate.setText(user?.city)
         etEmailUpdate.setText(user?.email)
+        etPhoneUpdate.setText(user?.phone)
 
         email = user?.email!!
 
@@ -126,6 +127,7 @@ class EditProfileActivity : AppCompatActivity(), EditProfileView {
             etToString(etNameUpdate),
             etToString(etCityUpdate),
             email,
+            etToString(etPhoneUpdate),
             pass
         )
     }

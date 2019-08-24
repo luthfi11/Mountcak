@@ -147,6 +147,35 @@
             android:layout_height="0.3dp"
             android:background="@color/colorMuted"/>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColorHint="@color/colorPrimary">
+
+        <EditText
+            android:id="@+id/etPhoneUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:textSize="15sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:hint="@string/phone"
+            android:background="@android:color/white"
+            tools:text="08123232323"
+            tools:ignore="Autofill" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@color/colorMuted"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

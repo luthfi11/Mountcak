@@ -41,7 +41,7 @@ class EditProfilePresenter(private val view: EditProfileView) {
         }
     }
 
-    fun updateProfile(newName: String, newCity: String, newMail: String, newPass: String?) {
+    fun updateProfile(newName: String, newCity: String, newMail: String, newPhone: String, newPass: String?) {
         try {
             view.showLoading("Updating Profile")
 
@@ -52,6 +52,7 @@ class EditProfilePresenter(private val view: EditProfileView) {
                 it.child("name").setValue(newName)
                 it.child("city").setValue(newCity)
                 it.child("email").setValue(newMail)
+                it.child("phone").setValue(newPhone)
             }
                 .addOnSuccessListener {
                     view.hideLoading()

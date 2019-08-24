@@ -12,6 +12,7 @@
     <string name="name">Nama Anda</string>
     <string name="city">Kota</string>
     <string name="email">Email</string>
+    <string name="phone">Telepon</string>
     <string name="password">Kata Sandi</string>
 
     <string name="signup">Daftar</string>
@@ -22,6 +23,7 @@
     <string name="name_validate">Silakan isi nama lengkap anda</string>
     <string name="city_validate">Silakan isi kota anda saat ini</string>
     <string name="email_validate">Silakan isi email anda dengan benar</string>
+    <string name="phone_validate">Silakan isi nomor telepon anda dengan benar</string>
     <string name="password_validate">Panjang kata sandi minimal 8 karakter</string>
     <string name="general_validate">Silakan isi kotak ini</string>
 

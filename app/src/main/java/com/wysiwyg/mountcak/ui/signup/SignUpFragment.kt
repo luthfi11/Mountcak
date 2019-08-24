@@ -62,8 +62,16 @@ class SignUpFragment : Fragment(), SignUpView {
         etValidate(etName, getString(R.string.name_validate)) {
             etValidate(etCity, getString(R.string.city_validate)) {
                 emailValidate(etEmail, getString(R.string.email_validate)) {
-                    passwordValidate(etPassword, getString(R.string.password_validate)) {
-                        presenter.signUp(etToString(etEmail), etToString(etPassword), etToString(etName), etToString(etCity))
+                    etValidate(etPhone, (getString(R.string.phone_validate))) {
+                        passwordValidate(etPassword, getString(R.string.password_validate)) {
+                            presenter.signUp(
+                                etToString(etEmail),
+                                etToString(etPhone),
+                                etToString(etPassword),
+                                etToString(etName),
+                                etToString(etCity)
+                            )
+                        }
                     }
                 }
             }
