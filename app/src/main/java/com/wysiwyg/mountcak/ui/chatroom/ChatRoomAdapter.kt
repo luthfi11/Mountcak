@@ -3,6 +3,7 @@ package com.wysiwyg.mountcak.ui.chatroom
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +13,12 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.wysiwyg.mountcak.R
+import com.wysiwyg.mountcak.bigbox.APIClient
+import com.wysiwyg.mountcak.bigbox.APIService
 import com.wysiwyg.mountcak.data.model.Chat
 import com.wysiwyg.mountcak.data.model.Join
+import com.wysiwyg.mountcak.data.model.SMSResponse
+import com.wysiwyg.mountcak.data.model.User
 import com.wysiwyg.mountcak.util.DateUtil
 import com.wysiwyg.mountcak.util.DateUtil.dayAgo
 import com.wysiwyg.mountcak.util.FirebaseUtil
@@ -25,13 +30,23 @@ import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.selector
 import org.jetbrains.anko.textColorResource
 import org.jetbrains.anko.textResource
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ChatRoomAdapter(private val chats: MutableList<Chat?>) : RecyclerView.Adapter<ChatRoomAdapter.ViewHolder>() {
+class ChatRoomAdapter(private val chats: MutableList<Chat?>) :
+    RecyclerView.Adapter<ChatRoomAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(p0.context).inflate(R.layout.item_chat_room, p0, false))
+        return ViewHolder(
+            LayoutInflater.from(p0.context).inflate(
+                R.layout.item_chat_room,
+                p0,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int {
@@ -40,7 +55,9 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) : RecyclerView.Adap
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
         if (p1 > 1) {
-            if (dayAgo(chats[p1 - 1]?.timeStamp!!) != dayAgo(chats[p1]?.timeStamp!!)) p0.showTime(chats[p1])
+            if (dayAgo(chats[p1 - 1]?.timeStamp!!) != dayAgo(chats[p1]?.timeStamp!!)) p0.showTime(
+                chats[p1]
+            )
             else p0.hideTime()
         }
 
@@ -71,11 +88,18 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) : RecyclerView.Adap
                 } else {
                     itemView.viewJoin.visible()
                     itemView.viewJoinMe.gone()
-                    FirebaseUtil.getUserData(itemView.context, chat.senderId!!, null, itemView.imgSenderJoin)
+                    FirebaseUtil.getUserData(
+                        itemView.context,
+                        chat.senderId!!,
+                        null,
+                        itemView.imgSenderJoin
+                    )
                     itemView.tvJoinMsg.text = chat.msgContent
                     itemView.tvJoinTime.text = DateUtil.timeFormat("HH:mm", chat.timeStamp!!)
                     itemView.btnAccept.onClick { confirmReq(chat.eventId, chat.joinId, 1) }
                     itemView.btnDecline.onClick { confirmReq(chat.eventId, chat.joinId, 0) }
+
+                    getUserData(chat.senderId)
                 }
 
             } else {
@@ -92,7 +116,12 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) : RecyclerView.Adap
                     else itemView.tvRead.invisible()
 
                 } else {
-                    FirebaseUtil.getUserData(itemView.context, chat?.senderId!!, null, itemView.imgSender)
+                    FirebaseUtil.getUserData(
+                        itemView.context,
+                        chat?.senderId!!,
+                        null,
+                        itemView.imgSender
+                    )
                     itemView.tvMessageIn.text = chat.msgContent
                     itemView.tvReceiveTime.text = DateUtil.timeFormat("HH:mm", chat.timeStamp!!)
                     itemView.viewJoin.gone()
@@ -113,6 +142,7 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) : RecyclerView.Adap
             itemView.tvTime.gone()
         }
 
+        private var title: String? = null
         private var maxPar: Int? = null
         private var participant: Int? = null
         private var eventDate: String? = null
@@ -121,6 +151,7 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) : RecyclerView.Adap
             db.child("event").child(eid!!).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     try {
+                        title = p0.child("title").getValue(String::class.java)
                         maxPar = p0.child("maxParticipant").getValue(Int::class.java)
                         participant = p0.child("joinedParticipant").getValue(Int::class.java)
                         eventDate = p0.child("dateStart").getValue(String::class.java)
@@ -136,41 +167,16 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) : RecyclerView.Adap
             })
         }
 
-        private fun confirmReq(eid: String?, joinId: String?, stat: Int) {
+        private var friendName: String? = null
+        private var phone: String? = null
+        fun getUserData(uid: String?) {
             val db = FirebaseDatabase.getInstance().reference
-            db.child("join").child(eid!!).child(joinId!!).child("status").setValue(stat)
-            db.child("join").child(eid).child(joinId).child("confirmTime").setValue(System.currentTimeMillis())
-            db.child("event").child(eid).child("joinedParticipant").setValue(participant?.plus(1))
-        }
-
-        private fun cancelRequest(eid: String?, joinId: String?) {
-            val db = FirebaseDatabase.getInstance().reference
-            db.child("join").child(eid!!).child(joinId!!).removeValue()
-        }
-
-        private fun checkJoin(eid: String?, joinId: String?) {
-            val db = FirebaseDatabase.getInstance().reference
-            db.child("join").child(eid!!).child(joinId!!).addValueEventListener(object : ValueEventListener {
+            db.child("user").child(uid!!).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     try {
-                        if (p0.exists()) {
-                            val parseDate: Date = SimpleDateFormat("dd/MM/yy", Locale.getDefault()).parse(eventDate)
-                            if (Date().after(parseDate)) showConfirm(R.string.expired, android.R.color.darker_gray)
-
-                            else {
-                                if (participant!! >= maxPar!!) showConfirm(R.string.waiting_list, android.R.color.darker_gray)
-
-                                else {
-                                    val data = p0.getValue(Join::class.java)
-                                    when (data?.status) {
-                                        0 -> showConfirm(R.string.declined, android.R.color.holo_red_light)
-                                        1 -> showConfirm(R.string.accepted, R.color.colorPrimary)
-                                        2 -> showDefault()
-                                    }
-                                }
-                            }
-
-                        } else showConfirm(R.string.cancelled, android.R.color.darker_gray)
+                        val data = p0.getValue(User::class.java)
+                        friendName = data?.name
+                        phone = data?.phone
 
                     } catch (ex: Exception) {
                         ex.printStackTrace()
@@ -181,6 +187,97 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) : RecyclerView.Adap
 
                 }
             })
+        }
+
+        private fun confirmReq(eid: String?, joinId: String?, stat: Int) {
+            val db = FirebaseDatabase.getInstance().reference
+            db.child("join").child(eid!!).child(joinId!!).child("status").setValue(stat)
+            db.child("join").child(eid).child(joinId).child("confirmTime")
+                .setValue(System.currentTimeMillis())
+
+            var smsContent = ""
+            if (stat == 1) {
+                db.child("event").child(eid).child("joinedParticipant")
+                    .setValue(participant?.plus(1))
+                smsContent =
+                    "Hallo $friendName, permintaan anda untuk bergabung dengan acara \"$title\" telah disetujui. Silahkan buka aplikasi Mountcak anda, Terima kasih."
+            } else {
+                smsContent =
+                    "Hallo $friendName, permintaan anda untuk bergabung dengan acara \"$title\" telah ditolak. Terima kasih."
+            }
+
+            val apiKey = "ig1RMz09vsjWSlIp7cx5fuNjoxrefqqR"
+            val apiInterface: APIService = APIClient.getClient().create(APIService::class.java)
+            if (phone != null) {
+                val send = apiInterface.postSMS(apiKey, phone!!, smsContent)
+                send.enqueue(object : Callback<SMSResponse> {
+                    override fun onFailure(call: Call<SMSResponse>?, t: Throwable?) {
+                        Log.d("AAAAAAAAAAAAAA", "GAGAL")
+                    }
+
+                    override fun onResponse(
+                        call: Call<SMSResponse>?,
+                        response: Response<SMSResponse>?
+                    ) {
+                        Log.d("AAAAAAAAAAAAAA", "${response?.body()?.message}")
+                    }
+
+                })
+            }
+        }
+
+        private fun cancelRequest(eid: String?, joinId: String?) {
+            val db = FirebaseDatabase.getInstance().reference
+            db.child("join").child(eid!!).child(joinId!!).removeValue()
+        }
+
+        private fun checkJoin(eid: String?, joinId: String?) {
+            val db = FirebaseDatabase.getInstance().reference
+            db.child("join").child(eid!!).child(joinId!!)
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(p0: DataSnapshot) {
+                        try {
+                            if (p0.exists()) {
+                                val parseDate: Date =
+                                    SimpleDateFormat("dd/MM/yy", Locale.getDefault()).parse(
+                                        eventDate
+                                    )
+                                if (Date().after(parseDate)) showConfirm(
+                                    R.string.expired,
+                                    android.R.color.darker_gray
+                                )
+                                else {
+                                    if (participant!! >= maxPar!!) showConfirm(
+                                        R.string.waiting_list,
+                                        android.R.color.darker_gray
+                                    )
+                                    else {
+                                        val data = p0.getValue(Join::class.java)
+                                        when (data?.status) {
+                                            0 -> showConfirm(
+                                                R.string.declined,
+                                                android.R.color.holo_red_light
+                                            )
+                                            1 -> showConfirm(
+                                                R.string.accepted,
+                                                R.color.colorPrimary
+                                            )
+                                            2 -> showDefault()
+                                        }
+                                    }
+                                }
+
+                            } else showConfirm(R.string.cancelled, android.R.color.darker_gray)
+
+                        } catch (ex: Exception) {
+                            ex.printStackTrace()
+                        }
+                    }
+
+                    override fun onCancelled(p0: DatabaseError) {
+
+                    }
+                })
         }
 
         private fun View.copyToClipboard(msg: String?) {
