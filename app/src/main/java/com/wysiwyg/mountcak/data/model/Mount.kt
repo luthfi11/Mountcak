@@ -1,9 +1,5 @@
 package com.wysiwyg.mountcak.data.model
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
-
-@Parcelize
 data class Mount (
     val id: Int? = null,
     val mountName: String? = null,
@@ -19,4 +15,4 @@ data class Mount (
     val linkGMaps: String? = null,
     val gallery: String? = null,
     val longLat: String? = null
-): Parcelable
+)

@@ -6,8 +6,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
-import com.wysiwyg.mountcak.data.model.ForecastResponse
-import com.wysiwyg.mountcak.data.model.Mount
+import com.wysiwyg.mountcak.data.model.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.net.URL
@@ -34,10 +33,31 @@ class MountDetailPresenter(private val view: MountDetailView, private val id: St
                 getForecast(mount?.longLat)
                 callNumber(mount?.contact)
                 sendMessage(mount?.contact)
-                viewPhoto(mount?.mountName, mount?.gallery)
                 getMap(mount?.longLat, mount?.mountName)
                 viewInstagram(mount?.instagram!!)
                 checkLike()
+                getVideo(mount.mountName)
+            } catch (ex: Exception) {
+                ex.printStackTrace()
+            }
+
+        }
+    }
+
+    private val expListener = object : ValueEventListener {
+        override fun onCancelled(p0: DatabaseError) {
+
+        }
+
+        override fun onDataChange(p0: DataSnapshot) {
+            try {
+                val experience = mutableListOf<Experience?>()
+                p0.children.forEach {
+                    val data = it.getValue(Experience::class.java)
+                    experience.add(data)
+                }
+                view.showUserExperience(experience)
+
             } catch (ex: Exception) {
                 ex.printStackTrace()
             }
@@ -56,10 +76,6 @@ class MountDetailPresenter(private val view: MountDetailView, private val id: St
         if (number != "-") {
             view.sendMessage(number!!)
         }
-    }
-
-    private fun viewPhoto(title: String?, photo: String?) {
-        view.showPhoto(title, photo)
     }
 
     private fun viewInstagram(ig: String) {
@@ -96,6 +112,7 @@ class MountDetailPresenter(private val view: MountDetailView, private val id: St
 
     fun getMountDetail() {
         view.showLoading()
+        db.child("experience").child(id).addValueEventListener(expListener)
         db.child("mount").child(id).addValueEventListener(mountListener)
     }
 
@@ -128,5 +145,20 @@ class MountDetailPresenter(private val view: MountDetailView, private val id: St
 
     fun onClose() {
         db.child("mount").child(id).removeEventListener(mountListener)
+        db.child("experience").child(id).removeEventListener(expListener)
+    }
+
+    fun getVideo(mount: String?) {
+        val api = "AIzaSyCY2dZOC9wJy1zlHIFn02GhBUbuNAVP8ug"
+        val query = mount?.replace(" ", "+")
+        val url = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=$query&type=video&maxResults=10&key=$api"
+        doAsync {
+            val responseJson = URL(url).readText()
+            val data = Gson().fromJson(responseJson, VideResult::class.java)
+
+            uiThread {
+                view.showVideo(data.items)
+            }
+        }
     }
 }

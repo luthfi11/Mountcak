@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <EditText
+        android:id="@+id/etExperience"
+        android:layout_width="match_parent"
+        android:paddingStart="20dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="24dp"
+        android:gravity="top"
+        android:hint="@string/add_experience_hint"
+        tools:text="@tools:sample/lorem/random"
+        android:background="@android:color/white"
+        android:layout_height="120dp" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:textColor="@color/colorPrimary"
+        android:layout_below="@+id/etExperience"
+        android:layout_toStartOf="@id/btnShare"
+        android:padding="16dp"
+        android:text="@string/cancel" />
+
+    <Button
+        android:id="@+id/btnShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:layout_below="@+id/etExperience"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/colorPrimary"
+        android:padding="16dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/share" />
+
+</RelativeLayout>

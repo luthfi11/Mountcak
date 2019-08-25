@@ -65,7 +65,10 @@ class ExploreFragment : Fragment(), ExploreView, RegionView {
         presenter.getData()
 
         setupRecyclerView()
-        srlExplore.onRefresh { presenter.getData() }
+        srlExplore.onRefresh {
+            presenter.getData()
+            regionAdapter.regionPos = 0
+        }
 
     }
 

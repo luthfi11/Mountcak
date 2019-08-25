@@ -13,9 +13,11 @@ import com.mapbox.mapboxsdk.annotations.MarkerOptions
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.wysiwyg.mountcak.R
+import com.wysiwyg.mountcak.data.model.Experience
 import com.wysiwyg.mountcak.data.model.Forecast
 import com.wysiwyg.mountcak.data.model.Mount
-import com.wysiwyg.mountcak.ui.mountgallery.MountGalleryActivity
+import com.wysiwyg.mountcak.data.model.SearchResult
+import com.wysiwyg.mountcak.ui.experience.UserExperienceActivity
 import com.wysiwyg.mountcak.ui.viewphoto.ViewPhotoActivity
 import com.wysiwyg.temanolga.utilities.gone
 import kotlinx.android.synthetic.main.activity_mount_detail.*
@@ -32,7 +34,13 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
     private lateinit var presenter: MountDetailPresenter
     private lateinit var linkGoogleMaps: String
     private lateinit var adapter: ForecastAdapter
+    private lateinit var experienceAdapter: ExperienceAdapter
+    private lateinit var photoAdapter: PhotoAdapter
+    private lateinit var videoAdapter: VideoAdapter
     private val forecast = mutableListOf<Forecast?>()
+    private val experience = mutableListOf<Experience?>()
+    private val photo = mutableListOf<String?>()
+    private val video = mutableListOf<SearchResult?>()
 
     override fun showLoading() {
         srlMountDetail.isRefreshing = true
@@ -54,6 +62,14 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
         tvRoute.text = mount?.route?.replace(", ","\n- ")?.replaceFirst("","- ")
 
         linkGoogleMaps = mount?.linkGMaps!!
+
+        photo.addAll(mount.gallery?.split("*")!!)
+    }
+
+    override fun showUserExperience(experience: List<Experience?>) {
+        this.experience.clear()
+        this.experience.addAll(experience)
+        experienceAdapter.notifyDataSetChanged()
     }
 
     override fun callNumber(number: String) {
@@ -73,10 +89,6 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
     override fun hideCall() {
         btnCall.gone()
         btnSMS.gone()
-    }
-
-    override fun showPhoto(title: String?, photo: String?) {
-        btnPhoto.onClick { startActivity<MountGalleryActivity>("photo" to photo, "title" to title) }
     }
 
     override fun showInstagram(ig: String) {
@@ -120,6 +132,12 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
         adapter.notifyDataSetChanged()
     }
 
+    override fun showVideo(video: List<SearchResult?>) {
+        this.video.clear()
+        this.video.addAll(video)
+        videoAdapter.notifyDataSetChanged()
+    }
+
     override fun successLike() {
         srlMountDetail.snackbar("Added to the favorites list")
     }
@@ -148,7 +166,7 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
         presenter.getMountDetail()
 
         setupRecyclerView()
-        onAction()
+        onAction(mountId)
     }
 
     private fun setupRecyclerView() {
@@ -157,11 +175,25 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
         rvForecast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvForecast.adapter = adapter
         rvForecast.isNestedScrollingEnabled = false
+
+        experienceAdapter = ExperienceAdapter(experience)
+        rvExperience.setHasFixedSize(true)
+        rvExperience.layoutManager = LinearLayoutManager(this)
+        rvExperience.adapter = experienceAdapter
+
+        photoAdapter = PhotoAdapter(photo)
+        rvPhoto.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rvPhoto.adapter = photoAdapter
+
+        videoAdapter = VideoAdapter(video)
+        rvVideo.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rvVideo.adapter = videoAdapter
     }
 
-    private fun onAction() {
+    private fun onAction(id: Int) {
         fabFav.onClick { presenter.likeMount() }
         srlMountDetail.onRefresh { presenter.getMountDetail() }
+        btnViewAll.onClick { startActivity<UserExperienceActivity>("id" to id) }
     }
 
     override fun onDestroy() {
