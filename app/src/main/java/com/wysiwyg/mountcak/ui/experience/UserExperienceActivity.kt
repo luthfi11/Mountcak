@@ -24,6 +24,7 @@ class UserExperienceActivity : AppCompatActivity() {
     private lateinit var adapter: UserExperienceAdapter
     private val experience = mutableListOf<Experience?>()
     private val db = FirebaseDatabase.getInstance().reference.child("experience")
+    private var id: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +32,7 @@ class UserExperienceActivity : AppCompatActivity() {
         setSupportActionBar(toolbarExperience)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        val id = intent.getIntExtra("id",99)
+        id = intent.getIntExtra("id",99)
         getUserExperience(id)
 
         adapter = UserExperienceAdapter(experience)
@@ -42,22 +43,24 @@ class UserExperienceActivity : AppCompatActivity() {
         fabAdd.onClick { showFilterDialog(id.toString()) }
     }
 
-    private fun getUserExperience(id: Int) {
-        db.child(id.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(p0: DataSnapshot) {
-                experience.clear()
-                p0.children.forEach {
-                    val data = it.getValue(Experience::class.java)
-                    experience.add(data)
-                }
-                adapter.notifyDataSetChanged()
-                srlExperience.isRefreshing = false
+    private val listener = object : ValueEventListener{
+        override fun onDataChange(p0: DataSnapshot) {
+            experience.clear()
+            p0.children.forEach {
+                val data = it.getValue(Experience::class.java)
+                experience.add(data)
             }
+            adapter.notifyDataSetChanged()
+            srlExperience.isRefreshing = false
+        }
 
-            override fun onCancelled(p0: DatabaseError) {
+        override fun onCancelled(p0: DatabaseError) {
 
-            }
-        })
+        }
+    }
+
+    private fun getUserExperience(id: Int?) {
+        db.child(id.toString()).addValueEventListener(listener)
     }
 
     private fun showFilterDialog(id: String) {
@@ -70,20 +73,30 @@ class UserExperienceActivity : AppCompatActivity() {
         mAlertDialog.setCancelable(false)
         mDialogView.btnCancel.onClick { mAlertDialog.dismiss() }
         mDialogView.btnShare.onClick {
-            mAlertDialog.dismiss()
-            val content = mDialogView.etExperience.text.toString()
-            val eid = db.child(id).push().key
-            db.child(id).child(eid!!).setValue(
-                Experience(eid, FirebaseUtil.currentUser(), id, content)
-            )
-                .addOnSuccessListener {
-                    toast(getString(R.string.experience_posted))
-                }
+            if (mDialogView.etExperience.text.isNotEmpty()) {
+                mAlertDialog.dismiss()
+                val content = mDialogView.etExperience.text.toString()
+                val eid = db.child(id).push().key
+                db.child(id).child(eid!!).setValue(
+                    Experience(eid, FirebaseUtil.currentUser(), id, content)
+                )
+                    .addOnSuccessListener {
+                        toast(getString(R.string.experience_posted))
+                    }
+            } else {
+                mDialogView.etExperience.requestFocus()
+                mDialogView.etExperience.error = getString(R.string.general_validate)
+            }
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        db.child(id.toString()).removeEventListener(listener)
     }
 }

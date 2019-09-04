@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="appname">Mountcak</string>
-    <string name="version">Versi 1.0</string>
+    <string name="version">Versi 1.0.1</string>
     <string name="title_home">Beranda</string>
     <string name="title_explore">Jelajahi</string>
     <string name="title_rental">Penyewaan</string>
