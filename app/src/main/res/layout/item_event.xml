@@ -6,26 +6,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="12dp"
-    android:layout_marginEnd="12dp"
     android:layout_marginTop="6dp"
+    android:layout_marginEnd="12dp"
     android:layout_marginBottom="6dp"
     app:cardCornerRadius="3dp"
     app:cardElevation="0dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="10dp"
-        android:background="@drawable/shape_card" >
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_card"
+        android:paddingBottom="10dp">
 
         <ImageView
             android:id="@+id/imgMount"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginTop="-0.5dp"
             android:layout_marginStart="-0.5dp"
+            android:layout_marginTop="-0.5dp"
             android:layout_marginEnd="-0.5dp"
-            android:layout_marginBottom="25dp"
             android:contentDescription="@string/title_home"
             android:scaleType="centerCrop"
             tools:src="@tools:sample/backgrounds/scenic" />
@@ -34,44 +33,39 @@
             android:id="@+id/tvUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/imgMount"
+            android:layout_below="@id/tvParticipant"
             android:layout_toEndOf="@id/imgUser"
-            android:background="@drawable/shape_user"
-            android:layout_marginStart="-20dp"
-            android:maxLines="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="6dp"
             android:ellipsize="end"
-            android:paddingStart="26dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="2dp"
-            android:paddingTop="2dp"
-            android:textSize="16sp"
-            android:textColor="@android:color/white"
+            android:maxLines="1"
+            android:textSize="13sp"
             tools:text="User Name" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgUser"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignBottom="@id/imgMount"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_below="@id/tvParticipant"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
             app:civ_border_color="@color/colorPrimary"
             app:civ_border_width="2dp"
             app:civ_fill_color="@android:color/white"
-            android:layout_marginStart="10dp"
-            tools:src="@tools:sample/avatars"
-            android:layout_marginBottom="-24dp" />
+            tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/tvEventTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imgUser"
-            android:layout_toEndOf="@id/imgUser"
-            android:layout_marginStart="6dp"
+            android:layout_below="@id/imgMount"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
             android:layout_marginEnd="16dp"
-            android:maxLines="2"
             android:ellipsize="end"
-            android:textSize="16sp"
+            android:maxLines="2"
             android:textColor="@android:color/black"
+            android:textSize="16sp"
             tools:text="Event Title" />
 
         <TextView
@@ -79,26 +73,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvEventTitle"
-            android:layout_marginTop="6dp"
             android:layout_marginStart="16dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@android:color/black"
             tools:text="Mount Name" />
-
-        <TextView
-            android:id="@+id/tvCity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvMountName"
-            android:layout_marginStart="16dp"
-            tools:text="City, Region" />
 
         <TextView
             android:id="@+id/tvParticipant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvCity"
+            android:layout_below="@+id/tvMountName"
             android:layout_marginStart="16dp"
             tools:text="100 Participant" />
 
@@ -110,21 +94,21 @@
             android:layout_alignEnd="@id/imgMount"
             android:background="@drawable/shape_cost"
             android:padding="8dp"
-            android:textSize="12sp"
             android:textColor="@color/colorPrimaryDark"
+            android:textSize="12sp"
             tools:text="FREE" />
 
         <TextView
             android:id="@+id/tvMontStart"
             android:layout_width="26dp"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/tvDiv"
             android:layout_above="@id/tvDayStart"
-            android:gravity="center"
             android:layout_marginBottom="-6dp"
+            android:layout_toStartOf="@id/tvDiv"
+            android:gravity="center"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
-            tools:text="May"/>
+            tools:text="May" />
 
         <TextView
             android:id="@+id/tvMonthEnd"
@@ -137,40 +121,40 @@
             android:gravity="center"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
-            tools:text="May"/>
+            tools:text="May" />
 
         <TextView
             android:id="@+id/tvDiv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/tvDayEnd"
             android:layout_below="@id/tvMonthEnd"
-            android:textSize="20sp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@id/tvDayEnd"
+            android:text="-"
             android:textColor="@android:color/black"
-            android:text="-"/>
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tvDayStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tvParticipant"
             android:layout_toStartOf="@id/tvDiv"
-            android:layout_below="@id/tvMountName"
-            android:textSize="26sp"
             android:textColor="@color/colorPrimary"
-            tools:text="10"/>
+            android:textSize="26sp"
+            tools:text="10" />
 
         <TextView
             android:id="@+id/tvDayEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvMountName"
+            android:layout_below="@id/tvParticipant"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="16dp"
-            android:textSize="26sp"
             android:textColor="@color/colorPrimary"
-            tools:text="12"/>
+            android:textSize="26sp"
+            tools:text="12" />
 
     </RelativeLayout>
 

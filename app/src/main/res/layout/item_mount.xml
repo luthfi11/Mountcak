@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="10dp"
     android:background="@android:color/white"
     app:cardBackgroundColor="@android:color/white"
-    app:cardElevation="8dp" >
+    app:cardElevation="8dp">
 
     <RelativeLayout
         android:id="@+id/viewMount"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/imgMount"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:layout_marginTop="-0.5dp"
             android:layout_marginStart="-0.5dp"
+            android:layout_marginTop="-0.5dp"
             android:layout_marginEnd="-0.5dp"
             android:contentDescription="@string/title_explore"
             android:scaleType="centerCrop"
-            tools:src="@tools:sample/backgrounds/scenic"/>
+            tools:src="@tools:sample/backgrounds/scenic" />
 
         <TextView
             android:id="@+id/tvMountName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/imgMount"
-            android:layout_marginTop="4dp"
             android:layout_marginStart="22dp"
-            android:textSize="16sp"
+            android:layout_marginTop="4dp"
             android:textColor="@android:color/black"
-            tools:text="Mount Name"/>
+            android:textSize="16sp"
+            tools:text="Mount Name" />
 
         <TextView
             android:id="@+id/tvHeight"
@@ -49,23 +49,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvHeight"
-            android:layout_marginStart="22dp"
+            android:layout_marginStart="20dp"
+            android:drawablePadding="2dp"
+            android:drawableStart="@drawable/ic_location_small"
             android:paddingBottom="8dp"
             tools:text="City, Region" />
 
         <Button
             android:id="@+id/btnDetail"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_below="@id/tvMountName"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="12dp"
-            android:textColor="@color/colorPrimary"
             android:drawableEnd="@drawable/ic_arrow_forward"
-            style="@style/Widget.AppCompat.Button.Borderless"
+            android:text="@string/see_more"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:text="@string/see_more"/>
+            android:textColor="@color/colorPrimary" />
 
     </RelativeLayout>
 

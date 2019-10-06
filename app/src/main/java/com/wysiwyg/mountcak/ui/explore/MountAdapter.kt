@@ -1,5 +1,6 @@
 package com.wysiwyg.mountcak.ui.explore
 
+import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -44,12 +45,13 @@ class MountAdapter(private val mounts: MutableList<Mount?>) : RecyclerView.Adapt
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        @SuppressLint("SetTextI18n")
         fun bindItem(mount: Mount?) {
 
             Glide.with(itemView.context).load(mount?.cover).placeholder(R.color.colorMuted).into(itemView.imgMount)
             itemView.tvMountName.text = mount?.mountName
             itemView.tvHeight.text = mount?.height
-            itemView.tvCity.text = String.format(itemView.context.getString(R.string.mount_location), mount?.city, mount?.region)
+            itemView.tvCity.text = "${mount?.city}, ${mount?.region}"
 
             itemView.btnDetail.toDetail(mount?.id)
             itemView.viewMount.toDetail(mount?.id)

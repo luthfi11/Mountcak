@@ -8,17 +8,17 @@
 
     <ImageView
         android:layout_width="200dp"
-        android:layout_height="110dp"
+        android:layout_height="wrap_content"
         android:contentDescription="@string/appname"
         android:layout_marginTop="10dp"
-        android:src="@drawable/logo_white" />
+        android:src="@drawable/mckwht" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textColor="@android:color/white"
-        android:text="Created by WYSIWYG Team" />
+        android:text="Created by Green Dev" />
 
     <TextView
         android:layout_width="wrap_content"

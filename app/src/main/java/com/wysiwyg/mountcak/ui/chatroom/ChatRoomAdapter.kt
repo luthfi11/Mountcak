@@ -206,6 +206,7 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) :
                     "Hallo $friendName, permintaan anda untuk bergabung dengan acara \"$title\" telah ditolak. Terima kasih."
             }
 
+            /*
             val apiKey = "ig1RMz09vsjWSlIp7cx5fuNjoxrefqqR"
             val apiInterface: APIService = APIClient.getClient().create(APIService::class.java)
             if (phone != null) {
@@ -224,6 +225,7 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) :
 
                 })
             }
+             */
         }
 
         private fun cancelRequest(eid: String?, joinId: String?) {

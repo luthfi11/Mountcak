@@ -50,8 +50,7 @@ class RentalAdapter(private val rental: MutableList<Rental?>) : RecyclerView.Ada
 
             itemView.tvStoreName.text = rental?.storeName
             itemView.tvOpenHour.text = rental?.openHour
-            itemView.tvCity.text =
-                String.format(itemView.context.getString(R.string.mount_location), rental?.city, rental?.region)
+            itemView.tvCity.text = "${rental?.city}, ${rental?.region}"
 
             itemView.viewRental.onClick { itemView.context.startActivity<RentalDetailActivity>("rental" to rental) }
         }

@@ -1,246 +1,259 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/scrollView"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.mountdetail.MountDetailActivity">
+    android:orientation="vertical">
 
-    <RelativeLayout
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dip"
+        android:layout_weight="0.94"
+        tools:context=".ui.mountdetail.MountDetailActivity">
 
-        <ProgressBar
-            android:id="@+id/progressMount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminateTint="@color/colorPrimary"
-            android:visibility="gone"
-            android:layout_centerInParent="true" />
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarRentalDetail"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/appBar"
-            android:layout_alignParentTop="true"
-            android:background="@color/colorPrimary"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            app:layout_scrollFlags="scroll|enterAlways|snap" />
+            android:layout_height="wrap_content">
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_below="@id/toolbarRentalDetail"
-            android:background="@color/colorPrimary"/>
+            <ProgressBar
+                android:id="@+id/progressMount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminateTint="@color/colorPrimary"
+                android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/imgStorePict"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_below="@id/view"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginTop="-50dp"
-            android:contentDescription="@string/title_rental"
-            android:background="@drawable/shape_button_white"
-            tools:src="@tools:sample/avatars"/>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarRentalDetail"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/appBar"
+                android:layout_alignParentTop="true"
+                android:background="@color/colorPrimary"
+                android:theme="@style/AppTheme.AppBarOverlay"
+                app:layout_scrollFlags="scroll|enterAlways|snap" />
 
-        <TextView
-            android:id="@+id/tvStoreName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/imgStorePict"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="4dp"
-            android:textSize="20sp"
-            android:textColor="@android:color/black"
-            tools:text="Store Name" />
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@id/toolbarRentalDetail"
+                android:background="@color/colorPrimary" />
 
-        <TextView
-            android:id="@+id/tvCity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_below="@id/tvStoreName"
-            tools:text="Sumatera, Indonesia"/>
+            <ImageView
+                android:id="@+id/imgStorePict"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_below="@id/view"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="-50dp"
+                android:background="@drawable/shape_button_white"
+                android:contentDescription="@string/title_rental"
+                tools:src="@tools:sample/avatars" />
 
-        <View
-            android:id="@+id/view1"
-            android:layout_width="match_parent"
-            android:layout_height="0.2dp"
-            android:layout_below="@id/tvCity"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="16dp"
-            android:background="@color/colorMuted" />
+            <TextView
+                android:id="@+id/tvStoreName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imgStorePict"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                tools:text="Store Name" />
 
-        <TextView
-            android:id="@+id/tv1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:layout_below="@id/view1"
-            android:textColor="@color/colorPrimary"
-            android:text="@string/address" />
+            <TextView
+                android:id="@+id/tvCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvStoreName"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:drawablePadding="2dp"
+                android:drawableStart="@drawable/ic_location_small"
+                tools:text="Sumatera, Indonesia" />
 
-        <TextView
-            android:id="@+id/tvAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv1"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColor="@android:color/black"
-            tools:text="Store Address" />
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:layout_below="@id/tvCity"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/colorMuted" />
 
-        <TextView
-            android:id="@+id/tv2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/tvAddress"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColor="@color/colorPrimary"
-            android:text="@string/open_hour" />
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view1"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/address"
+                android:textColor="@color/colorPrimary" />
 
-        <TextView
-            android:id="@+id/tvOpenHour"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv2"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColor="@android:color/black"
-            tools:text="Sunday - Monday, 10:00 - 12:00" />
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv1"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@android:color/black"
+                tools:text="Store Address" />
 
-        <TextView
-            android:id="@+id/tv3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/tvOpenHour"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColor="@color/colorPrimary"
-            android:text="@string/contact" />
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvAddress"
+                android:layout_marginTop="10dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/open_hour"
+                android:textColor="@color/colorPrimary" />
 
-        <TextView
-            android:id="@+id/tvContact"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv3"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColor="@android:color/black"
-            tools:text="Mount Contact" />
+            <TextView
+                android:id="@+id/tvOpenHour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv2"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@android:color/black"
+                tools:text="Sunday - Monday, 10:00 - 12:00" />
+
+            <TextView
+                android:id="@+id/tv3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvOpenHour"
+                android:layout_marginTop="10dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/contact"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/tvContact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv3"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@android:color/black"
+                tools:text="Mount Contact" />
+
+            <TextView
+                android:id="@+id/tv4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvContact"
+                android:layout_marginTop="10dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/instagram"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/tvInstagram"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv4"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@android:color/black"
+                tools:text="\@StoreName" />
+
+            <Button
+                android:id="@+id/btnInstagram"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv4"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/shape_white"
+                android:text="@string/view_instagram"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/tv5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvInstagram"
+                android:layout_marginTop="10dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/price_list"
+                android:textColor="@color/colorPrimary" />
+
+            <ImageView
+                android:id="@+id/imgPriceList"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_below="@id/tv5"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/price_list"
+                android:scaleType="centerCrop"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
+            <TextView
+                android:id="@+id/tv6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imgPriceList"
+                android:layout_marginTop="10dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/location"
+                android:textColor="@color/colorPrimary" />
+
+            <com.mapbox.mapboxsdk.maps.MapView
+                android:id="@+id/storeMap"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_below="@id/tv6"
+                android:layout_marginTop="10dp"
+                app:mapbox_styleUrl="@string/mapbox_style_traffic_day" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnCall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv3"
-            android:layout_toStartOf="@id/btnSMS"
-            android:background="@drawable/shape_white"
-            android:textColor="@color/colorPrimary"
-            android:drawableStart="@drawable/ic_call"
-            android:drawablePadding="2dp"
-            android:text="@string/call" />
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:background="@color/colorPrimary"
+            android:text="@string/call"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/btnSMS"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv3"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/shape_white"
-            android:textColor="@color/colorPrimary"
-            android:drawableStart="@drawable/ic_message"
-            android:drawablePadding="2dp"
-            android:text="@string/message" />
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:background="@color/colorSemiMuted"
+            android:text="@string/send_message"
+            android:textAllCaps="false" />
 
-        <TextView
-            android:id="@+id/tv4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/tvContact"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColor="@color/colorPrimary"
-            android:text="@string/instagram" />
-
-        <TextView
-            android:id="@+id/tvInstagram"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv4"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColor="@android:color/black"
-            tools:text="\@StoreName" />
-
-        <Button
-            android:id="@+id/btnInstagram"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv4"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/shape_white"
-            android:textColor="@color/colorPrimary"
-            android:text="@string/view_instagram" />
-
-        <TextView
-            android:id="@+id/tv5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:layout_below="@id/tvInstagram"
-            android:textColor="@color/colorPrimary"
-            android:text="@string/price_list" />
-
-        <ImageView
-            android:id="@+id/imgPriceList"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_below="@id/tv5"
-            android:contentDescription="@string/price_list"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="4dp"
-            android:scaleType="centerCrop"
-            tools:src="@tools:sample/backgrounds/scenic"/>
-
-        <TextView
-            android:id="@+id/tv6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/imgPriceList"
-            android:textColor="@color/colorPrimary"
-            android:text="@string/location" />
-
-        <com.mapbox.mapboxsdk.maps.MapView
-            android:id="@+id/storeMap"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_below="@id/tv6"
-            android:layout_marginTop="10dp"
-            app:mapbox_styleUrl="@string/mapbox_style_traffic_day" />
-
-    </RelativeLayout>
-</ScrollView>
+    </LinearLayout>
+</LinearLayout>

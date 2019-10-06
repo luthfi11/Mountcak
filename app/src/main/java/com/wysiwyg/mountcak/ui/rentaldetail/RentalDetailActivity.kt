@@ -30,7 +30,7 @@ class RentalDetailActivity : AppCompatActivity(), RentalDetailView {
         Glide.with(this).load(rental?.priceList).placeholder(R.color.colorMuted).into(imgPriceList)
 
         tvStoreName.text = rental?.storeName
-        tvCity.text = String.format(getString(R.string.mount_location), rental?.city, rental?.region)
+        tvCity.text = "${rental?.city}, ${rental?.region}"
         tvAddress.text = rental?.address
         tvOpenHour.text = rental?.openHour
         tvContact.text = rental?.contact

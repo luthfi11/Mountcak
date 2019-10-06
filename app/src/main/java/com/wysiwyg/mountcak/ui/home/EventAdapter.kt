@@ -59,8 +59,7 @@ class EventAdapter(private val events: MutableList<Event?>) : RecyclerView.Adapt
                     itemView.context,
                     event?.mountId,
                     itemView.imgMount,
-                    itemView.tvMountName,
-                    itemView.tvCity
+                    itemView.tvMountName
                 )
 
                 itemView.tvEventTitle.text = event?.title

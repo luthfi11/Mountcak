@@ -85,7 +85,7 @@
     <string name="edit_post">Edit Post</string>
 
     <string name="participant_count">%1d Participants</string>
-    <string name="mount_location">%1s, %2s</string>
+    <string name="mount_location">%1s, %2s, %3s</string>
     <string name="type_a_message">Type a message</string>
     <string name="decline">Decline</string>
     <string name="accept">Accept</string>

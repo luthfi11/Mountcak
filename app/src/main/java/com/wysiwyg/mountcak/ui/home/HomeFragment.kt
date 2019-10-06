@@ -8,9 +8,7 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -92,7 +90,7 @@ class HomeFragment : Fragment(), HomeView, LocationListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
-        setHasOptionsMenu(false)
+        setHasOptionsMenu(true)
         return view
     }
 
@@ -112,6 +110,12 @@ class HomeFragment : Fragment(), HomeView, LocationListener {
         onAction()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        menu?.clear()
+        inflater?.inflate(R.menu.menu_search, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
     private fun getLastWeather(longitude: Double, latitude: Double) {
         if ((longitude == 0.0) and (latitude == 0.0)) presenter.getCurrentWeatherByCity()
         else presenter.getCurrentWeather(latitude, longitude)
@@ -122,6 +126,7 @@ class HomeFragment : Fragment(), HomeView, LocationListener {
         rvEvent.setHasFixedSize(true)
         rvEvent.layoutManager = LinearLayoutManager(context)
         rvEvent.adapter = adapter
+        rvEvent.isNestedScrollingEnabled = false
     }
 
     private fun onAction() {

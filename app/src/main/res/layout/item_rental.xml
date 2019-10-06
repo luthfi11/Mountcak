@@ -59,6 +59,8 @@
             android:layout_below="@+id/tvOpenHour"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="4dp"
+            android:drawableStart="@drawable/ic_location_small"
+            android:drawablePadding="2dp"
             android:maxLines="1"
             android:ellipsize="end"
             android:paddingBottom="8dp"

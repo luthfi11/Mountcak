@@ -7,7 +7,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/appBar"
+        android:layout_height="48dp"
         android:background="@color/colorPrimary"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="0dp">
