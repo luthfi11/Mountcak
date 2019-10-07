@@ -178,7 +178,7 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
 
         experienceAdapter = ExperienceAdapter(experience)
         rvExperience.setHasFixedSize(true)
-        rvExperience.layoutManager = LinearLayoutManager(this)
+        rvExperience.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvExperience.adapter = experienceAdapter
 
         photoAdapter = PhotoAdapter(photo)

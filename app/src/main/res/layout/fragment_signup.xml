@@ -55,21 +55,6 @@
         android:backgroundTint="@color/colorPrimary"/>
 
     <EditText
-        android:id="@+id/etPhone"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:inputType="phone"
-        android:paddingStart="6dp"
-        android:paddingEnd="6dp"
-        android:layout_marginBottom="14dp"
-        android:hint="@string/phone"
-        android:textSize="15sp"
-        android:textColor="@android:color/white"
-        android:drawableStart="@drawable/ic_email"
-        android:drawablePadding="12dp"
-        android:backgroundTint="@color/colorPrimary"/>
-
-    <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="50dp"

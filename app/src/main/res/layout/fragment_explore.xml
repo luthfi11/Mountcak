@@ -7,7 +7,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/appBar"
         android:background="@color/colorPrimary"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="0dp">
@@ -47,7 +47,9 @@
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:background="@color/colorPrimary"
-                android:padding="10dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="12dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
                 tools:listitem="@layout/item_region"

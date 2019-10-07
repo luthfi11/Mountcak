@@ -168,7 +168,7 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) :
         }
 
         private var friendName: String? = null
-        private var phone: String? = null
+        //private var phone: String? = null
         fun getUserData(uid: String?) {
             val db = FirebaseDatabase.getInstance().reference
             db.child("user").child(uid!!).addValueEventListener(object : ValueEventListener {
@@ -176,7 +176,7 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) :
                     try {
                         val data = p0.getValue(User::class.java)
                         friendName = data?.name
-                        phone = data?.phone
+                        //phone = data?.phone
 
                     } catch (ex: Exception) {
                         ex.printStackTrace()

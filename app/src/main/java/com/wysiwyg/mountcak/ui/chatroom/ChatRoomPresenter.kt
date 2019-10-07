@@ -19,7 +19,7 @@ class ChatRoomPresenter(private val view: ChatRoomView, private val friendId: St
                 val chat: MutableList<Chat?> = mutableListOf()
                 p0.children.forEach {
                     val c = it.getValue(Chat::class.java)
-                    chat.add(c)
+                    if (c?.id != null) chat.add(c)
                 }
                 view.showChat(chat)
             } catch (ex: Exception) {

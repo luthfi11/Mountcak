@@ -9,6 +9,7 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -47,10 +48,13 @@ class HomeFragment : Fragment(), HomeView, LocationListener {
     override fun showCurrentWeather(weatherResponse: WeatherResponse) {
         try {
             val icon = "http://openweathermap.org/img/wn/${weatherResponse.weather[0].icon}@2x.png"
-            Glide.with(context!!).load(icon).into(imgWeather)
-        } finally { }
+            Glide.with(activity!!).load(icon).into(imgWeather)
+        } finally {
+
+        }
         tvLocationName.text = weatherResponse.name
-        tvCurrentWeather.text = weatherResponse.weather[0].main + ", " + weatherResponse.weather[0].description
+        tvCurrentWeather.text =
+            weatherResponse.weather[0].main + ", " + weatherResponse.weather[0].description
         tvTemperature.text = "${weatherResponse.main.temp}\u00B0 C"
     }
 
@@ -88,7 +92,11 @@ class HomeFragment : Fragment(), HomeView, LocationListener {
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         setHasOptionsMenu(true)
         return view
@@ -96,6 +104,7 @@ class HomeFragment : Fragment(), HomeView, LocationListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        (activity as AppCompatActivity).setSupportActionBar(toolbarHome)
 
         locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
@@ -148,7 +157,8 @@ class HomeFragment : Fragment(), HomeView, LocationListener {
                 ), 1
             )
         } else {
-            val location: Location? = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+            val location: Location? =
+                locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             if (location != null) {
                 longitude = location.longitude
                 latitude = location.latitude

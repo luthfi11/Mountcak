@@ -13,7 +13,7 @@ class SignUpPresenter(private val view: SignUpView) {
         view.showCity()
     }
 
-    fun signUp(email: String, password: String, name: String, city: String, phone: String) {
+    fun signUp(email: String, password: String, name: String, city: String) {
         try {
             view.showLoading()
             auth.createUserWithEmailAndPassword(email, password)
@@ -27,8 +27,7 @@ class SignUpPresenter(private val view: SignUpView) {
                                 auth.currentUser!!.uid,
                                 name,
                                 city,
-                                email,
-                                phone
+                                email
                             )
                         )
                     view.signUpSuccess()

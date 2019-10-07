@@ -5,6 +5,7 @@
     android:id="@+id/srlMountDetail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/defaultBg"
     tools:context=".ui.mountdetail.MountDetailActivity">
 
     <ScrollView
@@ -30,7 +31,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentTop="true"
-                android:layout_margin="6dp"
+                android:layout_margin="8dp"
                 android:background="@drawable/shape_back"
                 android:theme="@style/AppTheme.AppBarOverlay"
                 app:layout_scrollFlags="scroll|enterAlways|snap" />
@@ -77,47 +78,10 @@
                 android:background="@color/colorMuted" />
 
             <TextView
-                android:id="@+id/tv9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/view1"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:text="@string/user_experience"
-                android:textColor="@color/colorPrimary" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvExperience"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv9"
-                android:clipToPadding="false"
-                android:paddingStart="6dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="6dp"
-                tools:itemCount="3"
-                tools:listitem="@layout/item_experience" />
-
-            <Button
-                android:id="@+id/btnViewAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rvExperience"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/shape_button_white"
-                android:paddingStart="10dp"
-                android:paddingTop="6dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="6dp"
-                android:text="@string/view_all_experience"
-                android:textColor="@color/colorPrimary" />
-
-            <TextView
                 android:id="@+id/tv0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/btnViewAll"
+                android:layout_below="@id/tvContact"
                 android:layout_marginTop="10dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
@@ -141,7 +105,7 @@
                 android:id="@+id/tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/rvForecast"
+                android:layout_below="@id/view1"
                 android:layout_marginTop="10dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
@@ -230,7 +194,7 @@
                 android:id="@+id/tv4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvContact"
+                android:layout_below="@id/rvForecast"
                 android:layout_marginTop="10dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
@@ -294,10 +258,48 @@
                 android:textColor="@color/colorPrimary" />
 
             <TextView
-                android:id="@+id/tvRte"
+                android:id="@+id/tv9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/btnInsta"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/user_experience"
+                android:textColor="@color/colorPrimary" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvExperience"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv9"
+                android:clipToPadding="false"
+                android:paddingStart="16dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="16dp"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_experience" />
+
+            <Button
+                android:id="@+id/btnViewAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rvExperience"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/shape_button_white"
+                android:paddingStart="10dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="6dp"
+                android:text="@string/view_all_experience"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/tvRte"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnViewAll"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="10dp"
