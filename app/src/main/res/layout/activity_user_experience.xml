@@ -21,7 +21,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/user_experience"
+                android:text="@string/user_review"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/toolbarText" />
 

@@ -13,13 +13,15 @@ import com.mapbox.mapboxsdk.annotations.MarkerOptions
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.wysiwyg.mountcak.R
-import com.wysiwyg.mountcak.data.model.Experience
+import com.wysiwyg.mountcak.data.model.Review
 import com.wysiwyg.mountcak.data.model.Forecast
 import com.wysiwyg.mountcak.data.model.Mount
 import com.wysiwyg.mountcak.data.model.SearchResult
 import com.wysiwyg.mountcak.ui.experience.UserExperienceActivity
 import com.wysiwyg.mountcak.ui.viewphoto.ViewPhotoActivity
 import com.wysiwyg.temanolga.utilities.gone
+import com.wysiwyg.temanolga.utilities.invisible
+import com.wysiwyg.temanolga.utilities.visible
 import kotlinx.android.synthetic.main.activity_mount_detail.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.design.snackbar
@@ -38,7 +40,7 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
     private lateinit var photoAdapter: PhotoAdapter
     private lateinit var videoAdapter: VideoAdapter
     private val forecast = mutableListOf<Forecast?>()
-    private val experience = mutableListOf<Experience?>()
+    private val experience = mutableListOf<Review?>()
     private val photo = mutableListOf<String?>()
     private val video = mutableListOf<SearchResult?>()
 
@@ -59,17 +61,21 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
         tvLocation.text = mount?.location
         tvHeight.text = mount?.height
         tvContact.text = mount?.contact
-        tvRoute.text = mount?.route?.replace(", ","\n- ")?.replaceFirst("","- ")
+        tvRoute.text = mount?.route?.replace(", ", "\n- ")?.replaceFirst("", "- ")
 
         linkGoogleMaps = mount?.linkGMaps!!
 
         photo.addAll(mount.gallery?.split("*")!!)
     }
 
-    override fun showUserExperience(experience: List<Experience?>) {
+    override fun showUserReview(review: List<Review?>) {
         this.experience.clear()
-        this.experience.addAll(experience)
+        this.experience.addAll(review)
         experienceAdapter.notifyDataSetChanged()
+    }
+
+    override fun emptyReview() {
+        tvReviewEmpty.visible()
     }
 
     override fun callNumber(number: String) {
@@ -123,7 +129,11 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
     }
 
     override fun hideInsta() {
-        btnInsta.gone()
+        btnInsta.invisible()
+    }
+
+    override fun showForecastLoading() {
+        progressForecast.visible()
     }
 
     override fun showForecast(forecast: List<Forecast?>) {
@@ -132,10 +142,22 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
         adapter.notifyDataSetChanged()
     }
 
+    override fun hideForecastLoading() {
+        progressForecast.gone()
+    }
+
+    override fun showVideoLoading() {
+        progressVideo.visible()
+    }
+
     override fun showVideo(video: List<SearchResult?>) {
         this.video.clear()
         this.video.addAll(video)
         videoAdapter.notifyDataSetChanged()
+    }
+
+    override fun hideVideoLoading() {
+        progressVideo.gone()
     }
 
     override fun successLike() {
@@ -178,8 +200,9 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
 
         experienceAdapter = ExperienceAdapter(experience)
         rvExperience.setHasFixedSize(true)
-        rvExperience.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rvExperience.layoutManager = LinearLayoutManager(this)
         rvExperience.adapter = experienceAdapter
+        rvExperience.isNestedScrollingEnabled = false
 
         photoAdapter = PhotoAdapter(photo)
         rvPhoto.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -198,7 +221,7 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
 
     override fun onDestroy() {
         super.onDestroy()
-        placeMap.onDestroy()
+        //placeMap.onDestroy()
         presenter.onClose()
     }
 

@@ -120,15 +120,16 @@
     <string name="no_notification_yet">No Notification Yet</string>
     <string name="refresh">Refresh</string>
     <string name="menu">Menu</string>
-    <string name="forecast">Forecast</string>
-    <string name="user_experience">User Experience</string>
+    <string name="forecast">Weather Forecast</string>
+    <string name="user_review">User Review</string>
     <string name="view_all_experience">View All Experience</string>
     <string name="no_experience_found">User Experience Not Found</string>
-    <string name="add_experience_hint">Add your experience here</string>
+    <string name="add_experience_hint">Add your review here</string>
     <string name="share">Share</string>
     <string name="experience_posted">Experience posted</string>
     <string name="photo">Photo</string>
     <string name="video">Video</string>
+    <string name="no_review_yet">No Review Yet</string>
 
 
 </resources>

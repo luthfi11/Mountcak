@@ -2,8 +2,11 @@ package com.wysiwyg.mountcak.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
+import androidx.navigation.ui.setupWithNavController
 import com.wysiwyg.mountcak.R
-import com.wysiwyg.mountcak.ui.home.HomeFragment
 import com.wysiwyg.mountcak.ui.login.LoginFragmentManager
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
@@ -11,7 +14,7 @@ import org.jetbrains.anko.startActivity
 class MainActivity : AppCompatActivity(), MainView {
 
     private lateinit var presenter: MainPresenter
-    private val fm = supportFragmentManager
+    private lateinit var navController: NavController
 
     override fun toLogin() {
         finish()
@@ -25,8 +28,15 @@ class MainActivity : AppCompatActivity(), MainView {
         presenter = MainPresenter(this)
         presenter.checkLogin()
 
-        navigation.setOnNavigationItemSelectedListener(presenter.selectedView(fm))
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        bottomNav.setupWithNavController(navController)
 
-        if (savedInstanceState == null) presenter.changeView(fm, HomeFragment())
+        bottomNav.setOnNavigationItemSelectedListener { item ->
+            onNavDestinationSelected(item, navController)
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp()
     }
 }

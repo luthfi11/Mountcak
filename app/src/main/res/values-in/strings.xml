@@ -122,7 +122,7 @@
     <string name="refresh">Segarkan</string>
     <string name="menu">Menu</string>
     <string name="forecast">Prakiraan Cuaca</string>
-    <string name="user_experience">Pengalaman Pengguna</string>
+    <string name="user_review">Ulasan Pengguna</string>
     <string name="view_all_experience">Lihat Semua Pengalaman</string>
     <string name="no_experience_found">Pengalaman Pengguna Tidak Ditemukan</string>
     <string name="experience_posted">Pengalaman terkirim</string>
@@ -130,5 +130,6 @@
     <string name="share">Bagikan</string>
     <string name="photo">Foto</string>
     <string name="video">Video</string>
+    <string name="no_review_yet">Belum Ada Review</string>
 
 </resources>

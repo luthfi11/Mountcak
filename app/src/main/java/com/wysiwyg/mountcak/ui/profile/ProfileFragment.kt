@@ -153,8 +153,8 @@ class ProfileFragment : Fragment(), ProfileView, TabLayout.OnTabSelectedListener
         return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(toolbarProfile)
 
         presenter = ProfilePresenter(this)
@@ -186,15 +186,15 @@ class ProfileFragment : Fragment(), ProfileView, TabLayout.OnTabSelectedListener
         getData()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.menu_profile, menu)
         super.onCreateOptionsMenu(menu, inflater)
-        menu?.clear()
-        inflater?.inflate(R.menu.menu_profile, menu)
     }
 
     @SuppressLint("InflateParams")
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.nav_about -> {
                 val mDialogView = LayoutInflater.from(activity).inflate(R.layout.layout_about, null)
                 AlertDialog.Builder(context!!)

@@ -57,8 +57,8 @@ class ExploreFragment : Fragment(), ExploreView, RegionView {
         return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(toolbarExplore)
 
         presenter = ExplorePresenter(this)
@@ -69,7 +69,6 @@ class ExploreFragment : Fragment(), ExploreView, RegionView {
             presenter.getData()
             regionAdapter.regionPos = 0
         }
-
     }
 
     private fun setupRecyclerView() {
@@ -83,14 +82,14 @@ class ExploreFragment : Fragment(), ExploreView, RegionView {
         rvRegion.adapter = regionAdapter
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        menu?.clear()
-        inflater?.inflate(R.menu.menu_search, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.menu_search, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == R.id.nav_search) startActivity<SearchActivity>("type" to 1)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.nav_search) startActivity<SearchActivity>("type" to 1)
         return super.onOptionsItemSelected(item)
     }
 }

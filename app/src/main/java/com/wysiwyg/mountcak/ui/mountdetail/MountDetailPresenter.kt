@@ -51,12 +51,16 @@ class MountDetailPresenter(private val view: MountDetailView, private val id: St
 
         override fun onDataChange(p0: DataSnapshot) {
             try {
-                val experience = mutableListOf<Experience?>()
-                p0.children.forEach {
-                    val data = it.getValue(Experience::class.java)
-                    experience.add(data)
+                val review = mutableListOf<Review?>()
+                for ((counter, i: DataSnapshot) in p0.children.withIndex()) {
+                    if (counter < 3) {
+                        val data = i.getValue(Review::class.java)
+                        review.add(data)
+                    } else break
                 }
-                view.showUserExperience(experience)
+
+                if (review.size == 0) view.emptyReview()
+                view.showUserReview(review)
 
             } catch (ex: Exception) {
                 ex.printStackTrace()
@@ -117,6 +121,8 @@ class MountDetailPresenter(private val view: MountDetailView, private val id: St
     }
 
     fun getForecast(lonLat: String?) {
+        view.showForecastLoading()
+
         val coord = lonLat!!.split(",")
         val apiKey = "0b66142dd36477783c06951d3da8d0cb"
         val url =
@@ -127,6 +133,7 @@ class MountDetailPresenter(private val view: MountDetailView, private val id: St
             val data = Gson().fromJson(responseJson, ForecastResponse::class.java)
 
             uiThread {
+                view.hideForecastLoading()
                 view.showForecast(data.list)
             }
         }
@@ -140,7 +147,8 @@ class MountDetailPresenter(private val view: MountDetailView, private val id: St
     }
 
     fun dislikeMount() {
-        db.child("like").child(uid).child(id).removeValue().addOnSuccessListener { view.isNotLiked() }
+        db.child("like").child(uid).child(id).removeValue()
+            .addOnSuccessListener { view.isNotLiked() }
     }
 
     fun onClose() {
@@ -149,14 +157,18 @@ class MountDetailPresenter(private val view: MountDetailView, private val id: St
     }
 
     fun getVideo(mount: String?) {
+        view.showVideoLoading()
+
         val api = "AIzaSyCY2dZOC9wJy1zlHIFn02GhBUbuNAVP8ug"
         val query = mount?.replace(" ", "+")
-        val url = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=$query&type=video&maxResults=10&key=$api"
+        val url =
+            "https://www.googleapis.com/youtube/v3/search?part=snippet&q=$query&type=video&maxResults=10&key=$api"
         doAsync {
             val responseJson = URL(url).readText()
             val data = Gson().fromJson(responseJson, VideResult::class.java)
 
             uiThread {
+                view.hideVideoLoading()
                 view.showVideo(data.items)
             }
         }

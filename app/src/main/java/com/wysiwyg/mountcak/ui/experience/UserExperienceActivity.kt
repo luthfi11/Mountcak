@@ -11,7 +11,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.wysiwyg.mountcak.R
-import com.wysiwyg.mountcak.data.model.Experience
+import com.wysiwyg.mountcak.data.model.Review
 import com.wysiwyg.mountcak.util.FirebaseUtil
 import kotlinx.android.synthetic.main.activity_user_experience.*
 import kotlinx.android.synthetic.main.layout_add_experience.view.*
@@ -22,7 +22,7 @@ import org.jetbrains.anko.toast
 class UserExperienceActivity : AppCompatActivity() {
 
     private lateinit var adapter: UserExperienceAdapter
-    private val experience = mutableListOf<Experience?>()
+    private val experience = mutableListOf<Review?>()
     private val db = FirebaseDatabase.getInstance().reference.child("experience")
     private var id: Int? = null
 
@@ -47,7 +47,7 @@ class UserExperienceActivity : AppCompatActivity() {
         override fun onDataChange(p0: DataSnapshot) {
             experience.clear()
             p0.children.forEach {
-                val data = it.getValue(Experience::class.java)
+                val data = it.getValue(Review::class.java)
                 experience.add(data)
             }
             adapter.notifyDataSetChanged()
@@ -67,7 +67,7 @@ class UserExperienceActivity : AppCompatActivity() {
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.layout_add_experience, null)
         val mBuilder = AlertDialog.Builder(this)
             .setView(mDialogView)
-            .setTitle("Add Experience")
+            .setTitle("Add Review")
 
         val mAlertDialog = mBuilder.show()
         mAlertDialog.setCancelable(false)
@@ -78,7 +78,7 @@ class UserExperienceActivity : AppCompatActivity() {
                 val content = mDialogView.etExperience.text.toString()
                 val eid = db.child(id).push().key
                 db.child(id).child(eid!!).setValue(
-                    Experience(eid, FirebaseUtil.currentUser(), id, content)
+                    Review(eid, FirebaseUtil.currentUser(), id, content)
                 )
                     .addOnSuccessListener {
                         toast(getString(R.string.experience_posted))

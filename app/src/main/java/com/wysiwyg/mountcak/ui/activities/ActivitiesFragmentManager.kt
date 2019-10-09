@@ -1,13 +1,11 @@
 package com.wysiwyg.mountcak.ui.activities
 
 import android.os.Bundle
+import android.view.*
 import com.google.android.material.tabs.TabLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.ui.message.MessageFragment
 import com.wysiwyg.mountcak.ui.notification.NotificationFragment
@@ -23,9 +21,8 @@ class ActivitiesFragmentManager : Fragment() {
         return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mSectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
 
         viewpager.adapter = mSectionsPagerAdapter
@@ -34,9 +31,12 @@ class ActivitiesFragmentManager : Fragment() {
         tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(viewpager))
     }
 
-    inner class SectionsPagerAdapter(fm: FragmentManager) :
-        FragmentPagerAdapter(fm) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
+    inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int): Fragment {
             when (position) {
                 0 -> return MessageFragment()

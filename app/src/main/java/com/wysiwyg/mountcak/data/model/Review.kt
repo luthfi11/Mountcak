@@ -1,6 +1,6 @@
 package com.wysiwyg.mountcak.data.model
 
-data class Experience (
+data class Review (
     val id: String? = null,
     val userId: String? = null,
     val mountId: String? = null,

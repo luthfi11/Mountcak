@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.wysiwyg.mountcak.ui.home.HomeFragment"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_explore"
+        android:name="com.wysiwyg.mountcak.ui.explore.ExploreFragment"
+        tools:layout="@layout/fragment_explore" />
+
+    <fragment
+        android:id="@+id/navigation_rental"
+        android:name="com.wysiwyg.mountcak.ui.rental.RentalFragment"
+        tools:layout="@layout/fragment_rental" />
+
+    <fragment
+        android:id="@+id/navigation_activity"
+        android:name="com.wysiwyg.mountcak.ui.activities.ActivitiesFragmentManager"
+        tools:layout="@layout/fragment_manager_activities" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.wysiwyg.mountcak.ui.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
+
+</navigation>

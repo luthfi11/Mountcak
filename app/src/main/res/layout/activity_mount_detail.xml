@@ -5,7 +5,6 @@
     android:id="@+id/srlMountDetail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/defaultBg"
     tools:context=".ui.mountdetail.MountDetailActivity">
 
     <ScrollView
@@ -96,6 +95,7 @@
                 android:clipToPadding="false"
                 android:paddingStart="6dp"
                 android:paddingEnd="6dp"
+                android:minHeight="80dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="5"
                 tools:listitem="@layout/item_forecast"
@@ -167,26 +167,32 @@
             <Button
                 android:id="@+id/btnCall"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv3"
+                android:layout_height="32dp"
+                android:layout_below="@id/tvHeight"
+                android:layout_marginTop="12dp"
                 android:layout_toStartOf="@id/btnSMS"
-                android:background="@drawable/shape_white"
+                android:background="@drawable/shape_card"
                 android:drawableStart="@drawable/ic_call"
                 android:drawablePadding="2dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
                 android:text="@string/call"
                 android:textColor="@color/colorPrimary" />
 
             <Button
                 android:id="@+id/btnSMS"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv3"
+                android:layout_height="32dp"
+                android:layout_below="@id/tvHeight"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/shape_white"
+                android:background="@drawable/shape_card"
                 android:drawableStart="@drawable/ic_message"
                 android:drawablePadding="2dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
                 android:text="@string/message"
                 android:textColor="@color/colorPrimary" />
 
@@ -240,6 +246,7 @@
                 android:layout_marginTop="10dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:minHeight="80dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_video"
                 tools:orientation="horizontal" />
@@ -248,11 +255,12 @@
                 android:id="@+id/btnInsta"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="100dp"
-                android:layout_height="35dp"
-                android:layout_below="@+id/rvVideo"
+                android:layout_height="32dp"
+                android:layout_below="@+id/rvForecast"
+                android:layout_alignParentEnd="true"
                 android:layout_marginTop="10dp"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/shape_button_white"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/shape_card"
                 android:text="@string/view_instagram"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/colorPrimary" />
@@ -261,11 +269,11 @@
                 android:id="@+id/tv9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/btnInsta"
+                android:layout_below="@id/rvVideo"
+                android:layout_marginTop="16dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/user_experience"
+                android:text="@string/user_review"
                 android:textColor="@color/colorPrimary" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -277,8 +285,20 @@
                 android:paddingStart="16dp"
                 android:paddingTop="10dp"
                 android:paddingEnd="16dp"
+                android:paddingBottom="4dp"
+                android:minHeight="50dp"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_experience" />
+
+            <TextView
+                android:id="@+id/tvReviewEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv9"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                android:layout_centerHorizontal="true"
+                android:text="@string/no_review_yet" />
 
             <Button
                 android:id="@+id/btnViewAll"
@@ -287,7 +307,7 @@
                 android:layout_below="@id/rvExperience"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/shape_button_white"
+                android:background="@drawable/shape_card"
                 android:paddingStart="10dp"
                 android:paddingTop="6dp"
                 android:paddingEnd="10dp"
@@ -301,8 +321,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/btnViewAll"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
                 android:text="@string/route"
                 android:textColor="@color/colorPrimary" />
 
@@ -323,6 +343,26 @@
                 android:layout_below="@id/tvRoute"
                 android:layout_marginTop="10dp"
                 app:mapbox_styleUrl="@string/mapbox_style_traffic_day" />
+
+            <!-- progressbar -->
+
+            <ProgressBar
+                android:id="@+id/progressForecast"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/tv0"
+                android:indeterminateTint="@color/colorPrimary"
+                android:layout_centerHorizontal="true" />
+
+            <ProgressBar
+                android:id="@+id/progressVideo"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/tv42"
+                android:indeterminateTint="@color/colorPrimary"
+                android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
     </ScrollView>
