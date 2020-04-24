@@ -12,6 +12,7 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -24,11 +25,10 @@ import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Event
 import com.wysiwyg.mountcak.data.model.WeatherResponse
 import com.wysiwyg.mountcak.ui.addevent.AddEventActivity
-import com.wysiwyg.temanolga.utilities.gone
-import com.wysiwyg.temanolga.utilities.visible
+import com.wysiwyg.mountcak.util.gone
+import com.wysiwyg.mountcak.util.visible
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
-import org.jetbrains.anko.support.v4.defaultSharedPreferences
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
@@ -38,10 +38,15 @@ class HomeFragment : Fragment(), HomeView {
     private lateinit var presenter: HomePresenter
     private lateinit var adapter: EventAdapter
     private val event: MutableList<Event?> = mutableListOf()
+
+    private var location: Location? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationManager: LocationManager
-    private var location: Location? = null
+
     private lateinit var imgWeather: ImageView
+    private lateinit var tvLocationName: TextView
+    private lateinit var tvCurrentWeather: TextView
+    private lateinit var tvTemperature: TextView
 
     override fun showLoading() {
         srlHome.isRefreshing = true
@@ -56,12 +61,10 @@ class HomeFragment : Fragment(), HomeView {
         activity?.runOnUiThread {
             val icon = "http://openweathermap.org/img/wn/${weatherResponse.weather[0].icon}@2x.png"
             Glide.with(activity!!).load(icon).into(imgWeather)
+            tvLocationName.text = weatherResponse.name
+            tvCurrentWeather.text = weatherResponse.weather[0].main + ", " + weatherResponse.weather[0].description
+            tvTemperature.text = "${weatherResponse.main.temp}\u00B0 C"
         }
-
-        tvLocationName.text = weatherResponse.name
-        tvCurrentWeather.text =
-            weatherResponse.weather[0].main + ", " + weatherResponse.weather[0].description
-        tvTemperature.text = "${weatherResponse.main.temp}\u00B0 C"
     }
 
     override fun showEventList(event: List<Event?>) {
@@ -87,7 +90,10 @@ class HomeFragment : Fragment(), HomeView {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         imgWeather = view.findViewById(R.id.imgWeather)
-        setHasOptionsMenu(true)
+        tvLocationName = view.findViewById(R.id.tvLocationName)
+        tvCurrentWeather = view.findViewById(R.id.tvCurrentWeather)
+        tvTemperature = view.findViewById(R.id.tvTemperature)
+
         return view
     }
 
@@ -100,23 +106,14 @@ class HomeFragment : Fragment(), HomeView {
         presenter = HomePresenter(this)
         presenter.getEventData()
 
-        val longitude = defaultSharedPreferences.getString("lon", "0.0")!!.toDouble()
-        val latitude = defaultSharedPreferences.getString("lat", "0.0")!!.toDouble()
-
-        getLastWeather(longitude, latitude)
+        getLastWeather()
         setupRecyclerView()
         onAction()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        menu.clear()
-        inflater.inflate(R.menu.menu_search, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    private fun getLastWeather(longitude: Double, latitude: Double) {
-        if ((longitude == 0.0) and (latitude == 0.0)) presenter.getCurrentWeatherByCity()
-        else presenter.getCurrentWeather(latitude, longitude)
+    private fun getLastWeather() {
+        if (location != null) presenter.getCurrentWeather(location?.latitude!!, location?.longitude!!)
+        else presenter.getCurrentWeatherByCity()
     }
 
     private fun setupRecyclerView() {
@@ -131,16 +128,6 @@ class HomeFragment : Fragment(), HomeView {
         btnRefresh.onClick { getLastLocation() }
         srlHome.onRefresh { presenter.getEventData() }
         fabAdd.onClick { startActivity<AddEventActivity>() }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        val longitude = location?.longitude
-        val latitude = location?.latitude
-        defaultSharedPreferences.edit().apply {
-            putString("lon", longitude.toString())
-            putString("lat", latitude.toString())
-        }.apply()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -158,7 +145,8 @@ class HomeFragment : Fragment(), HomeView {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 0) {
             if (grantResults.isNotEmpty()
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED
+            ) {
                 getLastLocation()
             } else {
                 toast("Permission Denied")
@@ -170,7 +158,7 @@ class HomeFragment : Fragment(), HomeView {
         if (location != null) {
             this.location = location
             try {
-               getLastWeather(location.latitude, location.longitude)
+                getLastWeather()
             } catch (e: Exception) {
                 toast("Connection Error")
             }
@@ -184,10 +172,13 @@ class HomeFragment : Fragment(), HomeView {
     private var locationRequest: LocationRequest? = null
     private fun getLastLocation() {
         if (ActivityCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
+            != PackageManager.PERMISSION_GRANTED
+        ) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     activity!!,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
+            ) {
                 requestLocationPermission()
             } else {
                 requestLocationPermission()
@@ -232,7 +223,15 @@ class HomeFragment : Fragment(), HomeView {
         task.addOnFailureListener { exception ->
             if (exception is ResolvableApiException) {
                 try {
-                    startIntentSenderForResult(exception.resolution.intentSender, 1, null, 0, 0, 0, null)
+                    startIntentSenderForResult(
+                        exception.resolution.intentSender,
+                        1,
+                        null,
+                        0,
+                        0,
+                        0,
+                        null
+                    )
                 } catch (sendEx: IntentSender.SendIntentException) {
                     sendEx.printStackTrace()
                 }

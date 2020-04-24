@@ -13,9 +13,9 @@ import com.wysiwyg.mountcak.ui.chatroom.ChatRoomActivity
 import com.wysiwyg.mountcak.ui.editevent.EditEventActivity
 import com.wysiwyg.mountcak.ui.mountdetail.MountDetailActivity
 import com.wysiwyg.mountcak.ui.userdetail.UserDetailActivity
-import com.wysiwyg.temanolga.utilities.gone
-import com.wysiwyg.temanolga.utilities.invisible
-import com.wysiwyg.temanolga.utilities.visible
+import com.wysiwyg.mountcak.util.gone
+import com.wysiwyg.mountcak.util.invisible
+import com.wysiwyg.mountcak.util.visible
 import kotlinx.android.synthetic.main.activity_event_detail.*
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk27.coroutines.onClick

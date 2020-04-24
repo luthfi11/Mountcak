@@ -9,8 +9,8 @@ import com.wysiwyg.mountcak.data.model.Mount
 import com.wysiwyg.mountcak.data.model.Rental
 import com.wysiwyg.mountcak.ui.explore.MountAdapter
 import com.wysiwyg.mountcak.ui.rental.RentalAdapter
-import com.wysiwyg.temanolga.utilities.gone
-import com.wysiwyg.temanolga.utilities.visible
+import com.wysiwyg.mountcak.util.gone
+import com.wysiwyg.mountcak.util.visible
 import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : AppCompatActivity(), SearchView, android.widget.SearchView.OnQueryTextListener {

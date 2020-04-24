@@ -3,7 +3,7 @@ package com.wysiwyg.mountcak.ui.eventdetail
 import android.graphics.Color
 import android.text.SpannableString
 import android.widget.TextView
-import color
+import com.wysiwyg.mountcak.util.color
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -15,7 +15,7 @@ import com.wysiwyg.mountcak.util.DateUtil.dateFormat
 import com.wysiwyg.mountcak.util.DateUtil.dateToLong
 import com.wysiwyg.mountcak.util.DateUtil.locale
 import org.jetbrains.anko.textResource
-import spannable
+import com.wysiwyg.mountcak.util.spannable
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*

@@ -1,6 +1,5 @@
 package com.wysiwyg.mountcak.ui.mountdetail
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,11 +25,11 @@ class VideoAdapter(private val videos: MutableList<SearchResult?>) : RecyclerVie
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val video_youtube = itemView.findViewById<YouTubePlayerView>(R.id.video_youtube)
+        private val videoMount: YouTubePlayerView = itemView.findViewById(R.id.video_youtube)
 
         fun bindItem(id: String?) {
 
-            video_youtube.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
+            videoMount.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
                 override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
                     youTubePlayer.cueVideo(id!!, 0f)
                 }

@@ -3,36 +3,29 @@ package com.wysiwyg.mountcak.ui.chatroom
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.util.Log
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.wysiwyg.mountcak.R
-import com.wysiwyg.mountcak.bigbox.APIClient
-import com.wysiwyg.mountcak.bigbox.APIService
 import com.wysiwyg.mountcak.data.model.Chat
 import com.wysiwyg.mountcak.data.model.Join
-import com.wysiwyg.mountcak.data.model.SMSResponse
 import com.wysiwyg.mountcak.data.model.User
 import com.wysiwyg.mountcak.util.DateUtil
 import com.wysiwyg.mountcak.util.DateUtil.dayAgo
 import com.wysiwyg.mountcak.util.FirebaseUtil
-import com.wysiwyg.temanolga.utilities.gone
-import com.wysiwyg.temanolga.utilities.invisible
-import com.wysiwyg.temanolga.utilities.visible
+import com.wysiwyg.mountcak.util.gone
+import com.wysiwyg.mountcak.util.invisible
+import com.wysiwyg.mountcak.util.visible
 import kotlinx.android.synthetic.main.item_chat_room.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.selector
 import org.jetbrains.anko.textColorResource
 import org.jetbrains.anko.textResource
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -168,7 +161,6 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) :
         }
 
         private var friendName: String? = null
-        //private var phone: String? = null
         fun getUserData(uid: String?) {
             val db = FirebaseDatabase.getInstance().reference
             db.child("user").child(uid!!).addValueEventListener(object : ValueEventListener {
@@ -176,7 +168,6 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) :
                     try {
                         val data = p0.getValue(User::class.java)
                         friendName = data?.name
-                        //phone = data?.phone
 
                     } catch (ex: Exception) {
                         ex.printStackTrace()
@@ -194,38 +185,6 @@ class ChatRoomAdapter(private val chats: MutableList<Chat?>) :
             db.child("join").child(eid!!).child(joinId!!).child("status").setValue(stat)
             db.child("join").child(eid).child(joinId).child("confirmTime")
                 .setValue(System.currentTimeMillis())
-
-            var smsContent = ""
-            if (stat == 1) {
-                db.child("event").child(eid).child("joinedParticipant")
-                    .setValue(participant?.plus(1))
-                smsContent =
-                    "Hallo $friendName, permintaan anda untuk bergabung dengan acara \"$title\" telah disetujui. Silahkan buka aplikasi Mountcak anda, Terima kasih."
-            } else {
-                smsContent =
-                    "Hallo $friendName, permintaan anda untuk bergabung dengan acara \"$title\" telah ditolak. Terima kasih."
-            }
-
-            /*
-            val apiKey = "ig1RMz09vsjWSlIp7cx5fuNjoxrefqqR"
-            val apiInterface: APIService = APIClient.getClient().create(APIService::class.java)
-            if (phone != null) {
-                val send = apiInterface.postSMS(apiKey, phone!!, smsContent)
-                send.enqueue(object : Callback<SMSResponse> {
-                    override fun onFailure(call: Call<SMSResponse>?, t: Throwable?) {
-                        Log.d("AAAAAAAAAAAAAA", "GAGAL")
-                    }
-
-                    override fun onResponse(
-                        call: Call<SMSResponse>?,
-                        response: Response<SMSResponse>?
-                    ) {
-                        Log.d("AAAAAAAAAAAAAA", "${response?.body()?.message}")
-                    }
-
-                })
-            }
-             */
         }
 
         private fun cancelRequest(eid: String?, joinId: String?) {

@@ -12,7 +12,7 @@ import com.wysiwyg.mountcak.util.LoadingDialog
 import com.wysiwyg.mountcak.util.ValidateUtil.emailValidate
 import com.wysiwyg.mountcak.util.ValidateUtil.etToString
 import com.wysiwyg.mountcak.util.ValidateUtil.passwordValidate
-import com.wysiwyg.temanolga.utilities.visible
+import com.wysiwyg.mountcak.util.visible
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.startActivity

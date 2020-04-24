@@ -5,7 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import bold
+import com.wysiwyg.mountcak.util.bold
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.wysiwyg.mountcak.R
@@ -14,14 +14,14 @@ import com.wysiwyg.mountcak.data.model.User
 import com.wysiwyg.mountcak.ui.chatroom.ChatRoomActivity
 import com.wysiwyg.mountcak.ui.home.EventAdapter
 import com.wysiwyg.mountcak.ui.viewphoto.ViewPhotoActivity
-import com.wysiwyg.temanolga.utilities.gone
-import com.wysiwyg.temanolga.utilities.visible
+import com.wysiwyg.mountcak.util.gone
+import com.wysiwyg.mountcak.util.visible
 import kotlinx.android.synthetic.main.activity_user_detail.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
-import plus
-import size
-import spannable
+import com.wysiwyg.mountcak.util.plus
+import com.wysiwyg.mountcak.util.size
+import com.wysiwyg.mountcak.util.spannable
 
 class UserDetailActivity : AppCompatActivity(), UserDetailView, TabLayout.OnTabSelectedListener {
 

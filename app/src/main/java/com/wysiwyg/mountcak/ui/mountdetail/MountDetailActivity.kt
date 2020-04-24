@@ -13,15 +13,15 @@ import com.mapbox.mapboxsdk.annotations.MarkerOptions
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.wysiwyg.mountcak.R
-import com.wysiwyg.mountcak.data.model.Review
 import com.wysiwyg.mountcak.data.model.Forecast
 import com.wysiwyg.mountcak.data.model.Mount
+import com.wysiwyg.mountcak.data.model.Review
 import com.wysiwyg.mountcak.data.model.SearchResult
 import com.wysiwyg.mountcak.ui.experience.UserExperienceActivity
 import com.wysiwyg.mountcak.ui.viewphoto.ViewPhotoActivity
-import com.wysiwyg.temanolga.utilities.gone
-import com.wysiwyg.temanolga.utilities.invisible
-import com.wysiwyg.temanolga.utilities.visible
+import com.wysiwyg.mountcak.util.gone
+import com.wysiwyg.mountcak.util.invisible
+import com.wysiwyg.mountcak.util.visible
 import kotlinx.android.synthetic.main.activity_mount_detail.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.design.snackbar
@@ -66,6 +66,11 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
         linkGoogleMaps = mount?.linkGMaps!!
 
         photo.addAll(mount.gallery?.split("*")!!)
+
+        /////////////////////////////////////////////////
+        presenter.getForecast(mount.longLat)
+        presenter.getMap(mount.longLat, mount.mountName)
+        presenter.getVideo(mount.mountName)
     }
 
     override fun showUserReview(review: List<Review?>) {
@@ -191,6 +196,11 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
         onAction(mountId)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == android.R.id.home) finish()
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun setupRecyclerView() {
         adapter = ForecastAdapter(forecast)
         rvForecast.setHasFixedSize(true)
@@ -219,14 +229,34 @@ class MountDetailActivity : AppCompatActivity(), MountDetailView {
         btnViewAll.onClick { startActivity<UserExperienceActivity>("id" to id) }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        //placeMap.onDestroy()
-        presenter.onClose()
+    override fun onStart() {
+        super.onStart()
+        placeMap.onStart()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == android.R.id.home) finish()
-        return super.onOptionsItemSelected(item)
+    override fun onPause() {
+        super.onPause()
+        placeMap.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        placeMap.onResume()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        placeMap.onStop()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        placeMap.onSaveInstanceState(outState)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        placeMap.onDestroy()
+        presenter.onClose()
     }
 }

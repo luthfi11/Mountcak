@@ -14,7 +14,7 @@ import com.mapbox.mapboxsdk.geometry.LatLng
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Rental
 import com.wysiwyg.mountcak.ui.viewphoto.ViewPhotoActivity
-import com.wysiwyg.temanolga.utilities.gone
+import com.wysiwyg.mountcak.util.gone
 import kotlinx.android.synthetic.main.activity_rental_detail.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.sdk27.coroutines.onClick

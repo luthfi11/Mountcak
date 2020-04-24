@@ -9,7 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import bold
+import com.wysiwyg.mountcak.util.bold
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.wysiwyg.mountcak.R
@@ -21,8 +21,8 @@ import com.wysiwyg.mountcak.ui.explore.MountAdapter
 import com.wysiwyg.mountcak.ui.home.EventAdapter
 import com.wysiwyg.mountcak.ui.login.LoginFragmentManager
 import com.wysiwyg.mountcak.ui.viewphoto.ViewPhotoActivity
-import com.wysiwyg.temanolga.utilities.gone
-import com.wysiwyg.temanolga.utilities.visible
+import com.wysiwyg.mountcak.util.gone
+import com.wysiwyg.mountcak.util.visible
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.sdk27.coroutines.onClick
@@ -30,9 +30,9 @@ import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.browse
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.yesButton
-import plus
-import size
-import spannable
+import com.wysiwyg.mountcak.util.plus
+import com.wysiwyg.mountcak.util.size
+import com.wysiwyg.mountcak.util.spannable
 
 class ProfileFragment : Fragment(), ProfileView, TabLayout.OnTabSelectedListener {
 

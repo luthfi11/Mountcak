@@ -6,7 +6,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
-import com.wysiwyg.mountcak.data.model.*
+import com.wysiwyg.mountcak.data.model.ForecastResponse
+import com.wysiwyg.mountcak.data.model.Mount
+import com.wysiwyg.mountcak.data.model.Review
+import com.wysiwyg.mountcak.data.model.VideResult
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.net.URL
@@ -30,13 +33,11 @@ class MountDetailPresenter(private val view: MountDetailView, private val id: St
                 if (mount?.instagram == null) {
                     view.hideInsta()
                 }
-                getForecast(mount?.longLat)
+
                 callNumber(mount?.contact)
                 sendMessage(mount?.contact)
-                getMap(mount?.longLat, mount?.mountName)
                 viewInstagram(mount?.instagram!!)
                 checkLike()
-                getVideo(mount.mountName)
             } catch (ex: Exception) {
                 ex.printStackTrace()
             }
@@ -91,7 +92,7 @@ class MountDetailPresenter(private val view: MountDetailView, private val id: St
         } else view.hideInsta()
     }
 
-    private fun getMap(longLat: String?, title: String?) {
+    fun getMap(longLat: String?, title: String?) {
         val ll = longLat?.split(",")
         view.showMap(ll!![1].toDouble(), ll[0].toDouble(), title)
         onMapTouch()

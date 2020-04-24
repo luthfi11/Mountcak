@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.wysiwyg.mountcak.R
 import com.wysiwyg.mountcak.data.model.Chat
-import com.wysiwyg.temanolga.utilities.gone
-import com.wysiwyg.temanolga.utilities.visible
+import com.wysiwyg.mountcak.util.gone
+import com.wysiwyg.mountcak.util.visible
 import kotlinx.android.synthetic.main.fragment_message.*
 import org.jetbrains.anko.support.v4.onRefresh
 

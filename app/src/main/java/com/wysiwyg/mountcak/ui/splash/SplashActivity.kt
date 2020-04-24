@@ -9,7 +9,7 @@ import org.jetbrains.anko.startActivity
 
 class SplashActivity : AppCompatActivity() {
     private var mDelayHandler: Handler? = null
-    private val SPLASHDELAY: Long = 1000
+    private val delay: Long = 1000
 
     private val mRunnable: Runnable = Runnable {
         if (!isFinishing) {
@@ -25,7 +25,7 @@ class SplashActivity : AppCompatActivity() {
 
         mDelayHandler = Handler()
 
-        mDelayHandler!!.postDelayed(mRunnable, SPLASHDELAY)
+        mDelayHandler!!.postDelayed(mRunnable, delay)
     }
 
     public override fun onDestroy() {

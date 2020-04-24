@@ -11,8 +11,8 @@ import com.wysiwyg.mountcak.ui.eventdetail.EventDetailActivity
 import com.wysiwyg.mountcak.util.DateUtil.dateFormat
 import com.wysiwyg.mountcak.util.FirebaseUtil.getMountData
 import com.wysiwyg.mountcak.util.FirebaseUtil.getUserData
-import com.wysiwyg.temanolga.utilities.gone
-import com.wysiwyg.temanolga.utilities.visible
+import com.wysiwyg.mountcak.util.gone
+import com.wysiwyg.mountcak.util.visible
 import kotlinx.android.synthetic.main.item_event.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
